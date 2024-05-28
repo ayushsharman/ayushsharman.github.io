@@ -26,7 +26,7 @@ const Project: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 fade-in">
       <section className="p-4">
         <h2 className="text-3xl font-semibold text-center mb-8">My Projects</h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

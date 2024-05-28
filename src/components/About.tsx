@@ -11,7 +11,7 @@ const About = () => {
         <p className="text-lg leading-relaxed mb-4">
           I am a highly motivated and skilled Software Engineer with a strong foundation in computer science principles and a passion for creating innovative and user-friendly software solutions. I have experience in various programming languages and technologies, including Flutter, Dart, C++, Java, Web Development (MERN stack), DevOps, Python, Git & GitHub, and I am proficient in problem-solving, critical thinking, and teamwork. I am always eager to learn new things and expand my skillset, and I am confident in my ability to contribute to a team's success.
         </p>
-        <a href="/resume.pdf" className="text-orange-500 font-bold hover:underline">You can view my resume here.</a>
+        <a href="/resume" className="text-orange-500 font-bold hover:underline">You can view my resume here.</a>
       </section>
 
       <section className="mb-12 p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 ease-in-out">

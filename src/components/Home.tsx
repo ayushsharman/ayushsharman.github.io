@@ -3,23 +3,22 @@ import profilePic from '../assets/images/professional_pic.png';
 
 const Home = () => {
   return (
-    <div className="h-screen flex flex-col justify-between text-center fade-in">
-      <div className="text-center p-8">
-        <h1 className="text-6xl font-bold">
+    <div className="min-h-screen flex flex-col md:flex-row justify-between items-center text-center md:text-left fade-in">
+      <div className="flex-1 p-8">
+        <h1 className="text-4xl md:text-6xl font-bold">
           I'm <span className="text-orange-500">Ayush Sharma,</span>
         </h1>
-        <h1 className="text-6xl font-bold">Software Developer</h1>
-        <div className="flex items-center justify-center mt-24 gap-96 space-x-96 font-serif italic">
-          <p className='w-72'>"I design and code beautifully simple things, and I love what I do."</p>
-          <p>2+ years experience</p>
-        </div>
+        <h1 className="text-4xl md:text-6xl font-bold">Software Developer</h1>
+        <p className="mt-8 md:mt-16 text-lg md:text-xl font-serif italic">
+          "I design and code beautifully simple things, and I love what I do."
+        </p>
       </div>
-      <div className="mx-72 relative h-[70vh] bg-orange-400 rounded-t-full flex justify-center items-center">
-        <div className="absolute top-[-185px] flex flex-col items-center">
+      <div className="flex-1 w-full md:w-auto mt-8 md:mt-0 flex justify-center items-center relative bg-orange-400 rounded-t-full md:rounded-full md:h-[70vh]">
+        <div className="flex flex-col items-center">
           <img
             src={profilePic}
             alt="Avatar"
-            className="h-[80vh] rounded-full"
+            className="h-[50vh] md:h-[70vh] rounded-full"
           />
         </div>
       </div>

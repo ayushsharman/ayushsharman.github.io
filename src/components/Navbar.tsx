@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import profilePic from '../assets/images/Circle Avatar.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,9 +11,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-black p-5 md:flex md:justify-between md:items-center">
-      <div className="flex justify-between items-center">
-        <div className="text-white text-2xl font-bold">ToDo</div>
+    <nav className="bg-black p-2 md:flex md:justify-between md:items-center">
+      <div className="flex justify justify-between items-center">
+        <div className="w-16 flex items-center rounded-full bg-orange-500 mr-2">
+          <img className="w-16 h-16 rounded-full" src={profilePic} alt="Rounded avatar" />
+        </div>
         <div className="md:hidden text-white" onClick={toggleMenu}>
           {isOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
         </div>

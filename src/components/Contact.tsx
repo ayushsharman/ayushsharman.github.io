@@ -38,12 +38,16 @@ const Contact = () => {
         />
       </div>
 
-      <div className="mt-12 max-w-4xl text-center">
-        <h2 className="text-2xl font-bold mb-4">Availability</h2>
+      <div className="mt-auto max-w-4xl text-center">
+        <h2 className="text-2xl font-bold mt-12 mb-4">Availability</h2>
         <p className="text-lg leading-relaxed">
           <strong>Available Hours:</strong> Monday to Friday: 5:00 PM - 9:00 PM
         </p>
       </div>
+
+      <footer className="mt-12 text-center text-gray-500">
+        <p className="text-sm">&copy; {new Date().getFullYear()} Ayush Sharma. All rights reserved.</p>
+      </footer>
     </div>
   );
 };

@@ -20,15 +20,45 @@ const Resume: React.FC = () => {
       <div className="flex flex-wrap justify-center gap-6">
         <ServiceCard
           title="Flutter Developer"
-          description="Creating cross-platform mobile applications using Flutter."
+          description={
+            <>
+              <ul className="list-disc pl-5">
+                <li>Creating cross-platform mobile applications using Flutter.</li>
+                <li>Building complex UIs with a focus on aesthetics and usability.</li>
+                <li>Integrating with various APIs for data retrieval and manipulation.</li>
+                <li>Managing app state effectively using state management libraries.</li>
+                <li>Incorporating Google Maps integration for location-based services.</li>
+              </ul>
+            </>
+          }
         />
         <ServiceCard
           title="Backend Developer"
-          description="Building robust and scalable backend systems."
+          description={
+            <>
+              <ul className="list-disc pl-5">
+                <li>Building robust and scalable backend systems.</li>
+                <li>Designing and implementing complex routes for efficient data flow.</li>
+                <li>Integrating websockets for real-time communication.</li>
+                <li>Managing DevOps processes for deployment and maintenance.</li>
+                <li>Working with databases such as PostgreSQL and MongoDB for data storage.</li>
+              </ul>
+            </>
+          }
         />
         <ServiceCard
           title="UI/UX Designer"
-          description="Designing intuitive and engaging user interfaces."
+          description={
+            <>
+              <ul className="list-disc pl-5">
+                <li>Designing intuitive and engaging user interfaces.</li>
+                <li>Crafting aesthetic UIs that prioritize user experience.</li>
+                <li>Conducting thorough user research to inform design decisions.</li>
+                <li>Creating wireframes and prototypes for iterative design processes.</li>
+                <li>Optimizing for accessibility and usability across various devices.</li>
+              </ul>
+            </>
+          }
         />
       </div>
     </div>
@@ -37,14 +67,14 @@ const Resume: React.FC = () => {
 
 interface ServiceCardProps {
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full sm:w-1/3 md:w-1/4 transition-transform transform hover:scale-105">
       <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-gray-700">{description}</p>
+      <div className="text-gray-700">{description}</div>
     </div>
   );
 };

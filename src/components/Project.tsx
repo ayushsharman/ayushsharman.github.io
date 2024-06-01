@@ -5,22 +5,22 @@ const Project: React.FC = () => {
     {
       title: "Feeleeria",
       year: "2023",
-      description: "A Campus Social Media app to connect college students across various campuses. Built with Flutter, Firebase, and Cloudstore.",
-      details: "Features include real-time messaging, campus event updates, and student group collaborations.",
+      description: "A Campus Social Media app to connect college students across various campuses.",
+      details: " Built with Flutter, Firebase, and Cloudstore features include real-time messaging, campus event updates, student group collaborations, and personalized feeds.",
       link: "https://github.com/ayushsharman/campus_social_media"
     },
     {
       title: "Fish Tutor",
       year: "2024",
       description: "A freelance application for fish food, mating, and general education built on Flutter.",
-      details: "Provides tutorials, expert advice, and a community forum for fish enthusiasts.",
+      details: "Provides tutorials, expert advice, community forum, marketplace, and social features for fish enthusiasts.",
       link: "https://github.com/ayushsharman/fish_tutor"
     },
     {
       title: "Todo App",
       year: "2024",
       description: "A full stack app built using the MERN stack.",
-      details: "Offers task management, project tracking, and collaboration tools with real-time updates.",
+      details: "Offers task management, project tracking, collaboration tools, real-time updates, and user authentication.",
       link: "https://github.com/ayushsharman/react-todo"
     },
   ];
@@ -33,16 +33,16 @@ const Project: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md lg:h-full z-10 transform transition-transform duration-300 hover:scale-105"
+              className="relative flex flex-col rounded-xl bg-white text-gray-700 shadow-md lg:h-full z-10 transform transition-transform duration-300 hover:scale-105"
             >
-              <div className="p-6 text-center h-full flex flex-col justify-between">
+              <div className="p-6 flex flex-col justify-between h-full">
                 <div>
-                  <h5 className="antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-orange-500 mb-2">{project.title}</h5>
-                  <h3 className="antialiased tracking-normal font-sans text-lg font-medium leading-snug text-blue-gray-900 mb-4">{project.year}</h3>
-                  <p className="antialiased font-sans text-base leading-relaxed text-gray-700 mb-4">{project.description}</p>
-                  <p className="antialiased font-sans text-sm leading-relaxed text-gray-500">{project.details}</p>
+                  <h5 className="text-xl font-semibold leading-snug text-orange-500 mb-2">{project.title}</h5>
+                  <h3 className="text-lg font-medium leading-snug text-gray-900 mb-4">{project.year}</h3>
+                  <p className="text-base leading-relaxed text-gray-700 mb-4">{project.description}</p>
+                  <p className="text-sm leading-relaxed text-gray-500">{project.details}</p>
                 </div>
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="mt-4 py-2 px-4 rounded-lg bg-orange-500 text-white shadow-md hover:bg-orange-600 transition-colors duration-300">
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="mt-4 py-2 px-4 rounded-lg bg-orange-500 text-white shadow-md hover:bg-orange-600 transition-colors duration-300 inline-block">
                   Learn More
                 </a>
               </div>

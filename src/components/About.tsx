@@ -44,10 +44,11 @@ const About = () => {
       <section className="mb-12 p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 ease-in-out">
         <h2 className="text-3xl md:text-4xl font-semibold mb-4">🏆 Achievements & Certifications</h2>
         <ul className="list-disc list-inside text-base md:text-lg leading-relaxed">
-          <li>Winner at SIH Internal Hackathon 2022</li>
-          <li>750+ Questions on LeetCode & Coding Ninjas</li>
-          <li>Lead Coordinator: IICC 2022, Google DevFest 2022, Tekathon 2023, Hack-The-Fest 2022, Hackshield 2022</li>
+          <li>Mentor at Girl Script Summer of Code 2024</li>
           <li>Letter of Recommendation by Head of Department, CSE 1st year</li>
+          <li>750+ Questions on LeetCode & Coding Ninjas</li>
+          <li>Winner at SIH Internal Hackathon 2022</li>
+          <li>Lead Coordinator: IICC 2022, Google DevFest 2022, Tekathon 2023, Hack-The-Fest 2022, Hackshield 2022</li>
           <li>Angular Developer Program 2023 by Infosys Springboard</li>
         </ul>
       </section>

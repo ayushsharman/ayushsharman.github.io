@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-black p-2 md:flex md:justify-between md:items-center">
+    <nav className="bg-black p-2 pl-8 md:flex md:justify-between md:items-center">
       <div className="flex justify justify-between items-center">
         <div className="w-16 flex items-center rounded-full bg-orange-500 mr-2">
           <img className="w-16 h-16 rounded-full" src={profilePic} alt="Rounded avatar" />

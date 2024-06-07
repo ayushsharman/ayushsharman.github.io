@@ -4,8 +4,7 @@ const Resume: React.FC = () => {
   return (
     <div className="container mx-auto p-6 fade-in">
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold mb-4">Resume Page</h1>
-        <p className="text-lg mb-4">You can view my resume here:</p>
+        <h1 className="text-2xl font-bold mb-6">Click to download my Resume</h1>
         <a
           href="/Resume 2.0.pdf"
           download="Resume 2.0.pdf"

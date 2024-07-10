@@ -10,18 +10,18 @@ const Project: React.FC = () => {
       link: "https://github.com/ayushsharman/campus_social_media"
     },
     {
-      title: "Fish Tutor",
+      title: "Book Cricket",
       year: "2024",
-      description: "A freelance application for fish food, mating, and general education built on Flutter.",
-      details: "Provides tutorials, expert advice, community forum, marketplace, and social features for fish enthusiasts.",
-      link: "https://github.com/ayushsharman/fish_tutor"
+      description: "A fun game app to play cricket but with random digits",
+      details: "Build on React Js with the intent to bring back our childhood.",
+      link: "https://github.com/ayushsharman/Book-Cricket"
     },
     {
-      title: "Todo App",
+      title: "Screen Recorder",
       year: "2024",
-      description: "A full stack app built using the MERN stack.",
-      details: "Offers task management, project tracking, collaboration tools, real-time updates, and user authentication.",
-      link: "https://github.com/ayushsharman/react-todo"
+      description: "Chrome Web Extension to record screen.",
+      details: "Used the concept of popups, js injection and manifest.json file management.",
+      link: "https://github.com/ayushsharman/Screen-Recorder"
     },
   ];
 

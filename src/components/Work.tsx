@@ -19,7 +19,7 @@ const Work: React.FC = () => {
       role: "Chief Technology Officer",
       company: "Medoc",
       type: "Full-time",
-      duration: "Mar 2024 - Present · 3 mos",
+      duration: "March 2024 - May 2024 · 3 mos",
       location: "Hybrid",
       skills: "Mobile Enterprise · Software Construction · Technology Management · Amazon Web Services (AWS) · Mobile Application Development · Communication",
       background: "bg-gray-400"

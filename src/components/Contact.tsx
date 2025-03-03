@@ -14,7 +14,7 @@ const Contact = () => {
       <div className="mb-8 w-full">
         <AppointmentCard
           title="Schedule a Meeting:"
-          link="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1fNx_v7M8-iBVye3LffUX83JYfU6ShnLzhkIHKXh6pOpv2iPmvekg9hR_Phvw1Rjl9CyYYiUzK?gv=true"
+          link="https://calendar.app.google/fFx5NHCXzN3q1yew8"
           text="Let's have a great conversation!"
         />
       </div>

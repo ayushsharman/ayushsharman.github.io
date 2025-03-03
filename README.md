@@ -29,3 +29,5 @@ To get started with this project, follow these steps:
 >     or
 >     
 >     yarn dev
+
+5. To deploy: npm run build --> npm run deploy

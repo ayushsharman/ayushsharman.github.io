@@ -1,5 +1,6 @@
 import '../assets/styles/Home.css';
 import { motion } from 'framer-motion';
+import pic from "../assets/images/pic.png";
 
 const Home = () => {
   return (
@@ -7,8 +8,8 @@ const Home = () => {
       {/* Hero Section */}
       <section id="hero" className="flex flex-col items-center justify-center text-center min-h-screen px-4">
         <motion.img  
-          src="src/assets/images/Screenshot 2025-08-20 080239.png"
-          alt="profile"
+          src={pic}
+          alt="Ayush Sharma"
           className="w-40 h-40 rounded-full border-4 border-cyan-400 mb-6 shadow-lg"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}

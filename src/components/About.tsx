@@ -1,59 +1,54 @@
+import { Code, Rocket, Lightbulb } from "lucide-react";
+
 const About = () => {
   return (
-    <div className="p-8 fade-in">
-      <h1 className="text-4xl md:text-6xl font-bold text-center mb-8">
-        Why <span className="text-orange-500">Hire me?</span>
-      </h1>
+    <section
+      id="about"
+      className="min-h-screen flex items-center justify-center bg-gray-950 text-white px-6 py-16"
+    >
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        
+        {/* Left side - Intro */}
+        <div>
+          <h2 className="text-4xl font-bold mb-6 text-cyan-400">About Me</h2>
+          <p className="text-lg text-gray-300 leading-relaxed mb-6">
+            Hey 👋 I'm <span className="text-cyan-300 font-semibold">Ayush Sharma</span>,  
+            a developer who loves turning ideas into clean, functional, and engaging digital products.  
+            My journey blends <span className="text-cyan-400">code, design, and problem-solving </span> 
+            to build experiences that actually matter.
+          </p>
+          <p className="text-gray-400 mb-8">
+            Whether it’s experimenting with new frameworks, solving real-world problems,  
+            or working on creative side-projects, I thrive where curiosity meets execution.
+          </p>
 
-      <section className="mb-12 p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 ease-in-out">
-        <h2 className="text-3xl md:text-4xl font-semibold mb-4">👨‍💻 About Me</h2>
-        <p className="text-base md:text-lg leading-relaxed mb-4">
-          I am a highly motivated and skilled Software Engineer with a strong foundation in computer science principles and a passion for creating innovative and user-friendly software solutions. I have experience in various programming languages and technologies, including Flutter, Dart, C++, Java, Web Development (MERN stack), DevOps, Python, Git & GitHub, and I am proficient in problem-solving, critical thinking, and teamwork. I am always eager to learn new things and expand my skillset, and I am confident in my ability to contribute to a team's success.
-        </p>
-        <a
-          href="/Resume 2.0.pdf"
-          download="Resume 2.0.pdf"
-          className="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-300"
-        >
-          You can view my resume here.
-        </a>
-      </section>
-
-      <section className="mb-12 p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 ease-in-out">
-        <h2 className="text-3xl md:text-4xl font-semibold mb-4">⚙️ Skills</h2>
-        <p className="text-base md:text-lg leading-relaxed mb-4">
-          <strong>Programming Languages:</strong> Flutter (Dart), C++, Java, Python<br />
-          <strong>Web Development:</strong> HTML, CSS, JavaScript<br />
-          <strong>Frameworks/Libraries:</strong> MERN (MongoDB, Express.js, React, Node.js)<br />
-          <strong>Version Control Systems:</strong> Git & GitHub<br />
-          <strong>Cloud Services:</strong> AWS (Amazon Web Services)<br />
-          <strong>Soft Skills:</strong> Public Speaking, Time Management, Leadership, Versatility, Problem Solving, Innovation
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">Flutter</span>
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">C++</span>
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">MongoDB</span>
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">Express.js</span>
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">React</span>
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">Node.js</span>
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">AWS</span>
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full">Git</span>
+          {/* Quick Highlights */}
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="bg-gray-900 p-4 rounded-xl hover:bg-gray-800 transition">
+              <Code className="mx-auto text-cyan-400 w-8 h-8 mb-2" />
+              <p className="text-sm text-gray-300">Full-Stack Dev</p>
+            </div>
+            <div className="bg-gray-900 p-4 rounded-xl hover:bg-gray-800 transition">
+              <Rocket className="mx-auto text-cyan-400 w-8 h-8 mb-2" />
+              <p className="text-sm text-gray-300">Startup Builder</p>
+            </div>
+            <div className="bg-gray-900 p-4 rounded-xl hover:bg-gray-800 transition">
+              <Lightbulb className="mx-auto text-cyan-400 w-8 h-8 mb-2" />
+              <p className="text-sm text-gray-300">Problem Solver</p>
+            </div>
+          </div>
         </div>
-      </section>
 
-      <section className="mb-12 p-8 bg-white rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 ease-in-out">
-        <h2 className="text-3xl md:text-4xl font-semibold mb-4">🏆 Achievements & Certifications</h2>
-        <ul className="list-disc list-inside text-base md:text-lg leading-relaxed">
-          <li>Mentor at Girl Script Summer of Code 2024</li>
-          <li>Letter of Recommendation by Head of Department, CSE 1st year</li>
-          <li>750+ Questions on LeetCode & Coding Ninjas</li>
-          <li>Winner at SIH Internal Hackathon 2022</li>
-          <li>Lead Coordinator: IICC 2022, Google DevFest 2022, Tekathon 2023, Hack-The-Fest 2022, Hackshield 2022</li>
-          <li>Angular Developer Program 2023 by Infosys Springboard</li>
-        </ul>
-      </section>
-    </div>
+        {/* Right side - Creative Visual */}
+        <div className="relative flex justify-center items-center">
+          <div className="w-64 h-64 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 animate-pulse blur-3xl absolute"></div>
+          <div className="relative bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-700 text-center">
+            <p className="text-cyan-300 font-mono">“Building systems that last longer than trends.”</p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
-}
+};
 
 export default About;

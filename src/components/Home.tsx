@@ -1,27 +1,26 @@
 import '../assets/styles/Home.css';
-import profilePic from '../assets/images/professional_pic.png';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col md:flex-row justify-between items-center text-center md:text-left fade-in">
-      <div className="flex-1 p-8">
-        <h1 className="text-4xl md:text-6xl font-bold">
-          I'm <span className="text-orange-500">Ayush Sharma,</span>
-        </h1>
-        <h1 className="text-4xl md:text-6xl font-bold">Software Developer</h1>
-        <p className="mt-8 md:mt-16 text-lg md:text-xl font-serif italic">
-          "I design and code beautifully simple things, and I love what I do."
-        </p>
-      </div>
-      <div className="flex-1 w-full md:w-auto mt-8 md:mt-0 flex justify-center items-center relative bg-orange-400 rounded-t-full md:rounded-full md:h-[70vh]">
-        <div className="flex flex-col items-center">
-          <img
-            src={profilePic}
-            alt="Avatar"
-            className="h-[50vh] md:h-[70vh] rounded-full"
-          />
+    <div className="justify-center items-center text-center md:text-left fade-in">
+      {/* Hero Section */}
+      <section id="hero" className="flex flex-col items-center justify-center text-center min-h-screen px-4">
+        <motion.img  
+          src="src/assets/images/Screenshot 2025-08-20 080239.png"
+          alt="profile"
+          className="w-40 h-40 rounded-full border-4 border-cyan-400 mb-6 shadow-lg"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.6 }}
+        />
+        <h2 className="text-4xl font-bold">Hi, I'm <span className="text-cyan-400">Ayush</span></h2>
+        <p className="mt-2 text-lg text-gray-400">System Thinker | Developer | Storyteller</p>
+        <div className="flex gap-4 mt-4">
+          <a href="https://github.com/ayushsharman" className="px-4 py-2 bg-cyan-500 text-black rounded-xl hover:bg-cyan-400">GitHub</a>
+          <a href="https://linkedin.com/in/ayushsharman" className="px-4 py-2 bg-gray-700 rounded-xl hover:bg-gray-600">LinkedIn</a>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

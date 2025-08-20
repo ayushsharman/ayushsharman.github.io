@@ -9,13 +9,20 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const sections = ["about", "skills", "achievements", "work", "projects", "contact"];
+  const sections = ["about", "services", "work", "projects", "contact"];
 
   return (
     <nav className="fixed top-0 w-full bg-gray-900 bg-opacity-80 backdrop-blur-lg z-50 shadow-md">
       <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
-        {/* Logo / Name */}
-        <h1 className="text-xl font-bold text-teal-400">Ayush Sharma</h1>
+        <Link
+          to="hero"          // 👈 section name you want to scroll to
+          smooth={true}
+          duration={600}
+          offset={-60}
+          className="text-xl font-bold text-cyan-400 cursor-pointer"
+        >
+          Ayush Sharma
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-6">
@@ -26,7 +33,7 @@ const Navbar = () => {
               smooth={true}
               duration={600}
               offset={-60}
-              className="cursor-pointer hover:text-teal-300 capitalize"
+              className="cursor-pointer hover:text-cyan-300 capitalize"
             >
               {section}
             </Link>
@@ -35,7 +42,7 @@ const Navbar = () => {
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-teal-400 focus:outline-none"
+          className="md:hidden text-cyan-400 focus:outline-none"
           onClick={toggleMenu}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -52,7 +59,7 @@ const Navbar = () => {
               smooth={true}
               duration={600}
               offset={-60}
-              className="block text-gray-200 hover:text-teal-300 capitalize"
+              className="block text-gray-200 hover:text-cyan-300 capitalize"
               onClick={() => setIsOpen(false)} // close menu after click
             >
               {section}

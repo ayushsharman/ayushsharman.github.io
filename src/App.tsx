@@ -8,7 +8,7 @@ import Contact from './components/Contact';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#f2ede4] text-slate-950 font-sans">
+    <div className="min-h-screen bg-[#f4efe5] text-slate-950 font-sans">
       <Navbar />
       <main className="mx-auto max-w-7xl pb-24">
         <Home />

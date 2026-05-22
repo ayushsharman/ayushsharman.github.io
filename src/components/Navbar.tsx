@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-scroll";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
+
+const navItems = [
+  { label: "ABOUT", to: "about" },
+  { label: "WORK", to: "work" },
+  { label: "THOUGHTS", to: "thoughts" },
+  { label: "EXPERIENCE", to: "experience" },
+  { label: "CONTACT", to: "contact" },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,64 +17,98 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const sections = ["focus", "thinking", "experience", "case-studies", "contact"];
-
   return (
-    <nav className="fixed top-0 w-full bg-white/85 backdrop-blur-xl z-50 border-b border-slate-200/60 shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link
-          to="hero"
-          smooth={true}
-          duration={600}
-          offset={-80}
-          className="text-base font-semibold uppercase tracking-[0.35em] text-slate-900 cursor-pointer"
-        >
-          AYUSH
-        </Link>
+    <nav className="fixed top-0 z-[100] w-full border-b border-white/10 bg-[#f5ede4]/70 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 lg:px-10">
+        
+        {/* LOGO */}
+        <div className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111111] text-xs font-black tracking-widest text-white shadow-lg">
+            AS
+          </div>
 
-        <div className="hidden md:flex items-center gap-8 text-sm text-slate-700">
-          {sections.map((section) => (
+          <span className="text-[13px] font-semibold tracking-[0.38em] text-[#111111]">
+            AYUSH SHARMA
+          </span>
+        </div>
+
+        {/* DESKTOP NAV */}
+        <div className="hidden md:flex items-center gap-10 text-[13px] font-medium tracking-[0.2em] text-[#2d2d2d]">
+          {navItems.map((item) => (
             <Link
-              key={section}
-              to={section}
+              key={item.to}
+              to={item.to}
               smooth={true}
               duration={600}
               offset={-80}
-              className="cursor-pointer transition hover:text-slate-900 capitalize"
+              spy={true}
+              className="cursor-pointer transition-all duration-300 hover:text-[#c1440e]"
+              activeClass="text-[#c1440e]"
             >
-              {section.replace('-', ' ')}
+              {item.label}
             </Link>
           ))}
         </div>
 
-        <button
-          className="md:hidden text-slate-900 focus:outline-none"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* RIGHT CTA */}
+        <div className="flex items-center gap-4">
+          <Link
+            to="contact"
+            smooth={true}
+            duration={600}
+            offset={-80}
+            className="hidden md:inline-flex items-center gap-2 rounded-full bg-[#111111] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-black hover:scale-[1.02]"
+          >
+            Let&apos;s Connect
+            <ArrowRight size={15} />
+          </Link>
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/70 text-[#111111] backdrop-blur-md transition hover:bg-white md:hidden"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
+      {/* MOBILE MENU */}
       {isOpen && (
-        <div className="md:hidden border-t border-slate-200/80 bg-white/95 px-6 py-4 text-slate-700">
-          {sections.map((section) => (
+        <div className="border-t border-black/5 bg-[#f5ede4]/95 px-6 py-6 backdrop-blur-2xl md:hidden">
+          <div className="flex flex-col gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                smooth={true}
+                duration={600}
+                offset={-80}
+                spy={true}
+                onClick={() => setIsOpen(false)}
+                className="cursor-pointer rounded-2xl px-4 py-4 text-sm font-medium tracking-[0.2em] text-[#2d2d2d] transition-all duration-300 hover:bg-white/70 hover:text-[#c1440e]"
+                activeClass="bg-white/60 text-[#c1440e]"
+              >
+                {item.label}
+              </Link>
+            ))}
+
             <Link
-              key={section}
-              to={section}
+              to="contact"
               smooth={true}
               duration={600}
               offset={-80}
-              className="block py-3 text-sm transition hover:text-slate-900 capitalize"
               onClick={() => setIsOpen(false)}
+              className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-[#111111] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-black"
             >
-              {section.replace('-', ' ')}
+              Let&apos;s Connect
+              <ArrowRight size={15} />
             </Link>
-          ))}
+          </div>
         </div>
       )}
     </nav>
-
   );
 };
 

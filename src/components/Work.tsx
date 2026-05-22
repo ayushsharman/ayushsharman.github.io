@@ -81,7 +81,7 @@ const experiences: Experience[] = [
 
 const Work: React.FC = () => {
   return (
-    <section id="experience" className="relative overflow-hidden bg-[#efe5d7] py-24 px-6 text-slate-950">
+    <section id="work" className="relative overflow-hidden bg-[#efe5d7] py-24 px-6 text-slate-950">
       <div className="absolute right-0 top-24 h-40 w-40 rounded-[2.5rem] bg-black/10" />
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-16 lg:grid-cols-[0.95fr_1.05fr]">

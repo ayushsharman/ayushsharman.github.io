@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-scroll";
-import { Menu, X } from "lucide-react"; // hamburger + close icons
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,65 +9,64 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const sections = ["about", "services", "work", "projects", "contact"];
+  const sections = ["focus", "thinking", "experience", "case-studies", "contact"];
 
   return (
-    <nav className="fixed top-0 w-full bg-gray-900 bg-opacity-80 backdrop-blur-lg z-50 shadow-md">
-      <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
+    <nav className="fixed top-0 w-full bg-white/85 backdrop-blur-xl z-50 border-b border-slate-200/60 shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link
-          to="hero"          // 👈 section name you want to scroll to
+          to="hero"
           smooth={true}
           duration={600}
-          offset={-60}
-          className="text-xl font-bold text-cyan-400 cursor-pointer"
+          offset={-80}
+          className="text-base font-semibold uppercase tracking-[0.35em] text-slate-900 cursor-pointer"
         >
-          Ayush Sharma
+          AYUSH
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex gap-6">
+        <div className="hidden md:flex items-center gap-8 text-sm text-slate-700">
           {sections.map((section) => (
             <Link
               key={section}
               to={section}
               smooth={true}
               duration={600}
-              offset={-60}
-              className="cursor-pointer hover:text-cyan-300 capitalize"
+              offset={-80}
+              className="cursor-pointer transition hover:text-slate-900 capitalize"
             >
-              {section}
+              {section.replace('-', ' ')}
             </Link>
           ))}
         </div>
 
-        {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-cyan-400 focus:outline-none"
+          className="md:hidden text-slate-900 focus:outline-none"
           onClick={toggleMenu}
+          aria-label="Toggle menu"
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-gray-900 px-6 pb-4 space-y-4">
+        <div className="md:hidden border-t border-slate-200/80 bg-white/95 px-6 py-4 text-slate-700">
           {sections.map((section) => (
             <Link
               key={section}
               to={section}
               smooth={true}
               duration={600}
-              offset={-60}
-              className="block text-gray-200 hover:text-cyan-300 capitalize"
-              onClick={() => setIsOpen(false)} // close menu after click
+              offset={-80}
+              className="block py-3 text-sm transition hover:text-slate-900 capitalize"
+              onClick={() => setIsOpen(false)}
             >
-              {section}
+              {section.replace('-', ' ')}
             </Link>
           ))}
         </div>
       )}
     </nav>
+
   );
 };
 

@@ -1,53 +1,74 @@
-import { Code, Rocket, Lightbulb } from "lucide-react";
+import { Sparkles, Columns, PenTool } from "lucide-react";
+import { motion } from "framer-motion";
 
 const About = () => {
-  return (
-    <section
-      id="about"
-      className="min-h-screen flex items-center justify-center bg-gray-950 text-white px-6 py-16"
-    >
-      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        
-        {/* Left side - Intro */}
-        <div>
-          <h2 className="text-4xl font-bold mb-6 text-cyan-400">About Me</h2>
-          <p className="text-lg text-gray-300 leading-relaxed mb-6">
-            Hey 👋 I'm <span className="text-cyan-300 font-semibold">Ayush Sharma</span>,  
-            a developer who loves turning ideas into clean, functional, and engaging digital products.  
-            My journey blends <span className="text-cyan-400">code, design, and problem-solving </span> 
-            to build experiences that actually matter.
-          </p>
-          <p className="text-gray-400 mb-8">
-            Whether it’s experimenting with new frameworks, solving real-world problems,  
-            or working on creative side-projects, I thrive where curiosity meets execution.
-          </p>
+  const focusAreas = [
+    {
+      title: "Scaling Medoc",
+      description:
+        "Lead product operations and implementation systems for hospital adoption, clinical workflows, and cross-functional execution.",
+      icon: <Sparkles className="w-5 h-5 text-white" />,
+    },
+    {
+      title: "Product & Growth",
+      description:
+        "Reduce onboarding friction, create adoption rhythms, and tie product decisions to measurable growth outcomes.",
+      icon: <Columns className="w-5 h-5 text-white" />,
+    },
+    {
+      title: "Narrative & Content",
+      description:
+        "Build thoughtful narratives around internet culture, influence, and modern attention with an operator’s clarity.",
+      icon: <PenTool className="w-5 h-5 text-white" />,
+    },
+  ];
 
-          {/* Quick Highlights */}
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="bg-gray-900 p-4 rounded-xl hover:bg-gray-800 transition">
-              <Code className="mx-auto text-cyan-400 w-8 h-8 mb-2" />
-              <p className="text-sm text-gray-300">Full-Stack Dev</p>
-            </div>
-            <div className="bg-gray-900 p-4 rounded-xl hover:bg-gray-800 transition">
-              <Rocket className="mx-auto text-cyan-400 w-8 h-8 mb-2" />
-              <p className="text-sm text-gray-300">Startup Builder</p>
-            </div>
-            <div className="bg-gray-900 p-4 rounded-xl hover:bg-gray-800 transition">
-              <Lightbulb className="mx-auto text-cyan-400 w-8 h-8 mb-2" />
-              <p className="text-sm text-gray-300">Problem Solver</p>
-            </div>
+  return (
+    <motion.section
+      id="focus"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="relative overflow-hidden bg-[#fffefb] py-24 px-6 text-slate-950"
+    >
+      <div className="absolute right-12 top-16 h-28 w-28 rounded-[2.5rem] bg-[#151515]/10" />
+      <div className="absolute left-16 top-52 h-20 w-20 rounded-full bg-[#d6c2a3]/70" />
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-16 lg:grid-cols-[1fr_0.95fr] xl:items-center">
+          <div className="max-w-2xl">
+            <p className="text-sm uppercase tracking-[0.35em] text-slate-600 mb-4">Current focus</p>
+            <h2 className="text-4xl md:text-5xl font-semibold text-slate-950">Where I spend my time.</h2>
+            <p className="mt-5 text-base text-slate-700 leading-relaxed">
+              I move between systems, product, and narrative with a clear aesthetic: practical, bold, and rooted in real adoption.
+            </p>
+          </div>
+
+          <div className="relative rounded-[3rem] border border-slate-200/70 bg-black text-white p-12 shadow-[0_35px_90px_rgba(0,0,0,0.08)]">
+            <div className="absolute -right-10 top-10 h-24 w-24 rounded-full bg-[#d6c2a3]/50" />
+            <p className="text-xs uppercase tracking-[0.35em] text-slate-400">Studio frame</p>
+            <h3 className="mt-6 text-3xl font-semibold">Operational work with editorial care.</h3>
+            <p className="mt-5 text-slate-300 leading-relaxed">
+              Fewer landing pages, more meaningful systems. I build the conditions for teams and stories to scale together.
+            </p>
           </div>
         </div>
 
-        {/* Right side - Creative Visual */}
-        <div className="relative flex justify-center items-center">
-          <div className="w-64 h-64 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 animate-pulse blur-3xl absolute"></div>
-          <div className="relative bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-700 text-center">
-            <p className="text-cyan-300 font-mono">“Building systems that last longer than trends.”</p>
-          </div>
+        <div className="mt-16 space-y-10">
+          {focusAreas.map((area) => (
+            <div key={area.title} className="flex flex-col gap-4 md:flex-row md:items-start md:gap-8">
+              <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-slate-950">
+                {area.icon}
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-slate-950">{area.title}</h3>
+                <p className="mt-2 text-slate-700 leading-relaxed">{area.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

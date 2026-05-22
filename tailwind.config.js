@@ -7,9 +7,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                'montserrat': ['Montserrat'],
-                'lato': ['Lato'],
-                'garamond': ['Garamond']
+                sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                montserrat: ['Montserrat'],
+                lato: ['Lato'],
+                garamond: ['Garamond']
             },
             transitionProperty: {
                 'height': 'height',

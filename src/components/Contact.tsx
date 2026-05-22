@@ -1,118 +1,109 @@
 import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import { motion } from "framer-motion";
+
+const contactItems = [
+  {
+    icon: <FaEnvelope size={24} />,
+    title: "Email",
+    text: "ashsharman123@gmail.com",
+    link: "mailto:ashsharman123@gmail.com",
+  },
+  {
+    icon: <FaLinkedin size={24} />,
+    title: "LinkedIn",
+    text: "ayush-sharman",
+    link: "https://www.linkedin.com/in/ayush-sharman/",
+  },
+  {
+    icon: <FaGithub size={24} />,
+    title: "GitHub",
+    text: "github.com/ayushsharman",
+    link: "https://github.com/ayushsharman",
+  },
+  {
+    icon: <FaInstagram size={24} />,
+    title: "Instagram",
+    text: "@analyticalayush",
+    link: "https://www.instagram.com/analyticalayush/",
+  },
+];
 
 const Contact = () => {
   return (
-    <section id="contact">
-      <div className="flex flex-col items-center px-6 py-12 max-w-5xl mx-auto">
-        {/* Heading */}
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-6">
-          <span className="text-cyan-500">Let’s</span> Connect
-        </h1>
-        <p className="text-center text-gray-500 max-w-xl mb-12">
-          Whether you want to talk tech, brainstorm ideas, or just share something interesting —
-          here’s how you can reach me.
-        </p>
+    <motion.section
+      id="contact"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="relative overflow-hidden py-24 px-6 bg-[#111111] text-white"
+    >
+      <div className="absolute -left-14 top-20 h-40 w-40 rounded-br-[100px] bg-[#c7b79a]/15" />
+      <div className="absolute right-0 bottom-12 h-24 w-24 rounded-full bg-[#c7b79a]/20" />
 
-        {/* Appointment Card */}
-        <AppointmentCard
-          title="Book a 1:1"
-          link="https://calendar.app.google/fFx5NHCXzN3q1yew8"
-          text="Schedule a quick call with me"
-        />
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-14 grid gap-10 lg:grid-cols-[1.25fr_0.85fr] items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            <p className="text-sm uppercase tracking-[0.35em] text-slate-500 mb-4">Contact</p>
+            <h2 className="text-4xl md:text-5xl font-semibold leading-tight">Let’s make the next system feel inevitable.</h2>
+            <p className="mt-5 text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed">
+              Operator-led strategy, product systems, and narrative direction — delivered with precision and clarity.
+            </p>
+          </motion.div>
 
-        {/* Contact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 w-full">
-          <ContactCard
-            icon={<FaEnvelope size={26} />}
-            title="Drop an Email"
-            link="mailto:ashsharman123@gmail.com"
-            text="ashsharman123@gmail.com"
-          />
-          <ContactCard
-            icon={<FaLinkedin size={26} />}
-            title="LinkedIn Connect"
-            link="https://www.linkedin.com/in/ayush-sharman/"
-            text="/in/ayush-sharman"
-          />
-          <ContactCard
-            icon={<FaGithub size={26} />}
-            title="GitHub Repos"
-            link="https://github.com/ayushsharman"
-            text="github.com/ayushsharman"
-          />
-          <ContactCard
-            icon={<FaInstagram size={26} />}
-            title="Instagram Vibes"
-            link="https://www.instagram.com/ayush_sharman/"
-            text="@ayush_sharman"
-          />
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="rounded-[2rem] border border-white/10 bg-white/5 p-10 backdrop-blur-sm"
+          >
+            <p className="text-sm uppercase tracking-[0.35em] text-slate-400">Book time</p>
+            <h3 className="mt-4 text-2xl font-semibold">Book a 1:1</h3>
+            <p className="mt-3 text-slate-300 leading-relaxed">
+              Schedule a short conversation about product direction, operational levers, or narrative strategy.
+            </p>
+            <a
+              href="https://calendar.app.google/fFx5NHCXzN3q1yew8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex rounded-full border border-white/10 bg-[#c7b79a] px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-[#d0c3a4]"
+            >
+              Reserve a slot
+            </a>
+          </motion.div>
         </div>
 
-
+        <div className="grid gap-5 sm:grid-cols-2">
+          {contactItems.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.75, delay: 0.05 * index }}
+              className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#1a1a1a] p-6 transition hover:-translate-y-1 hover:border-[#c7b79a]/40"
+            >
+              <div className="absolute right-6 top-6 h-16 w-16 rounded-full bg-[#c7b79a]/10" />
+              <div className="flex items-center gap-5 relative z-10">
+                <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-white text-[#111111] shadow-sm">
+                  {item.icon}
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.35em] text-slate-500">{item.title}</p>
+                  <p className="mt-2 text-lg font-semibold text-white">{item.text}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </section>
-  );
-};
-
-// Contact Card Component
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ContactCard = ({ icon, title, link, text }: any) => {
-  return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex items-center gap-4 p-5 bg-gray-900/90 rounded-xl border border-gray-800 transition hover:border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/20"
-    >
-      <div className="text-cyan-500 group-hover:scale-110 transition-transform">
-        {icon}
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <p className="text-gray-400 group-hover:text-gray-200">{text}</p>
-      </div>
-    </a>
-  );
-};
-
-// Appointment Card
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AppointmentCard = ({ title, link, text }: any) => {
-  return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center justify-between p-6 w-full bg-gradient-to-r  from-cyan-500 to-teal-500 rounded-xl shadow-lg hover:scale-[1.02] transition-transform"
-    >
-      <div>
-        <h3 className="text-xl font-semibold text-white">{title}</h3>
-        <p className="text-white/80">{text}</p>
-      </div>
-      <svg
-        className="w-8 h-8 text-white"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M8 7V3M16 7V3M4 11H20M5 20H19M5 20H5M12 17h.01M8 21h.01M16 21h.01"
-        ></path>
-        <rect
-          x="4"
-          y="4"
-          width="16"
-          height="16"
-          rx="2"
-          ry="2"
-          className="opacity-50"
-        ></rect>
-      </svg>
-    </a>
+    </motion.section>
   );
 };
 

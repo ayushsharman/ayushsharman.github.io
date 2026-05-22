@@ -1,75 +1,76 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const Project: React.FC = () => {
-  const projects = [
+  const caseStudies = [
     {
-      title: "Feeleeria",
-      year: "2023",
-      description:
-        "A Campus Social Media app to connect college students across various campuses.",
-      details:
-        "Built with Flutter, Firebase, and Cloudstore. Features include real-time messaging, campus event updates, student group collaborations, and personalized feeds.",
-      link: "https://github.com/ayushsharman/campus_social_media",
+      title: "Solving onboarding friction",
+      focus: "Medoc",
+      summary:
+        "Reduced early churn by redesigning the first 30 days of hospital onboarding, emphasizing clarity, accountability, and immediate value.",
     },
     {
-      title: "Book Cricket",
-      year: "2024",
-      description: "A fun game app to play cricket but with random digits.",
-      details: "Built on React.js with the intent to bring back our childhood.",
-      link: "https://github.com/ayushsharman/Book-Cricket",
+      title: "Scaling hospital implementation systems",
+      focus: "Medoc",
+      summary:
+        "Built repeatable operational playbooks for clinical partners so new hospital launches required less coordination and more predictability.",
     },
     {
-      title: "Screen Recorder",
-      year: "2024",
-      description: "Chrome Web Extension to record screen.",
-      details:
-        "Used the concept of popups, JS injection and manifest.json file management.",
-      link: "https://github.com/ayushsharman/Screen-Recorder",
+      title: "Product adoption challenges",
+      focus: "Medoc",
+      summary:
+        "Turned adoption conversations away from feature lists and toward habit formation, usage clarity, and executive alignment.",
+    },
+    {
+      title: "Internet narrative breakdowns",
+      focus: "Content",
+      summary:
+        "Analyzed modern influence, attention economies, and culture moments with a systems-first lens rather than trend chasing.",
     },
   ];
 
   return (
-    <div
-      id="projects"
-      className="relative py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-200"
+    <motion.section
+      id="case-studies"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="relative py-24 px-6 text-slate-950 bg-white"
     >
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-cyan-400 tracking-wide">
-          My Projects
-        </h2>
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="relative p-6 rounded-2xl bg-gray-800/40 backdrop-blur-lg border border-gray-700 shadow-lg hover:shadow-cyan-500/30 transition duration-300 transform hover:-translate-y-2"
+      <div className="absolute left-10 top-24 h-20 w-20 rounded-full bg-[#d6c2a3]/80" />
+      <div className="mx-auto max-w-6xl">
+        <div className="text-center mb-16">
+          <p className="text-sm uppercase tracking-[0.35em] text-slate-600 mb-4">Case studies</p>
+          <h2 className="text-4xl md:text-5xl font-semibold text-slate-950">Strategic breakdowns, not project snapshots.</h2>
+          <p className="mt-4 text-base text-slate-700 max-w-2xl mx-auto leading-relaxed">
+            A sequence of operational and narrative interventions that moved teams, products, and systems forward.
+          </p>
+        </div>
+
+        <div className="space-y-12">
+          {caseStudies.map((caseStudy, index) => (
+            <motion.div
+              key={caseStudy.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.75, delay: 0.05 * index }}
+              className="grid gap-6 md:grid-cols-[0.25fr_0.75fr]"
             >
-              <div className="flex flex-col justify-between h-full">
-                <div>
-                  <h5 className="text-2xl font-semibold text-cyan-400 mb-2">
-                    {project.title}
-                  </h5>
-                  <h3 className="text-md font-medium text-gray-400 mb-4">
-                    {project.year}
-                  </h3>
-                  <p className="text-base text-gray-300 mb-3">
-                    {project.description}
-                  </p>
-                  <p className="text-sm text-gray-400">{project.details}</p>
-                </div>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 py-2 px-4 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-center shadow-md hover:from-cyan-400 hover:to-cyan-400 transition-colors duration-300"
-                >
-                  Learn More
-                </a>
+              <div className="flex flex-col gap-4">
+                <span className="text-xs uppercase tracking-[0.35em] text-slate-500">{caseStudy.focus}</span>
+                <div className="h-2 w-16 bg-black" />
               </div>
-            </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-slate-950">{caseStudy.title}</h3>
+                <p className="mt-4 text-slate-700 leading-relaxed">{caseStudy.summary}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </motion.section>
   );
 };
 

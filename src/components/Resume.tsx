@@ -1,93 +1,89 @@
-import React from "react";
-import { Briefcase, Award, Download } from "lucide-react";
+import { motion } from "framer-motion";
 
-const About: React.FC = () => {
+const Resume = () => {
+  const thinking = [
+    {
+      title: "Adoption matters more than features",
+      type: "Essay",
+      summary:
+        "A practical framework for prioritizing product habits, onboarding, and the systems that turn new users into repeat users.",
+    },
+    {
+      title: "Scaling hospital implementation systems",
+      type: "Case note",
+      summary:
+        "How operational clarity, repeatable handoffs, and simple playbooks lower risk when scaling across clinical partners.",
+    },
+    {
+      title: "Why narrative shapes trust faster than roadmaps",
+      type: "Video insight",
+      summary:
+        "The role of narrative in early-stage product adoption, team alignment, and the way audiences perceive capability.",
+    },
+    {
+      title: "Designing teams for execution at speed",
+      type: "Framework",
+      summary:
+        "A concise operating model for product teams that need direction, accountability, and momentum without noise.",
+    },
+  ];
+
+  const principles = [
+    "Adoption beats feature velocity.",
+    "Systems outperform motivation.",
+    "Most scaling problems are operational, not technical.",
+    "Narrative is the frame that makes strategy understandable.",
+  ];
+
   return (
-    <section
-      id="services"
-      className="min-h-screen flex flex-col justify-center px-6 py-20 bg-gray-950 text-white"
+    <motion.section
+      id="thinking"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="bg-[#fffdf9] py-24 px-6 text-slate-950"
     >
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-cyan-400 mb-4">
-            Beyond Code, I Build Impact
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            I'm <span className="text-cyan-300 font-semibold">Ayush Sharma</span>,
-            a developer, creator, and entrepreneur who thrives at the intersection
-            of <span className="text-cyan-400">technology, design, and strategy</span>.
-            Here’s a glimpse of what I’ve achieved and how I can bring value to your vision.
-          </p>
-        </div>
-
-        {/* Achievements + Services */}
-        <div className="grid md:grid-cols-2 gap-16 items-start relative">
-          {/* Cyan Glow divider */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-500/40 to-blue-600/40 blur-lg rounded-full"></div>
-
-          {/* Achievements - Timeline Style */}
-          <div className="relative">
-            <h3 className="text-2xl font-semibold text-cyan-400 flex items-center gap-2 mb-8">
-              <Award className="w-6 h-6 text-cyan-300" /> Achievements
-            </h3>
-            <div className="space-y-8 border-l border-cyan-700 pl-6">
-              {[
-                "Mentor at Girl Script Summer of Code 2024",
-                "Letter of Recommendation by Head of Department, CSE (1st Year)",
-                "Winner at SIH Internal Hackathon 2022",
-                "Lead Coordinator: IICC 2022, Google DevFest 2022, Tekathon 2023, Hack-The-Fest 2022, Hackshield 2022",
-                "15k+ following across LinkedIn, YouTube, Instagram, etc",
-              ].map((item, index) => (
-                <div key={index} className="relative">
-                  <span className="absolute -left-5 top-1 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_15px_#06b6d4]"></span>
-                  <p className="text-gray-300">{item}</p>
-                </div>
-              ))}
-            </div>
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] xl:items-center">
+          <div className="max-w-2xl">
+            <p className="text-sm uppercase tracking-[0.35em] text-slate-600 mb-4">Selected thinking</p>
+            <h2 className="text-4xl md:text-5xl font-semibold text-slate-950">Essays, frameworks, and observations.</h2>
+            <p className="mt-5 text-base text-slate-700 leading-relaxed">
+              A compact collection of thinking from the edge of operations, product adoption, and digital narrative.
+            </p>
           </div>
 
-          {/* Services - Diversified */}
-          <div>
-            <h3 className="text-2xl font-semibold text-cyan-400 flex items-center gap-2 mb-8">
-              <Briefcase className="w-6 h-6 text-cyan-300" /> Services I Provide
-            </h3>
-            <div className="grid gap-6">
-              <div className="p-4 bg-gray-900/40 border border-gray-800 rounded-xl hover:border-cyan-500/60 transition">
-                🔹 <span className="text-cyan-300 font-semibold">Software Development</span>
-                (Full-stack apps, APIs, scalable systems)
-              </div>
-              <div className="p-4 bg-gray-900/40 border border-gray-800 rounded-xl hover:border-cyan-500/60 transition">
-                🔹 <span className="text-cyan-300 font-semibold">Content Creation</span>
-                (YouTube, research-backed storytelling, fact-checking)
-              </div>
-              <div className="p-4 bg-gray-900/40 border border-gray-800 rounded-xl hover:border-cyan-500/60 transition">
-                🔹 <span className="text-cyan-300 font-semibold">Consultancy</span>
-                (Tech strategy, system design, workflow automation)
-              </div>
-              <div className="p-4 bg-gray-900/40 border border-gray-800 rounded-xl hover:border-cyan-500/60 transition">
-                🔹 <span className="text-cyan-300 font-semibold">Entrepreneurship</span>
-                (Startup building, community initiatives, innovation)
-              </div>
-            </div>
-
-            {/* Resume Download Button */}
+          <div className="relative rounded-[2.5rem] border border-black/10 bg-slate-950 px-10 py-12 text-white overflow-hidden">
+            <div className="absolute -right-8 top-10 h-24 w-24 rounded-full bg-[#d6c2a3]/30" />
+            <p className="text-xs uppercase tracking-[0.35em] text-slate-400">Editorial lens</p>
+            <h3 className="mt-6 text-3xl font-semibold leading-tight">Ideas that feel as sharp as systems.</h3>
+            <p className="mt-5 text-base text-slate-200 leading-relaxed">
+              Clear, structural thinking for founders, operators, and teams that need tension without noise.
+            </p>
           </div>
         </div>
-          <div className="mt-10 flex justify-center">
-            <a
-              href="/Resume 2.0.pdf"
-              download="Resume 2.0.pdf"
-              className="group relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl shadow-lg hover:shadow-cyan-500/40 transition"
-            >
-              <Download className="w-5 h-5 group-hover:scale-110 transition" />
-              <span>Download Resume</span>
-              <span className="absolute inset-0 rounded-xl bg-cyan-500 opacity-0 group-hover:opacity-20 transition"></span>
-            </a>
-          </div>
+
+        <div className="mt-16 space-y-12">
+          {thinking.map((item) => (
+            <div key={item.title} className="space-y-2 border-b border-slate-200/80 pb-8">
+              <p className="text-xs uppercase tracking-[0.35em] text-slate-500">{item.type}</p>
+              <h3 className="text-2xl font-semibold text-slate-950">{item.title}</h3>
+              <p className="text-slate-700 leading-relaxed">{item.summary}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 grid gap-4 sm:grid-cols-2">
+          {principles.map((principle) => (
+            <div key={principle} className="rounded-[2rem] border border-slate-300/70 bg-[#f7ede0] px-6 py-6">
+              <p className="text-base text-slate-950">{principle}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
-export default About;
+export default Resume;

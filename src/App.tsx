@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f4efe5] text-slate-950 font-sans">
       <Navbar />
-      <main className="mx-auto max-w-7xl pb-24">
+      <main className="mx-auto max-w-8xl ">
         <Home />
         <About />
         <Resume />
@@ -19,7 +19,7 @@ export default function App() {
         <Contact />
       </main>
       <footer className="border-t border-slate-300/60 text-center py-10 text-slate-600 mx-6">
-        <p className="text-sm">© {new Date().getFullYear()} Ayush Sharma. Portfolio built with subtlety.</p>
+        <p className="text-sm">© {new Date().getFullYear()} Rights Reserved by Ayush Sharma.</p>
       </footer>
     </div>
   );

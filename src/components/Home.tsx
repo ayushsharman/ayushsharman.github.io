@@ -1,166 +1,284 @@
-import '../assets/styles/Home.css';
-import { ArrowUpRight, ChevronDown } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-scroll';
+import "../assets/styles/Home.css";
+import { ArrowUpRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-scroll";
 
 const Home = () => {
   const { scrollYProgress } = useScroll();
+
   const floatA = useTransform(scrollYProgress, [0, 0.15], [0, 20]);
   const floatB = useTransform(scrollYProgress, [0, 0.15], [0, -20]);
 
   return (
-    <section id="hero" className="relative bg-[#f5f0e8] text-slate-950 overflow-hidden">
-      {/* ─── HERO GRID ──────────────────────────────────── */}
-      <div className="grid min-h-screen lg:grid-cols-[1fr_1fr]">
+    <section
+      id="hero"
+      className="relative overflow-hidden bg-[#f5f0e8] text-slate-950"
+    >
+      {/* ───────────────── BACKGROUND ───────────────── */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/bg.png"
+          alt=""
+          className="h-full w-full object-cover opacity-40"
+        />
 
-        {/* LEFT — text */}
-        <div className="flex flex-col justify-center px-12 pt-28 pb-16 lg:px-16 relative z-10">
+        {/* warm tint */}
+        <div className="absolute inset-0 bg-[#f5f0e8]/55" />
+
+        {/* vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.04))]" />
+      </div>
+
+      {/* ───────────────── HERO GRID ───────────────── */}
+      <div className="relative z-10 grid min-h-screen lg:grid-cols-[1fr_1fr]">
+
+        {/* LEFT SIDE */}
+        <div className="flex flex-col justify-center px-8 pt-20 pb-40 lg:px-20 relative z-10">
+
           <p className="mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.5em] text-[#c1440e]">
             <span className="text-base">✳</span>
             Operator · Thinker · Creator
           </p>
 
-          <h1 className="text-[clamp(5rem,9vw,8rem)] font-black leading-[0.85] tracking-[-0.05em] mb-6">
+          <h1 className="mb-6 text-[clamp(5rem,9vw,8rem)] font-black leading-[0.85] tracking-[-0.06em]">
             <span className="block">AYUSH</span>
             <span className="block text-[#c1440e]">SHARMA</span>
           </h1>
 
-          <p className="mb-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-slate-950">
-            <span className="text-[#c1440e]">✳</span>
-            Systems. Storytelling. Execution.
+          <div className="mb-8 flex items-center gap-4 border-b border-black/10 pb-8">
+            <span className="text-[#c1440e] text-lg">✳</span>
+
+            <p className="text-[12px] uppercase tracking-[0.35em] text-slate-900 font-medium">
+              Systems. Storytelling. Execution.
+            </p>
+          </div>
+
+          <p className="mb-8 max-w-[520px] text-[19px] leading-[1.9] text-slate-700">
+            I work at the intersection of operations, product thinking,
+            and digital narratives. Currently helping scale healthcare
+            systems at{" "}
+            <span className="font-semibold text-[#c1440e]">
+              Medoc
+            </span>{" "}
+            while creating analytical content around internet culture,
+            psychology, and modern influence.
           </p>
 
-          <p className="mb-10 max-w-[420px] text-base leading-relaxed text-slate-600">
-            I work at the intersection of operations, product thinking, and digital narratives.
-            Currently helping scale healthcare systems at{' '}
-            <span className="text-[#c1440e] font-medium">Medoc</span>{' '}
-            while creating analytical content around internet culture, psychology, and modern influence.
-          </p>
-
-          <div className="flex flex-wrap gap-3">
+          {/* BUTTONS */}
+          <div className="flex flex-wrap gap-4">
             <Link
               to="work"
-              smooth duration={600}
+              smooth
+              duration={600}
               offset={-80}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-slate-950 px-7 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-[1.02] hover:bg-black"
             >
-              View Work <ArrowUpRight size={14} />
+              View Work
+              <ArrowUpRight size={15} />
             </Link>
+
             <Link
               to="thoughts"
-              smooth duration={600}
+              smooth
+              duration={600}
               offset={-80}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full border-2 border-slate-950 bg-transparent px-7 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/15 bg-white/60 px-8 py-4 text-sm font-semibold text-slate-950 backdrop-blur-md transition-all duration-300 hover:bg-white"
             >
-              Watch Content <ArrowUpRight size={14} />
+              Watch Content
+              <ArrowUpRight size={15} />
             </Link>
           </div>
         </div>
 
-        {/* RIGHT — photo */}
+        {/* RIGHT SIDE */}
         <div className="relative overflow-hidden">
-          {/* Big decorative circle */}
+
+          {/* BIG AMBIENT CIRCLE */}
           <motion.div
             style={{ y: floatA }}
-            className="absolute right-[-80px] top-1/2 -translate-y-1/2 h-[540px] w-[540px] rounded-full bg-[#d9cfc0] z-0"
+            className="absolute right-[-120px] top-1/2 z-0 h-[780px] w-[780px] -translate-y-1/2 rounded-full bg-[#d9cfc0]/70"
           />
 
-          {/* Small accent circle */}
+          {/* DOT PATTERN */}
+          <div
+            className="absolute right-[20%] top-[12%] z-0 h-[280px] w-[280px] opacity-20"
+            style={{
+              backgroundImage:
+                "radial-gradient(#c1440e 1px, transparent 1px)",
+              backgroundSize: "16px 16px",
+            }}
+          />
+
+          {/* SMALL FLOATING CIRCLE */}
           <motion.div
             style={{ y: floatB }}
-            className="absolute left-10 bottom-24 h-20 w-20 rounded-full bg-[#ede5d8] z-0"
+            className="absolute bottom-28 left-8 z-0 h-24 w-24 rounded-full bg-[#ede5d8]"
           />
 
-          {/* Photo — no white container, just the image */}
+          {/* PORTRAIT */}
           <img
             src="/professional image bg removed.png"
             alt="Ayush Sharma"
-            className="absolute bottom-0 right-0 h-[92%] w-auto object-cover object-bottom z-10"
+            className="absolute bottom-0 right-0 z-10 h-[92%] w-auto object-cover object-bottom"
           />
 
-          {/* Floating info card — LEFT edge of right column */}
-          <div className="absolute left-[-10px] top-1/2 -translate-y-1/2 z-20 w-[248px] rounded-[24px] border border-slate-200/60 bg-white p-5 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.18)]">
+          {/* FLOATING INFO CARD */}
+          <div className="absolute left-[20px] top-1/2 z-20 w-[260px] -translate-y-1/2 rounded-[28px] border border-white/40 bg-white/75 p-5 backdrop-blur-xl shadow-[0_25px_70px_-20px_rgba(15,23,42,0.2)]">
             {[
-              { icon: '⚕', label: 'Healthcare Systems', text: 'Scaling operations at Medoc' },
-              { icon: '💡', label: 'Product & Ops', text: 'Building systems that drive real adoption' },
-              { icon: '▶', label: 'Content Creator', text: 'Analytical videos on internet culture, psychology & more' },
+              {
+                icon: "⚕",
+                label: "Healthcare Systems",
+                text: "Scaling operations at Medoc",
+              },
+              {
+                icon: "💡",
+                label: "Product & Ops",
+                text: "Building systems that drive real adoption",
+              },
+              {
+                icon: "▶",
+                label: "Content Creator",
+                text: "Analytical videos on internet culture, psychology & more",
+              },
             ].map((item, i) => (
               <div
                 key={i}
-                className={`flex items-start gap-3 py-4 ${i < 2 ? 'border-b border-slate-100' : ''}`}
+                className={`flex items-start gap-3 py-5 ${i < 2 ? "border-b border-black/6" : ""
+                  }`}
               >
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#c1440e]/30 text-[#c1440e] text-xs">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#c1440e]/30 text-[#c1440e] text-xs">
                   {item.icon}
                 </div>
+
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.3em] text-slate-400 mb-1">{item.label}</p>
-                  <p className="text-[12px] font-semibold text-slate-950 leading-snug">{item.text}</p>
+                  <p className="mb-1 text-[9px] uppercase tracking-[0.3em] text-slate-400">
+                    {item.label}
+                  </p>
+
+                  <p className="text-[13px] font-semibold leading-snug text-slate-950">
+                    {item.text}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Scroll button — right edge, vertically centered, in front of everything */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#c1440e] text-white shadow-lg">
-              <ChevronDown size={16} />
+        </div>
+      </div>
+
+      {/* ───────────────── OVERLAY STATS BAR ───────────────── */}
+      <div className="relative z-30 -mt-[200px]">
+
+        <div className="border-y border-white/30 bg-white/20 backdrop-blur-xl">
+
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+
+            {/* 1 */}
+            <div className="border-r border-black/10">
+              <div className="px-8 py-10 lg:px-12">
+
+                <p className="mb-4 text-[10px] uppercase tracking-[0.35em] text-slate-500">
+                  At Medoc
+                </p>
+
+                <p className="max-w-[220px] text-[18px] leading-relaxed text-slate-900">
+                  Building the operating layer for modern healthcare.
+                </p>
+
+              </div>
             </div>
-            <div className="rounded-full border border-slate-300 bg-white/90 px-3 py-3">
-              <span className="[writing-mode:vertical-rl] text-[9px] tracking-[0.3em] uppercase text-slate-700 font-medium">
-                Scroll ↓
+
+            {/* 2 */}
+            <div className="border-r border-black/10">
+              <div className="px-8 py-10 lg:px-12">
+
+                <p className="text-5xl font-black tracking-tight text-slate-950">
+                  20+
+                </p>
+
+                <p className="mt-3 text-sm text-slate-600">
+                  Hospital Partnerships
+                </p>
+
+              </div>
+            </div>
+
+            {/* 3 */}
+            <div className="border-r border-black/10">
+              <div className="px-8 py-10 lg:px-12">
+
+                <p className="text-5xl font-black tracking-tight text-slate-950">
+                  10K+
+                </p>
+
+                <p className="mt-3 text-sm text-slate-600">
+                  Patients Impacted
+                </p>
+
+              </div>
+            </div>
+
+            {/* 4 */}
+            <div className="border-r border-black/10">
+              <div className="px-8 py-10 lg:px-12">
+
+                <p className="text-4xl font-black tracking-tight text-slate-950">
+                  Systems
+                </p>
+
+                <p className="mt-3 text-sm text-slate-600">
+                  Over Features
+                </p>
+
+              </div>
+            </div>
+
+            {/* 5 */}
+            <div className="bg-[#f5f0e8]/60 backdrop-blur-xl">
+              <div className="flex h-full flex-col justify-center px-8 py-10 lg:px-12">
+
+
+
+                <p className="max-w-[260px] text-[24px] font-black leading-[1.02] tracking-[-0.05em] text-slate-950">
+                  “ Most problems aren&apos;t technical.{" "}
+                  <span className="text-[#c1440e]">
+                    They&apos;re operational.
+                  </span>
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* ───────────────── TRUSTED BY ───────────────── */}
+      {/* <div className="relative z-20 border-t border-black/5 bg-[#f5f0e8]/80 px-10 py-8 backdrop-blur-md">
+        <div className="flex items-center gap-14 overflow-x-auto">
+
+          <span className="shrink-0 text-[10px] uppercase tracking-[0.35em] text-slate-400">
+            Trusted By
+          </span>
+
+          <div className="flex items-center gap-16 opacity-70">
+            {[
+              "✳ medoc",
+              "⚕ MAX Healthcare",
+              "manipalhospitals",
+              "Rainbow Children's Hospital",
+              "COLUMBIA ASIA",
+            ].map((logo) => (
+              <span
+                key={logo}
+                className="shrink-0 whitespace-nowrap text-sm font-bold tracking-wide text-slate-700"
+              >
+                {logo}
               </span>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
-
-      {/* ─── STATS BAR ───────────────────────────────────── */}
-      <div className="bg-white border-t border-slate-100">
-        <div className="grid grid-cols-2 divide-x divide-slate-100 md:grid-cols-3 xl:grid-cols-5">
-          {/* Cell 1 */}
-          <div className="p-8">
-            <p className="text-[9px] uppercase tracking-[0.3em] text-slate-400 mb-3">At Medoc</p>
-            <p className="text-sm font-medium text-slate-950 leading-snug">
-              Building the operating layer for modern healthcare.
-            </p>
-          </div>
-          {/* Cell 2 */}
-          <div className="p-8 text-left">
-            <p className="text-4xl font-black tracking-tight text-slate-950">20+</p>
-            <p className="mt-1 text-sm text-slate-500">Hospital Partnerships</p>
-          </div>
-          {/* Cell 3 */}
-          <div className="p-8 text-left">
-            <p className="text-4xl font-black tracking-tight text-slate-950">10K+</p>
-            <p className="mt-1 text-sm text-slate-500">Patients Impacted</p>
-          </div>
-          {/* Cell 4 */}
-          <div className="p-8">
-            <p className="text-2xl font-black text-slate-950">Systems</p>
-            <p className="mt-1 text-sm text-slate-500">Over Features</p>
-          </div>
-          {/* Cell 5 — quote */}
-          <div className="bg-[#f5f0e8] p-8">
-            <p className="text-3xl font-serif text-[#c1440e] leading-none mb-2">"</p>
-            <p className="text-sm font-semibold text-slate-950 leading-snug">
-              Most problems aren't technical.{' '}
-              <span className="text-[#c1440e]">They're operational.</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* ─── TRUSTED BY ──────────────────────────────────── */}
-      <div className="bg-[#f5f0e8] border-t border-slate-200/60 px-12 py-5 flex items-center gap-12 overflow-x-auto">
-        <span className="shrink-0 text-[9px] uppercase tracking-[0.35em] text-slate-400">Trusted By</span>
-        <div className="flex items-center gap-10 opacity-60">
-          {['✳ medoc', '⚕ MAX Healthcare', 'manipalhospitals', "Rainbow Children's Hospital", 'COLUMBIA ASIA'].map((logo) => (
-            <span key={logo} className="shrink-0 text-xs font-bold tracking-wide text-slate-600 whitespace-nowrap">
-              {logo}
-            </span>
-          ))}
-        </div>
-      </div>
+      </div> */}
     </section>
   );
 };

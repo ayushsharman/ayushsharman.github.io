@@ -7,24 +7,28 @@ const Resume = () => {
       type: "Essay",
       summary:
         "A practical framework for prioritizing product habits, onboarding, and the systems that turn new users into repeat users.",
+      url: "#",
     },
     {
       title: "Scaling hospital implementation systems",
       type: "Case note",
       summary:
         "How operational clarity, repeatable handoffs, and simple playbooks lower risk when scaling across clinical partners.",
+      url: "#",
     },
     {
       title: "Why narrative shapes trust faster than roadmaps",
       type: "Video insight",
       summary:
         "The role of narrative in early-stage product adoption, team alignment, and the way audiences perceive capability.",
+      url: "#",
     },
     {
       title: "Designing teams for execution at speed",
       type: "Framework",
       summary:
         "A concise operating model for product teams that need direction, accountability, and momentum without noise.",
+      url: "#",
     },
   ];
 
@@ -66,11 +70,15 @@ const Resume = () => {
 
         <div className="mt-16 space-y-12">
           {thinking.map((item) => (
-            <div key={item.title} className="space-y-2 border-b border-slate-200/80 pb-8">
+            <a
+              key={item.title}
+              href={item.url}
+              className="block space-y-2 border-b border-slate-200/80 pb-8 transition-opacity duration-300 hover:opacity-75"
+            >
               <p className="text-xs uppercase tracking-[0.35em] text-slate-500">{item.type}</p>
-              <h3 className="text-2xl font-semibold text-slate-950">{item.title}</h3>
+              <h3 className="text-2xl font-semibold text-slate-950 hover:text-[#c1440e] transition-colors">{item.title}</h3>
               <p className="text-slate-700 leading-relaxed">{item.summary}</p>
-            </div>
+            </a>
           ))}
         </div>
 

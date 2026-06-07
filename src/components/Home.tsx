@@ -169,19 +169,19 @@ const Home = () => {
       {/* ───────────────── OVERLAY STATS BAR ───────────────── */}
       <div className="relative z-30 -mt-[200px]">
 
-        <div className="border-y border-white/30 bg-white/20 backdrop-blur-xl">
+        <div className="border-y border-white/30 bg-white/20 backdrop-blur-xl overflow-x-auto">
 
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 min-w-full">
 
             {/* 1 */}
             <div className="border-r border-black/10">
-              <div className="px-8 py-10 lg:px-12">
+              <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-12">
 
-                <p className="mb-4 text-[10px] uppercase tracking-[0.35em] text-slate-500">
+                <p className="mb-2 text-[8px] sm:text-[10px] uppercase tracking-[0.35em] text-slate-500">
                   At Medoc
                 </p>
 
-                <p className="max-w-[220px] text-[18px] leading-relaxed text-slate-900">
+                <p className="max-w-[220px] text-[14px] sm:text-[18px] leading-relaxed text-slate-900">
                   Building the operating layer for modern healthcare.
                 </p>
 
@@ -190,13 +190,13 @@ const Home = () => {
 
             {/* 2 */}
             <div className="border-r border-black/10">
-              <div className="px-8 py-10 lg:px-12">
+              <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-12">
 
-                <p className="text-5xl font-black tracking-tight text-slate-950">
+                <p className="text-3xl sm:text-5xl font-black tracking-tight text-slate-950">
                   20+
                 </p>
 
-                <p className="mt-3 text-sm text-slate-600">
+                <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-slate-600">
                   Hospital Partnerships
                 </p>
 
@@ -205,13 +205,13 @@ const Home = () => {
 
             {/* 3 */}
             <div className="border-r border-black/10">
-              <div className="px-8 py-10 lg:px-12">
+              <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-12">
 
-                <p className="text-5xl font-black tracking-tight text-slate-950">
+                <p className="text-3xl sm:text-5xl font-black tracking-tight text-slate-950">
                   10K+
                 </p>
 
-                <p className="mt-3 text-sm text-slate-600">
+                <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-slate-600">
                   Patients Impacted
                 </p>
 
@@ -220,13 +220,13 @@ const Home = () => {
 
             {/* 4 */}
             <div className="border-r border-black/10">
-              <div className="px-8 py-10 lg:px-12">
+              <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-12">
 
-                <p className="text-4xl font-black tracking-tight text-slate-950">
+                <p className="text-2xl sm:text-4xl font-black tracking-tight text-slate-950">
                   Systems
                 </p>
 
-                <p className="mt-3 text-sm text-slate-600">
+                <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-slate-600">
                   Over Features
                 </p>
 
@@ -235,11 +235,11 @@ const Home = () => {
 
             {/* 5 */}
             <div className="bg-[#f5f0e8]/60 backdrop-blur-xl">
-              <div className="flex h-full flex-col justify-center px-8 py-10 lg:px-12">
+              <div className="flex h-full flex-col justify-center px-4 py-6 sm:px-6 sm:py-8 lg:px-12">
 
 
 
-                <p className="max-w-[260px] text-[24px] font-black leading-[1.02] tracking-[-0.05em] text-slate-950">
+                <p className="max-w-[260px] text-[16px] sm:text-[24px] font-black leading-[1.02] tracking-[-0.05em] text-slate-950">
                   “ Most problems aren&apos;t technical.{" "}
                   <span className="text-[#c1440e]">
                     They&apos;re operational.

@@ -66,7 +66,7 @@ const experiences: Experience[] = [
   },
   {
     id: 5,
-    role: "Founding Team Lead",
+    role: "Founding Team Member",
     company: "Medoc",
     duration: "Jul 2022 - Mar 2023",
     location: "Remote",

@@ -14,67 +14,98 @@ interface Experience {
 const experiences: Experience[] = [
   {
     id: 1,
-    role: "Director, Experience",
+    role: "Product & Operations Lead",
     company: "Medoc",
     duration: "Aug 2025 - Present",
-    location: "Mohali district, India · Hybrid",
-    skills: "Product Operations • Go-to-Market",
+    location: "Sahibzada Ajit Singh Nagar, Punjab, India · On-site",
+    skills: "Product Operations • Enterprise Implementation",
     description: [
-      "Designed a repeatable implementation framework for hospital adoption and product rollout.",
-      "Aligned customer success, product, and growth around shared adoption metrics.",
-      "Focused leadership on operational clarity instead of feature velocity.",
+      "Lead cross-functional execution across Product, Engineering, Sales, Customer Success, and Operations.",
+      "Drive implementation strategy and customer onboarding for enterprise healthcare clients.",
+      "Build operational systems, hiring frameworks, and training processes to improve execution quality.",
+      "Work with leadership on product strategy, retention, revenue growth, and organizational scaling.",
+      "Act as the bridge between customer feedback, business priorities, and product development.",
     ],
   },
   {
     id: 2,
     role: "Enterprise Account Executive",
-    company: "ClearTax",
+    company: "Clear",
     duration: "Jan 2025 - Jul 2025",
-    location: "Bengaluru, India · On-site",
-    skills: "Enterprise GTM • Revenue Operations",
+    location: "Bengaluru, Karnataka, India · On-site",
+    skills: "Enterprise Sales • Revenue Operations",
     description: [
-      "Drove commercial conversations for tax-tech with CFOs and finance leaders.",
-      "Built sales and onboarding processes that translated product value into executive confidence.",
-      "Used customer insight to improve go-to-market messaging and adoption handoffs.",
+      "Managed enterprise conversations with CFOs, Finance Heads, and business leaders across mid-market and enterprise organizations.",
+      "Consistently ranked among top-performing SDRs and Account Executives during onboarding and ramp-up.",
+      "Executed end-to-end sales cycles including prospecting, demos, stakeholder management, and deal closure.",
+      "Developed a strong understanding of revenue operations, customer pain points, and B2B buying behavior.",
     ],
   },
   {
     id: 3,
-    role: "Chief Technology Officer",
+    role: "Product Manager",
     company: "Medoc",
-    duration: "Apr 2024 - Jan 2025",
-    location: "Remote · Hybrid",
-    skills: "Team Leadership • Systems Design",
+    duration: "Mar 2023 - Jan 2025",
+    location: "Remote",
+    skills: "Product Strategy • Healthcare Workflow",
     description: [
-      "Shifted the organization from reactive execution to a structured operating cadence.",
-      "Built a core product team and introduced release governance with customer signals.",
-      "Transformed technical planning into measurable business outcomes.",
+      "Owned product strategy and execution for DocAssist, a platform streamlining clinical and hospital workflows.",
+      "Led design, prioritization, and rollout of OPD/IPD management, surgery workflows, clinical documentation, and AI-assisted prescription generation.",
+      "Translated customer feedback into product improvements and scalable workflows with engineering and leadership.",
+      "Established product processes, requirement frameworks, and cross-functional collaboration to improve delivery.",
+      "Recruited, mentored, and managed an early product team that later transitioned into core product, operations, and technology roles.",
     ],
   },
   {
     id: 4,
-    role: "Product Head",
+    role: "Founding Member",
     company: "Medoc",
-    duration: "Mar 2023 - Apr 2024",
+    duration: "Jul 2022 - Mar 2023",
     location: "Remote",
-    skills: "Product Strategy • Workflow Design",
+    skills: "Startup Execution • Product Delivery",
     description: [
-      "Created clinical workflows for doctors across IPD, OPD, and surgery planning.",
-      "Introduced a simple onboarding playbook to reduce adoption friction.",
-      "Connected product decisions to retention, workflow efficiency, and revenue.",
+      "Joined as an intern and contributed to early product development, feature delivery, and technical execution.",
+      "Helped move the idea from whiteboards to customer-ready product using Flutter and rapid shipping.",
+      "Built early product habits and delivery routines that supported the company’s first growth stage.",
     ],
   },
   {
     id: 5,
-    role: "Founding Team Member",
-    company: "Medoc",
-    duration: "Jul 2022 - Mar 2023",
-    location: "Remote",
-    skills: "Early-stage Strategy • Execution",
+    role: "Flutter Developer",
+    company: "Appable",
+    duration: "Jul 2023 - Nov 2023",
+    location: "Hybrid",
+    skills: "Flutter • Product Execution",
     description: [
-      "Joined when strategy lived on whiteboards and made it executable across teams.",
-      "Launched Medoc’s early roadmap with a focus on repeatable implementation.",
-      "Turned informal feedback into structured cycles for product learning.",
+      "Delivered production-ready Flutter applications from design concepts to deployment for client-facing solutions.",
+      "Collaborated directly with stakeholders to translate business requirements into scalable product experiences.",
+      "Owned frontend, backend integration, testing, and deployment for lean mobile projects.",
+    ],
+  },
+  {
+    id: 6,
+    role: "Content Team Lead",
+    company: "Hackoverflow Society",
+    duration: "Aug 2022 - Dec 2022",
+    location: "Chandigarh, India",
+    skills: "Content Strategy • Community Engagement",
+    description: [
+      "Led content and communication for one of the college’s largest technical communities.",
+      "Coordinated design, operations, and event teams for marketing campaigns, workshops, and engagement drives.",
+      "Managed content planning, execution, and stakeholder coordination for student-led initiatives.",
+    ],
+  },
+  {
+    id: 7,
+    role: "Technical Content Writer",
+    company: "Code With Harry",
+    duration: "Sep 2022 - Oct 2022",
+    location: "Remote",
+    skills: "Web Content Writing • CSS",
+    description: [
+      "Created beginner-friendly HTML and CSS learning content for Code With Harry’s platform.",
+      "Structured tutorials that simplified complex concepts for large audiences.",
+      "Collaborated on educational resources used by aspiring developers across India.",
     ],
   },
 ];
@@ -87,9 +118,9 @@ const Work: React.FC = () => {
         <div className="grid gap-16 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="sticky top-28 self-start space-y-6">
             <p className="text-sm uppercase tracking-[0.35em] text-slate-600">Experience</p>
-            <h2 className="text-4xl md:text-5xl font-semibold text-slate-950">A layered journey across product, ops, and growth.</h2>
+            <h2 className="text-4xl md:text-5xl font-semibold text-slate-950">Career experience across product, operations, and enterprise delivery.</h2>
             <p className="text-base text-slate-700 leading-relaxed">
-              Roles and transitions that moved from execution to systems leadership, with a focus on adoption, implementation, and narrative.
+              Roles grounded in customer adoption, execution quality, and repeatable systems.
             </p>
           </div>
 

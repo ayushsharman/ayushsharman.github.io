@@ -33,7 +33,7 @@ const Home = () => {
       <div className="relative z-10 grid min-h-screen lg:grid-cols-[1fr_1fr]">
 
         {/* LEFT SIDE */}
-        <div className="flex flex-col justify-center px-8 pt-20 pb-40 lg:px-20 relative z-10">
+        <div className="flex flex-col justify-center px-6 pt-20 pb-36 sm:px-10 lg:px-20 relative z-10">
 
           <p className="mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.5em] text-[#c1440e]">
             <span className="text-base">✳</span>
@@ -53,7 +53,7 @@ const Home = () => {
             </p>
           </div>
 
-          <p className="mb-8 max-w-[520px] text-[19px] leading-[1.9] text-slate-700">
+          <p className="mb-8 max-w-[520px] sm:max-w-[620px] text-[19px] leading-[1.9] text-slate-700">
             I work at the intersection of operations, product thinking,
             and digital narratives. Currently helping scale healthcare
             systems at{" "}
@@ -91,12 +91,12 @@ const Home = () => {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden min-h-[560px] md:min-h-[660px] lg:min-h-full">
 
           {/* BIG AMBIENT CIRCLE */}
           <motion.div
             style={{ y: floatA }}
-            className="absolute right-[-120px] top-1/2 z-0 h-[780px] w-[780px] -translate-y-1/2 rounded-full bg-[#d9cfc0]/70"
+            className="absolute right-[-110px] top-1/2 z-0 h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-[#d9cfc0]/70 md:right-[-100px] md:h-[620px] md:w-[620px] lg:right-[-120px] lg:h-[780px] lg:w-[780px]"
           />
 
           {/* DOT PATTERN */}
@@ -119,11 +119,11 @@ const Home = () => {
           <img
             src="/professional image bg removed.png"
             alt="Ayush Sharma"
-            className="absolute bottom-0 right-0 z-10 h-[92%] w-auto object-cover object-bottom"
+            className="absolute bottom-0 right-0 z-10 h-[58vh] max-h-[700px] w-auto max-w-full object-cover object-bottom sm:h-[72vh] lg:h-[92%]"
           />
 
           {/* FLOATING INFO CARD */}
-          <div className="absolute left-[20px] top-1/2 z-20 w-[260px] -translate-y-1/2 rounded-[28px] border border-white/40 bg-white/75 p-5 backdrop-blur-xl shadow-[0_25px_70px_-20px_rgba(15,23,42,0.2)]">
+          <div className="absolute left-4 top-1/2 z-20 w-[calc(100%-32px)] max-w-[320px] -translate-y-1/2 rounded-[28px] border border-white/40 bg-white/75 p-5 backdrop-blur-xl shadow-[0_25px_70px_-20px_rgba(15,23,42,0.2)] lg:left-[20px] lg:w-[260px]">
             {[
               {
                 icon: "⚕",

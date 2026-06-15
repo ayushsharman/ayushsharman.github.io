@@ -3,40 +3,40 @@ import { motion } from "framer-motion";
 const Resume = () => {
   const thinking = [
     {
-      title: "Adoption matters more than features",
-      type: "Essay",
+      title: "Your North Star Metric won't save you",
+      type: "LinkedIn Post",
       summary:
-        "A practical framework for prioritizing product habits, onboarding, and the systems that turn new users into repeat users.",
-      url: "#",
+        "The North Star is useful, but the real work begins with the L1 metrics that feed it — appointment bookings, retention, show-up rates, and operational rhythm.",
+      url: "https://www.linkedin.com/posts/ayush-sharman_productmanagement-northstarmetrics-strategy-activity-7471046731036577792-SHPz",
     },
     {
-      title: "Scaling hospital implementation systems",
-      type: "Case note",
+      title: "The only unfair advantage you actually control",
+      type: "LinkedIn Post",
       summary:
-        "How operational clarity, repeatable handoffs, and simple playbooks lower risk when scaling across clinical partners.",
-      url: "#",
+        "A morning routine isn't about hustle; it's about removing low-level distractions so energy can stay focused on meaningful work.",
+      url: "https://www.linkedin.com/posts/ayush-sharman_writer-content-startup-activity-7467772396779773952-wy9z",
     },
     {
-      title: "Why narrative shapes trust faster than roadmaps",
-      type: "Video insight",
+      title: "Nothing gets done until someone does the work",
+      type: "LinkedIn Post",
       summary:
-        "The role of narrative in early-stage product adoption, team alignment, and the way audiences perceive capability.",
-      url: "#",
+        "When work piles up, the best move is simple: finish one thing, then the next. Momentum solves more than overthinking.",
+      url: "https://www.linkedin.com/posts/ayush-sharman_founder-writer-ayush-activity-7460179901090807808-O_I5",
     },
     {
-      title: "Designing teams for execution at speed",
-      type: "Framework",
+      title: "Stop thinking like an employee if you want to freelance",
+      type: "Video Playlist",
       summary:
-        "A concise operating model for product teams that need direction, accountability, and momentum without noise.",
-      url: "#",
+        "A curated workshop on building freelance momentum, client work, and independent execution.",
+      url: "https://www.youtube.com/playlist?list=PL2sJZ4Zbn0xtsblnJRqKLrp1HwF-Y9PCo",
     },
   ];
 
   const principles = [
-    "Adoption beats feature velocity.",
+    "Adoption is the only feature that matters.",
     "Systems outperform motivation.",
     "Most scaling problems are operational, not technical.",
-    "Narrative is the frame that makes strategy understandable.",
+    "Every metric has a human behavior underneath it.",
   ];
 
   return (

@@ -119,7 +119,8 @@ const Home = () => {
           <img
             src="/professional image bg removed.png"
             alt="Ayush Sharma"
-            className="absolute bottom-0 right-0 z-10 h-[58vh] max-h-[700px] w-auto max-w-full object-cover object-bottom sm:h-[72vh] lg:h-[92%]"
+            className="absolute bottom-0 right-0 z-10 h-[92%] w-auto object-cover object-bottom"
+           
           />
 
           {/* FLOATING INFO CARD */}

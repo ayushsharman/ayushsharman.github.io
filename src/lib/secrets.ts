@@ -1,6 +1,6 @@
 import { safeStorage } from './motion';
 
-export type SecretId = 'name-thrown' | 'chat-complete' | 'konami' | 'reconcile-done' | 'loop-watched' | 'p0-sorted';
+export type SecretId = 'name-thrown' | 'chat-complete' | 'konami' | 'reconcile-done' | 'loop-watched' | 'p0-sorted' | 'mrr-watched';
 export type Secret = { id: SecretId; title: string; hint: string };
 
 // The live secrets. Each simulation adds one.
@@ -11,6 +11,7 @@ export const SECRETS: Secret[] = [
   { id: 'reconcile-done', title: 'watched the books close', hint: 'let the agent close the books' },
   { id: 'loop-watched', title: 'watched the list shrink', hint: 'the agents never sleep' },
   { id: 'p0-sorted', title: 'sorted the P0s', hint: 'busy is not a metric' },
+  { id: 'mrr-watched', title: 'watched it compound', hint: 'the first repo' },
 ];
 
 const KEY = 'secrets-v1';

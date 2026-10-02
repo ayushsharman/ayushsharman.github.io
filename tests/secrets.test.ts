@@ -40,7 +40,7 @@ describe('createSecrets', () => {
     createSecrets(mem()).unlock('chat-complete');
     expect(seen[0]).toEqual({ id: 'chat-complete', title: 'asked everything', count: 1, total: SECRETS.length });
   });
-  it('phase 2 brings the live total to six', () => {
-    expect(SECRETS.map((x) => x.id)).toEqual(['name-thrown', 'chat-complete', 'konami', 'reconcile-done', 'loop-watched', 'p0-sorted']);
+  it('phase 3 brings the live total to seven', () => {
+    expect(SECRETS.map((x) => x.id)).toEqual(['name-thrown', 'chat-complete', 'konami', 'reconcile-done', 'loop-watched', 'p0-sorted', 'mrr-watched']);
   });
 });

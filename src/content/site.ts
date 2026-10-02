@@ -1,4 +1,4 @@
-export type WorkEntry = { n: string; slug: string; title: string; line: string; trace: string[]; org: 'clear' | 'medoc'; year: string; game?: 'reconcile' | 'loop' | 'p0' };
+export type WorkEntry = { n: string; slug: string; title: string; line: string; trace: string[]; org: 'clear' | 'medoc'; year: string; game?: 'reconcile' | 'loop' | 'p0' | 'mrr' };
 
 export const work: WorkEntry[] = [
   {
@@ -12,7 +12,7 @@ export const work: WorkEntry[] = [
     trace: ['ok look', 'ok name the work', '? ask', 'ok learn'],
   },
   {
-    n: '03', slug: 'first-repo-to-10l-mrr', title: 'From first repo to ₹10L MRR', org: 'medoc', year: '2022 to 2026',
+    n: '03', slug: 'first-repo-to-10l-mrr', title: 'From first repo to ₹10L MRR', org: 'medoc', year: '2022 to 2026', game: 'mrr',
     line: 'Four years building a healthcare company from day one: 2 pilot clinics to 20+ hospitals, 5 people to 50, ₹0 to ₹10L+ a month.',
     trace: ['founding member', 'product head', 'cto', 'director'],
   },

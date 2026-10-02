@@ -1,14 +1,32 @@
 import { describe, it, expect } from 'vitest';
-import { privateQuip, PRIVATE_QUIPS } from '../src/lib/quips';
+import { quipFor, PRIVATE_QUIPS, ASK_NICELY } from '../src/lib/quips';
 
-describe('privateQuip', () => {
-  it('escalates one line per click', () => {
-    expect(privateQuip(1)).toBe(PRIVATE_QUIPS[0]);
-    expect(privateQuip(2)).toBe(PRIVATE_QUIPS[1]);
+const seq = (...vals: number[]) => { let i = 0; return () => vals[i++ % vals.length]; };
+
+describe('quipFor', () => {
+  it('a pool of nine random lines, plus ask nicely kept apart', () => {
+    expect(PRIVATE_QUIPS.length).toBe(9);
+    expect(new Set(PRIVATE_QUIPS).size).toBe(9);
+    expect(PRIVATE_QUIPS).not.toContain(ASK_NICELY);
   });
-  it('stays on the last line, which points to contact, however many times it is clicked', () => {
-    expect(privateQuip(PRIVATE_QUIPS.length)).toMatch(/ask me/);
-    expect(privateQuip(99)).toBe(PRIVATE_QUIPS.at(-1));
+  it('clicks one and two are random lines from the pool', () => {
+    expect(quipFor(1, null, seq(0))).toBe(PRIVATE_QUIPS[0]);
+    expect(quipFor(2, PRIVATE_QUIPS[0], seq(0.99))).toBe(PRIVATE_QUIPS[8]);
+    expect(PRIVATE_QUIPS).toContain(quipFor(1, null));
   });
-  it('treats zero or negative clicks as the first', () => expect(privateQuip(0)).toBe(PRIVATE_QUIPS[0]));
+  it('click two never repeats click one', () => {
+    const first = quipFor(1, null, seq(0.5));
+    expect(quipFor(2, first, seq(0.5))).not.toBe(first);
+  });
+  it('click three is always ask me nicely', () => {
+    for (let i = 0; i < 20; i++) expect(quipFor(3, 'anything')).toBe(ASK_NICELY);
+  });
+  it('over many visits, every pool line turns up', () => {
+    const seen = new Set<string>();
+    for (let i = 0; i < 400; i++) { const a = quipFor(1, null); seen.add(a); seen.add(quipFor(2, a)); }
+    expect(seen.size).toBe(9);
+  });
+  it('no line carries a dash or an emoji', () => {
+    for (const q of [...PRIVATE_QUIPS, ASK_NICELY]) expect(/[\u2013\u2014]|[\u{1F300}-\u{1FAFF}]/u.test(q)).toBe(false);
+  });
 });

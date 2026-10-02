@@ -1,0 +1,47 @@
+---
+import { timeline, achievements, skills, links } from '../content/site';
+interface Props { overlay?: boolean }
+const { overlay = false } = Astro.props;
+---
+<div id={overlay ? 'experience' : undefined} class:list={['exp', { overlay }]} hidden={overlay} role={overlay ? 'dialog' : undefined} aria-modal={overlay ? 'true' : undefined} aria-label="Full experience">
+  <div class="top">
+    <p class="label">// full_experience</p>
+    {overlay ? <button class="close mono" type="button" data-close>close [esc]</button> : <a class="close mono" href="/">home</a>}
+  </div>
+  <h2 class="h2">Everything, in one place.</h2>
+  <ol class="tl">
+    {timeline.map((t) => (
+      <li><span class="when mono">{t.when}</span><span><span class="role">{t.role}</span> <span class="org">{t.org}</span><span class="line">{t.line}</span></span></li>
+    ))}
+  </ol>
+  <div class="cols">
+    <div><p class="label">// things_ive_done</p><ul>{achievements.map((a) => <li>{a}</li>)}</ul></div>
+    <div>
+      <p class="label">// work_with</p><ul>{skills.map((s) => <li>{s}</li>)}</ul>
+      <a class="cv mono" href={`mailto:${links.email}`}>{links.email}</a>
+      <a class="cv mono" href={links.calendar} target="_blank" rel="noopener">book a call &rarr;</a>
+    </div>
+  </div>
+</div>
+{overlay && (
+  <script>
+    import { createOverlay } from '../lib/overlay';
+    createOverlay(document.getElementById('experience')!, { path: '/experience' });
+  </script>
+)}
+<style>
+  .exp { padding: 110px var(--gutter); background: var(--bg); }
+  .overlay { position: fixed; inset: 0; z-index: 90; overflow-y: auto; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; }
+  .close { font-size: 12px; color: var(--mute); background: none; border: 1px solid var(--line); padding: 8px 12px; border-radius: var(--radius-sm); cursor: pointer; text-decoration: none; }
+  .tl { list-style: none; padding: 0; margin-top: 40px; border-top: 1px solid var(--line); }
+  .tl li { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .when { font-size: 12px; color: var(--mute); }
+  .role { font-size: 22px; font-weight: 500; }
+  .org { color: var(--acc); font-family: var(--font-mono); font-size: 13px; margin-left: 8px; }
+  .line { display: block; color: var(--mute); margin-top: 6px; font-size: 15px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; margin-top: 60px; }
+  .cols ul { list-style: none; padding: 0; display: grid; gap: 10px; color: var(--fg); font-size: 15px; }
+  .cv { display: block; margin-top: 18px; font-size: 13px; color: var(--acc); }
+  @media (max-width: 720px) { .exp { padding: 80px var(--gutter); } .tl li, .cols { grid-template-columns: 1fr; } .tl li { gap: 6px; } }
+</style>

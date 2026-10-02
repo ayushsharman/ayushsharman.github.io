@@ -1,6 +1,7 @@
 <nav class="nav" aria-label="main">
   <a href="/" class="mono">ayush sharma</a>
   <span class="links">
+    <button class="sx-open" type="button" data-secrets-open aria-controls="secrets-panel"><span class="sx-word">secrets </span><span data-secrets-count>0/4</span></button>
     <a href="/#ask">ask</a><a href="/#work">work</a><a href="/#writing">writing</a><a href="/#contact">contact</a>
   </span>
 </nav>
@@ -8,5 +9,6 @@
   .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 22px var(--gutter); mix-blend-mode: difference; color: #fff; font-family: var(--font-mono); font-size: 12px; }
   a { text-decoration: none; }
   .links a { margin-left: 26px; }
-  @media (max-width: 720px) { .links a { margin-left: 14px; } }
+  .sx-open { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  @media (max-width: 720px) { .links a { margin-left: 14px; } .sx-word { display: none; } }
 </style>

@@ -8,7 +8,7 @@ export const SECRETS: Secret[] = [
   { id: 'name-thrown', title: 'threw the founder', hint: 'the name can take it' },
   { id: 'chat-complete', title: 'asked everything', hint: "ask until there's nothing left" },
   { id: 'konami', title: 'up up down down', hint: 'you know the code' },
-  { id: 'reconcile-done', title: 'closed the books', hint: 'close the books' },
+  { id: 'reconcile-done', title: 'watched the books close', hint: 'let the agent close the books' },
 ];
 
 const KEY = 'secrets-v1';

@@ -18,7 +18,7 @@ export function createChatState(items: ChatItem[]) {
 
 const MAX_BUBBLES = 8;
 
-export function mountChat(root: HTMLElement, script: { greeting: string; items: ChatItem[] }) {
+export function mountChat(root: HTMLElement, script: { greeting: string; items: ChatItem[] }, opts: { onComplete?: () => void } = {}) {
   const thread = root.querySelector<HTMLElement>('[data-thread]')!;
   const chips = root.querySelector<HTMLElement>('[data-chips]')!;
   const state = createChatState(script.items);
@@ -41,6 +41,7 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
 
   let queue: Promise<void> = Promise.resolve();
   let lastUse = -Infinity;
+  let completed = false;
   const converse = (item: ChatItem) => new Promise<void>((resolve) => {
     bubble('u', item.q);
     const typing = document.createElement('div');
@@ -49,7 +50,12 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
     typing.innerHTML = '<i></i><i></i><i></i>';
     thread.appendChild(typing);
     const wait = prefersReducedMotion() ? 0 : 650 + Math.min(900, item.a.length * 8);
-    setTimeout(() => { typing.remove(); bubble('a', item.a, item.link); resolve(); }, wait);
+    setTimeout(() => {
+      typing.remove();
+      bubble('a', item.a, item.link);
+      if (!state.remaining().length && !completed) { completed = true; opts.onComplete?.(); }
+      resolve();
+    }, wait);
   });
 
   const renderChips = () => {

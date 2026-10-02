@@ -13,7 +13,8 @@
 <script>
   import { mountChat } from '../lib/chat';
   import { chatScript } from '../content/chat';
-  mountChat(document.getElementById('ask')!, chatScript);
+  import { unlock } from '../lib/secrets';
+  mountChat(document.getElementById('ask')!, chatScript, { onComplete: () => unlock('chat-complete') });
 </script>
 <style>
   .iv { display: grid; grid-template-columns: .8fr 1.2fr; gap: 6vw; align-items: start; }

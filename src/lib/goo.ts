@@ -8,7 +8,10 @@ export function createGoo(stage: HTMLElement, gooEl: HTMLElement) {
     b.className = 'blob';
     b.style.width = b.style.height = `${z}px`;
     gooEl.appendChild(b);
-    return { b, x: stage.clientWidth * 0.62, y: stage.clientHeight * 0.48, z };
+    const x = stage.clientWidth * 0.62, y = stage.clientHeight * 0.48;
+    // Draw once at rest, so with motion turned off the blob still sits in place.
+    b.style.transform = `translate(${x - z / 2}px,${y - z / 2}px)`;
+    return { b, x, y, z };
   });
   let mx = 0, my = 0, idle = true, idleTimer = 0, t = 0;
   const point = (x: number, y: number) => {

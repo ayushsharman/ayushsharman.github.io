@@ -1,6 +1,6 @@
 import { safeStorage } from './motion';
 
-export type SecretId = 'name-thrown' | 'chat-complete' | 'konami' | 'reconcile-done' | 'loop-watched' | 'p0-sorted' | 'mrr-watched';
+export type SecretId = 'name-thrown' | 'chat-complete' | 'claude-typed' | 'reconcile-done' | 'loop-watched' | 'p0-sorted' | 'mrr-watched';
 export type Secret = { id: SecretId; title: string; hint: string };
 
 // The live secrets. Each simulation adds one. Hints are plain instructions, not riddles: the owner
@@ -8,7 +8,7 @@ export type Secret = { id: SecretId; title: string; hint: string };
 export const SECRETS: Secret[] = [
   { id: 'name-thrown', title: 'threw the founder', hint: 'click my name at the top, or the "click my name." button' },
   { id: 'chat-complete', title: 'asked everything', hint: 'ask every question in the chat, all of them' },
-  { id: 'konami', title: 'up up down down', hint: 'type ↑ ↑ ↓ ↓ ← → ← → B A anywhere on the page' },
+  { id: 'claude-typed', title: 'claudemaxxed', hint: 'type "claude" anywhere on the page' },
   { id: 'reconcile-done', title: 'watched the books close', hint: 'press [ watch ] on 01 and let it finish' },
   { id: 'loop-watched', title: 'watched the list shrink', hint: 'press [ watch ] on 02 and let it finish' },
   { id: 'p0-sorted', title: 'sorted the P0s', hint: 'press [ watch ] on 04 and let it finish' },

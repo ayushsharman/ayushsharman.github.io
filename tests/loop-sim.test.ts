@@ -54,7 +54,16 @@ describe('mountLoopSim', () => {
     const seen: string[] = [];
     window.addEventListener('secret:unlocked', (e) => seen.push((e as CustomEvent).detail.id));
     const stop = mountLoopSim(panel);
-    vi.advanceTimersByTime(800); stop(); vi.advanceTimersByTime(10000);
+    vi.advanceTimersByTime(800); stop();
+    const frozen = panel.innerHTML;
+    vi.advanceTimersByTime(10000);
+    expect(panel.innerHTML).toBe(frozen); // the scene froze, whatever the shared secrets store already holds
     expect(seen).not.toContain('loop-watched');
+  });
+  it('replay keeps keyboard focus inside the scene', () => {
+    motion(false);
+    mountLoopSim(panel);
+    panel.querySelector<HTMLButtonElement>('[data-replay-sim]')!.click();
+    expect(panel.contains(document.activeElement)).toBe(true);
   });
 });

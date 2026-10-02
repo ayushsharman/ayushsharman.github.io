@@ -31,7 +31,7 @@ export function mountP0Sim(panel: HTMLElement): () => void {
   root.innerHTML = `
     <div class="g-head">
       <p class="g-title" data-scene>busy: every request is urgent to whoever sent it</p>
-      <p class="g-meta mono">tickets / month <b data-tickets>12</b> &middot; go-live <b data-golive>${o.goLiveBefore} days</b> &middot; ${P0_DEMO.label}</p>
+      <p class="g-meta mono">tickets / month <b data-tickets>${o.ticketsBefore}</b> &middot; go-live <b data-golive>${o.goLiveBefore} days</b> &middot; ${P0_DEMO.label}</p>
     </div>
     <div class="p0-inbox" data-inbox></div>
     <div class="p0-buckets" data-buckets hidden>
@@ -42,6 +42,7 @@ export function mountP0Sim(panel: HTMLElement): () => void {
     <ul class="p0-check mono" data-check hidden></ul>
     <p class="g-status mono" data-status aria-live="polite"></p>
     <div class="g-actions" data-actions></div>`;
+  root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
   panel.appendChild(root);
   const $ = (sel: string) => root.querySelector<HTMLElement>(sel)!;
   const set = (sel: string, t: string) => { $(sel).textContent = t; };
@@ -58,7 +59,8 @@ export function mountP0Sim(panel: HTMLElement): () => void {
     cards.set(r.id, c);
   });
   step(200, () => { cards.forEach((c) => c.classList.add('stalled')); set('[data-status]', 'everyone works on everything. every bar stops at 40%.'); });
-  for (const n of ['19', '26', '31']) step(160, () => set('[data-tickets]', n));
+  // The counter shows only Medoc's real figures: it pulses while busy, it never counts invented numbers.
+  step(480, () => $('[data-tickets]').classList.add('hot'));
   step(300, () => set('[data-status]', 'everything is P0, so nothing is.'));
 
   // The system.
@@ -76,11 +78,12 @@ export function mountP0Sim(panel: HTMLElement): () => void {
   step(200, () => { $('[data-check]').hidden = false; });
   for (const item of P0_DEMO.checklist) step(120, () => $('[data-check]').insertAdjacentHTML('beforeend', `<li>ok ${item}</li>`));
   step(300, () => {
+    $('[data-tickets]').classList.remove('hot');
     set('[data-tickets]', o.ticketsAfter);
     set('[data-golive]', `${o.goLiveAfter} days`);
     set('[data-status]', `busy is not a metric. at Medoc: support tickets a month ${o.ticketsBefore} to ${o.ticketsAfter}, go-live ${o.goLiveBefore} days to ${o.goLiveAfter}.`);
     $('[data-actions]').innerHTML = '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
-    $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => mountP0Sim(panel);
+    $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountP0Sim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('p0-sorted');
   });
   return tl.play(SCENE_MS);

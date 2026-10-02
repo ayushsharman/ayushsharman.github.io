@@ -24,6 +24,7 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
     <pre class="g-term mono" data-term hidden></pre>
     <p class="g-status mono" data-status aria-live="polite"></p>
     <div class="g-actions" data-actions></div>`;
+  root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
   panel.appendChild(root);
 
   const lines = new Map<string, HTMLElement>();
@@ -103,7 +104,7 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
     $('[data-actions]').innerHTML =
       DEMO.decisions.map((d) => `<span class="dec mono" data-decision="${d.id}">for a human: ${d.label}</span>`).join('') +
       '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
-    $('[data-actions]').querySelector<HTMLButtonElement>('[data-replay-sim]')!.onclick = () => mountReconcileSim(panel);
+    $('[data-actions]').querySelector<HTMLButtonElement>('[data-replay-sim]')!.onclick = () => { mountReconcileSim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('reconcile-done');
   });
   agentTo = tl.mark();

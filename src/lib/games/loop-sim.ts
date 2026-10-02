@@ -43,6 +43,7 @@ export function mountLoopSim(panel: HTMLElement): () => void {
     <div class="lp-bars" data-bars hidden></div>
     <p class="g-status mono" data-status aria-live="polite"></p>
     <div class="g-actions" data-actions></div>`;
+  root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
   panel.appendChild(root);
   const $ = (sel: string) => root.querySelector<HTMLElement>(sel)!;
   const set = (sel: string, t: string) => { $(sel).textContent = t; };
@@ -115,7 +116,7 @@ export function mountLoopSim(panel: HTMLElement): () => void {
     bars.innerHTML = row('report', [12, 12, 12]) + row('loop', [12, 7, 4]);
     set('[data-status]', 'a report stays the same size. a loop gets smaller.');
     $('[data-actions]').innerHTML = '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
-    $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => mountLoopSim(panel);
+    $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountLoopSim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('loop-watched');
   });
   return tl.play(SCENE_MS);

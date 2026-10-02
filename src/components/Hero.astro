@@ -8,7 +8,7 @@ const lines = ['AYUSH', 'SHARMA'];
   </h1>
   <div class="sub">
     <p>Founding Forward Deployed Engineer at Clear. I build agents that do the actual work, and I say very little about it.</p>
-    <span class="mono hint"><button type="button" class="throw" data-throw>click my name.</button> it can take it.</span>
+    <span class="mono hint"><button type="button" class="throw" data-throw aria-label="throw my name">click my name.</button> <span class="rm-on">it can take it.</span><span class="rm-off">motion is off, so it stays put.</span></span>
   </div>
 </section>
 <script>
@@ -37,6 +37,7 @@ const lines = ['AYUSH', 'SHARMA'];
   .sub p { font-size: 19px; max-width: 520px; color: var(--fg-soft); line-height: 1.45; mix-blend-mode: difference; }
   .hint { font-size: 12px; color: var(--mute); }
   .throw { font: inherit; color: var(--acc); background: none; border: 0; padding: 0; cursor: pointer; }
-  @media (prefers-reduced-motion: reduce) { .hint { display: none; } }
+  .rm-off { display: none; }
+  @media (prefers-reduced-motion: reduce) { .rm-on { display: none; } .rm-off { display: inline; } }
   @media (max-width: 720px) { .ln { font-size: 22vw; } .name { top: 16vh; } .sub { flex-direction: column; align-items: flex-start; gap: 14px; } .sub p { font-size: 16px; } }
 </style>

@@ -50,7 +50,23 @@ describe('mountP0Sim', () => {
     const seen: string[] = [];
     window.addEventListener('secret:unlocked', (e) => seen.push((e as CustomEvent).detail.id));
     const stop = mountP0Sim(panel);
-    vi.advanceTimersByTime(800); stop(); vi.advanceTimersByTime(10000);
+    vi.advanceTimersByTime(800); stop();
+    const frozen = panel.innerHTML;
+    vi.advanceTimersByTime(10000);
+    expect(panel.innerHTML).toBe(frozen);
     expect(seen).not.toContain('p0-sorted');
+  });
+  it('the ticket counter only ever shows Medoc\'s real figures, never invented ones', () => {
+    motion(true);
+    mountP0Sim(panel);
+    const shown = new Set<string>();
+    for (let t = 0; t < 3300; t += 50) { vi.advanceTimersByTime(50); shown.add($('[data-tickets]').textContent!); }
+    expect([...shown].sort()).toEqual(['30+', '4']);
+  });
+  it('replay keeps keyboard focus inside the scene', () => {
+    motion(false);
+    mountP0Sim(panel);
+    panel.querySelector<HTMLButtonElement>('[data-replay-sim]')!.click();
+    expect(panel.contains(document.activeElement)).toBe(true);
   });
 });

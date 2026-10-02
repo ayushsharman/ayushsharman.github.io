@@ -113,4 +113,10 @@ describe('review fixes', () => {
     mountReconcileSim(panel);
     expect(panel.querySelector('[data-clock]')!.textContent).not.toBe('0.1s');
   });
+  it('replay keeps keyboard focus inside the scene', () => {
+    motion(false);
+    mountReconcileSim(panel);
+    panel.querySelector<HTMLButtonElement>('[data-replay-sim]')!.click();
+    expect(panel.contains(document.activeElement)).toBe(true);
+  });
 });

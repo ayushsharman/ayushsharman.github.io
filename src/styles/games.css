@@ -76,3 +76,8 @@
   .p0-inbox { grid-template-columns: 1fr 1fr; }
   .p0-buckets { grid-template-columns: 1fr; }
 }
+
+.game:focus { outline: none; }
+.game:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.p0 .g-meta b.hot { color: var(--hot); animation: g-pulse var(--dur-slow) var(--ease-standard) infinite alternate; }
+@keyframes g-pulse { to { opacity: .45; } }

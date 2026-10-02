@@ -79,4 +79,19 @@ describe('mountMrrSim', () => {
     panel.querySelector<HTMLButtonElement>('[data-replay-sim]')!.click();
     expect(panel.contains(document.activeElement)).toBe(true);
   });
+  it('dates every figure: team only at the start and end, ₹1L first in 2024, ₹10L+ and 20+ only in 2026', () => {
+    motion(true);
+    mountMrrSim(panel);
+    const at: Record<string, { team: string; mrr: string; log: string }> = {};
+    for (let t = 0; t < 5300; t += 50) {
+      vi.advanceTimersByTime(50);
+      const year = $('[data-year]').textContent!;
+      at[year] = { team: $('[data-team]').textContent!, mrr: $('[data-mrr]').textContent!, log: panel.querySelector('[data-log] li:last-child')?.textContent ?? '' };
+    }
+    expect(at['2022'].team).toBe('5');
+    for (const y of ['2023', '2024', '2025']) expect(at[y].team).toBe('');
+    expect(at['2026'].team).toBe('50');
+    expect([at['2022'].mrr, at['2023'].mrr, at['2024'].mrr, at['2025'].mrr, at['2026'].mrr]).toEqual(['₹0', '₹0', '₹1L', '₹1L+', '₹10L+']);
+    for (const y of ['2022', '2023', '2024', '2025']) expect(at[y].log).not.toMatch(/₹10L\+|20\+/);
+  });
 });

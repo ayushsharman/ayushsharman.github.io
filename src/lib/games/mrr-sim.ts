@@ -10,7 +10,7 @@ export const MRR_DEMO = {
     { year: '2022', role: 'founding member', did: 'the first repo. nights and weekends, alongside a degree.', moved: '₹0 a month. a team of 5.', mrr: '₹0', team: '5' },
     { year: '2023', role: 'product head, DocAssist', did: 'user interviews on hospital floors. months of scattered asks turned into one MVP roadmap.', moved: '2 pilot clinics, then a 100-bed hospital.', mrr: '₹0' },
     { year: '2024', role: 'CTO', did: 'the platform, module by module, built for how staff actually work a shift.', moved: 'the first ₹1L a month.', mrr: '₹1L' },
-    { year: '2025', role: 'director, technical operations', did: 'revenue structured like a business. 10+ specialty workflows open a new segment.', moved: '10+ clinics, and a second line worth ₹1L+ a month.', mrr: '₹1L' },
+    { year: '2025', role: 'director, technical operations', did: 'revenue structured like a business. 10+ specialty workflows open a new segment.', moved: '10+ clinics, and a second line worth ₹1L+ a month.', mrr: '₹1L+' },
     { year: '2026', role: 'the result', did: '12 live modules, run by an operating system instead of by heroics.', moved: '₹10L+ MRR. 20+ hospitals. 1,000+ daily users. 5 people to 50.', mrr: '₹10L+', team: '50' },
   ] as Stage[],
   end: '₹0 to ₹10L+ a month. it compounded.',
@@ -62,7 +62,8 @@ export function mountMrrSim(panel: HTMLElement): () => void {
     set('[data-mrr]', st.mrr);
     $('[data-mrrbar]').style.width = `${VISUAL.bar[i]}%`;
     dots.forEach((d, j) => d.classList.toggle('on', j < VISUAL.dots[i]));
-    if (st.team) set('[data-team]', st.team);
+    // Notion gives the team size only at the start (5) and the end (50), so the years between show none.
+    set('[data-team]', st.team ?? '');
   }));
   tl.step(400, () => {
     set('[data-status]', MRR_DEMO.end);

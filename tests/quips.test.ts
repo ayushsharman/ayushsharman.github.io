@@ -27,6 +27,6 @@ describe('quipFor', () => {
     expect(seen.size).toBe(9);
   });
   it('no line carries a dash or an emoji', () => {
-    for (const q of [...PRIVATE_QUIPS, ASK_NICELY]) expect(/[–—]|[\u{1F300}-\u{1FAFF}]/u.test(q)).toBe(false);
+    for (const q of [...PRIVATE_QUIPS, ASK_NICELY]) expect(/[\u2013\u2014]|[\u{1F300}-\u{1FAFF}]/u.test(q)).toBe(false);
   });
 });

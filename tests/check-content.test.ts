@@ -3,7 +3,7 @@ import { findViolations } from '../scripts/check-content.mjs';
 
 describe('content gate', () => {
   it('flags em-dash, en-dash and emoji', () => {
-    const v = findViolations('a.md', 'one — two – three \u{1F680}');
+    const v = findViolations('a.md', 'one \u2014 two \u2013 three \u{1F680}');
     expect(v.map((x) => x.rule).sort()).toEqual(['em-dash', 'emoji', 'en-dash']);
   });
   it('flags banned strings case-insensitively', () => {

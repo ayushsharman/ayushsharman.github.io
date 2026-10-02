@@ -58,6 +58,7 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
       b.className = 'chip';
       b.textContent = i.q;
       b.onclick = () => {
+        stopAttract();
         const item = state.ask(i.id);
         if (!item) return;
         renderChips();
@@ -68,6 +69,43 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
     }));
   };
 
+  // Attract mode: until the first click, questions light up in turn and a ghost line types the lit
+  // one, so the chips read as something to press. Stops for good at the first click.
+  let attract: number[] = [];
+  let ghost: HTMLElement | null = null;
+  function stopAttract() {
+    attract.forEach((t) => { clearTimeout(t); clearInterval(t); });
+    attract = [];
+    chips.querySelectorAll('.lit').forEach((c) => c.classList.remove('lit'));
+    ghost?.remove();
+    ghost = null;
+  }
+  const startAttract = () => {
+    ghost = document.createElement('div');
+    ghost.className = 'ghost';
+    ghost.setAttribute('data-ghost', '');
+    ghost.setAttribute('aria-hidden', 'true');
+    thread.appendChild(ghost);
+    let n = 0, typer = 0;
+    const light = () => {
+      const all = [...chips.querySelectorAll<HTMLButtonElement>('.chip')];
+      if (!all.length || !ghost) return;
+      all.forEach((c) => c.classList.remove('lit'));
+      const chip = all[n++ % all.length];
+      chip.classList.add('lit');
+      const q = chip.textContent ?? '';
+      let k = 0;
+      clearInterval(typer);
+      typer = window.setInterval(() => {
+        if (ghost) ghost.textContent = `try: ${q.slice(0, ++k)}`;
+        if (k >= q.length) clearInterval(typer);
+      }, 35);
+      attract.push(typer);
+    };
+    attract.push(window.setTimeout(() => { light(); attract.push(window.setInterval(light, 2600)); }, 1200));
+  };
+
   bubble('a', script.greeting);
   renderChips();
+  if (!prefersReducedMotion()) startAttract();
 }

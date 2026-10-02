@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { createChatState, mountChat, type ChatItem } from '../src/lib/chat';
 import { chatScript } from '../src/content/chat';
 
@@ -57,6 +57,41 @@ describe('mountChat ordering', () => {
     await new Promise((r) => setTimeout(r, 20));
     const order = [...root.querySelectorAll('.b')].slice(1).map((b) => b.className.split(' ')[1]);
     expect(order).toEqual(['u', 'a', 'u', 'a']);
+  });
+});
+
+describe('mountChat attract mode', () => {
+  afterEach(() => vi.useRealTimers());
+  const mount = (reduced: boolean) => {
+    vi.useFakeTimers();
+    document.body.innerHTML = '<section id="ask"><div data-chips></div><div data-thread></div></section>';
+    window.matchMedia = (() => ({ matches: reduced })) as never;
+    const root = document.getElementById('ask')!;
+    mountChat(root, { greeting: 'hi', items });
+    return root;
+  };
+  const lit = (root: HTMLElement) => [...root.querySelectorAll('.chip.lit')].map((c) => c.textContent);
+  it('lights the questions one after another until the visitor clicks', () => {
+    const root = mount(false);
+    vi.advanceTimersByTime(2600);
+    expect(lit(root)).toEqual(['qa']);
+    expect(root.querySelector('[data-ghost]')!.textContent).toContain('qa');
+    vi.advanceTimersByTime(2600);
+    expect(lit(root)).toEqual(['qb']);
+  });
+  it('stops for good at the first click and removes the ghost line', () => {
+    const root = mount(false);
+    vi.advanceTimersByTime(2600);
+    root.querySelector<HTMLButtonElement>('.chip')!.click();
+    vi.advanceTimersByTime(10000);
+    expect(lit(root)).toEqual([]);
+    expect(root.querySelector('[data-ghost]')).toBeNull();
+  });
+  it('does nothing when motion is turned off', () => {
+    const root = mount(true);
+    vi.advanceTimersByTime(10000);
+    expect(lit(root)).toEqual([]);
+    expect(root.querySelector('[data-ghost]')).toBeNull();
   });
 });
 

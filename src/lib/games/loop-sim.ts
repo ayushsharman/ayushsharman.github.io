@@ -1,4 +1,4 @@
-import { createTimeline, LONG_SCENE_MS } from './timeline';
+import { createTimeline, LONG_SCENE_MS, announce } from './timeline';
 import { unlock } from '../secrets';
 
 type Item = { id: string; ref: string; what: string; vendor: string; risk?: string; rule?: boolean; closes?: 2 | 3 };
@@ -41,7 +41,8 @@ export function mountLoopSim(panel: HTMLElement): () => void {
     <div class="lp-list" data-list></div>
     <div class="lp-ask" data-ask hidden></div>
     <div class="lp-bars" data-bars hidden></div>
-    <p class="g-status mono" data-status aria-live="polite"></p>
+    <p class="g-status mono" data-status></p>
+    <p class="sr-only" data-live aria-live="polite"></p>
     <div class="g-actions" data-actions></div>`;
   root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
   panel.appendChild(root);
@@ -60,6 +61,13 @@ export function mountLoopSim(panel: HTMLElement): () => void {
   const live = () => LOOP_DEMO.items.filter((i) => !rows.get(i.id)!.classList.contains('gone')).length;
   const count = () => set('[data-count]', String(live()));
   const step = tl.step;
+  // Every count on screen comes from the data, so the story cannot drift from it.
+  const n = LOOP_DEMO.items.length;
+  const risky = LOOP_DEMO.items.filter((x) => x.risk).length;
+  const ruled = LOOP_DEMO.items.filter((x) => x.rule).length;
+  const closed2 = LOOP_DEMO.items.filter((x) => x.closes === 2).length;
+  const closed3 = LOOP_DEMO.items.filter((x) => x.closes === 3).length;
+  const day2 = n - ruled - closed2, day3 = day2 - closed3;
 
   // The report.
   step(200, () => set('[data-status]', 'a flat list. nothing says which line can stop the plant.'));
@@ -71,7 +79,7 @@ export function mountLoopSim(panel: HTMLElement): () => void {
   step(300, () => {
     rows.forEach((r) => { r.classList.remove('scan'); r.classList.add('again'); });
     set('[data-clock]', 'day 2 09:00');
-    set('[data-status]', 'day 2. the same twelve rows.');
+    set('[data-status]', `day 2. the same ${n} rows.`);
   });
   step(700, () => set('[data-status]', 'a report is the same size every day.'));
 
@@ -89,7 +97,7 @@ export function mountLoopSim(panel: HTMLElement): () => void {
       r.querySelector('.why')!.textContent = it.risk!;
     }
     for (const it of [...LOOP_DEMO.items.filter((x) => x.risk)].reverse()) list.prepend(rows.get(it.id)!);
-    set('[data-status]', 'ranked. the three that can stop a line come first, with the reason.');
+    set('[data-status]', `ranked. the ${risky} that can stop a line come first, with the reason.`);
   });
   step(400, () => {
     const ask = $('[data-ask]');
@@ -102,7 +110,7 @@ export function mountLoopSim(panel: HTMLElement): () => void {
   step(400, () => {
     for (const it of LOOP_DEMO.items) if (it.rule || it.closes === 2) rows.get(it.id)!.classList.add('gone');
     set('[data-clock]', 'day 2 06:00'); count();
-    set('[data-status]', 'day 2. the rule hides three, two arrived.');
+    set('[data-status]', `day 2. the rule hides ${ruled}, ${closed2} arrived.`);
   });
   step(400, () => {
     for (const it of LOOP_DEMO.items) if (it.closes === 3) rows.get(it.id)!.classList.add('gone');
@@ -113,8 +121,11 @@ export function mountLoopSim(panel: HTMLElement): () => void {
     bars.hidden = false;
     const row = (name: string, vals: number[]) =>
       `<div class="br"><span class="mono">${name}</span>${vals.map((v) => `<span class="bar" data-bar="${v}" style="--v:${v}"><b>${v}</b></span>`).join('')}</div>`;
-    bars.innerHTML = row('report', [12, 12, 12]) + row('loop', [12, 7, 4]);
+    bars.style.setProperty('--max', String(n));
+    bars.innerHTML = '<div class="br head mono"><span></span><span>day 1</span><span>day 2</span><span>day 3</span></div>' +
+      row('report', [n, n, n]) + row('loop', [n, day2, day3]);
     set('[data-status]', 'a report stays the same size. a loop gets smaller.');
+    announce($('[data-live]'), `the agent asked: ${LOOP_DEMO.question} you said yes. ${LOOP_DEMO.rule}. the list went from ${n} to ${day2} to ${day3}. a report stays the same size. a loop gets smaller.`, tl.instant);
     $('[data-actions]').innerHTML = '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
     $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountLoopSim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('loop-watched');

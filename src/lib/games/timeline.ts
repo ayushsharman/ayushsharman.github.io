@@ -30,3 +30,10 @@ export function createTimeline(owner: object) {
 // Per-scene running times. Reconcile reads best fast; the list and the P0 sort need a beat longer.
 export const SCENE_MS = 3000;
 export const LONG_SCENE_MS = 5000;
+
+// One announcement per scene, in its own polite live region. With motion off the scene builds its end
+// state in the same tick as the region, which screen readers skip, so the text lands a moment later.
+export function announce(live: HTMLElement, text: string, instant: boolean): void {
+  if (instant) window.setTimeout(() => { live.textContent = text; }, 120);
+  else live.textContent = text;
+}

@@ -14,11 +14,12 @@ const lines = ['AYUSH', 'SHARMA'];
 <script>
   import { createGoo } from '../lib/goo';
   import { createGravity } from '../lib/gravity';
+  import { unlock } from '../lib/secrets';
   const stage = document.getElementById('hero')!;
   const name = stage.querySelector<HTMLElement>('[data-name]')!;
   const goo = createGoo(stage, stage.querySelector<HTMLElement>('[data-goo]')!);
   const grav = createGravity(name, stage);
-  name.addEventListener('click', () => grav.blast());
+  name.addEventListener('click', () => { grav.blast(); unlock('name-thrown'); });
   goo.start();
   grav.start();
 </script>

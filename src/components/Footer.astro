@@ -1,8 +1,12 @@
+---
+import Secrets from './Secrets.astro';
+---
 <footer class="ft mono">
   <button type="button" data-replay>replay intro</button>
   <span>built with claude, obviously</span>
   <span>&copy; {new Date().getFullYear()} ayush sharma</span>
 </footer>
+<Secrets />
 <script>
   const replay = document.querySelector<HTMLButtonElement>('[data-replay]');
   // Only the home page has the boot; elsewhere the button would do nothing, so remove it.

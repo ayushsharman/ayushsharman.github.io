@@ -28,8 +28,10 @@ const CPS = 130; // characters per second: about six seconds for the whole scrip
 export function startBoot(root: HTMLElement, lines: BootLine[], opts: { force?: boolean } = {}): void {
   const done = () => window.dispatchEvent(new Event('boot:done'));
   // ?og=1 is used by scripts/make-assets.sh to screenshot the hero without the boot.
-  const ogShot = new URLSearchParams(location.search).has('og');
-  if (prefersReducedMotion() || (!opts.force && (ogShot || !shouldPlayBoot(safeStorage, false)))) { root.hidden = true; done(); return; }
+  // ?watch=<id> is a shared link straight into a simulation: do not play the intro over it.
+  const params = new URLSearchParams(location.search);
+  const skipForLink = params.has('og') || params.has('watch');
+  if (prefersReducedMotion() || (!opts.force && (skipForLink || !shouldPlayBoot(safeStorage, false)))) { root.hidden = true; done(); return; }
   const screen = root.querySelector<HTMLElement>('[data-boot-screen]')!;
   const skip = root.querySelector<HTMLButtonElement>('[data-boot-skip]')!;
   root.hidden = false;

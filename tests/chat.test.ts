@@ -103,3 +103,18 @@ describe('chatScript', () => {
     for (const i of chatScript.items) expect(i.a.split(' ').length).toBeLessThanOrEqual(25);
   });
 });
+
+describe('mountChat onComplete', () => {
+  it('fires once, after the last answer', async () => {
+    document.body.innerHTML = '<section id="ask"><div data-chips></div><div data-thread></div></section>';
+    window.matchMedia = (() => ({ matches: true })) as never;
+    const root = document.getElementById('ask')!;
+    let n = 0;
+    mountChat(root, { greeting: 'hi', items }, { onComplete: () => { n += 1; } });
+    for (let i = 0; i < items.length; i++) {
+      root.querySelector<HTMLButtonElement>('.chip')!.click();
+      await new Promise((r) => setTimeout(r, 320));
+    }
+    expect(n).toBe(1);
+  });
+});

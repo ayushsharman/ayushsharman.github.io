@@ -1,13 +1,13 @@
-export type WorkEntry = { n: string; slug: string; title: string; line: string; trace: string[]; org: 'clear' | 'medoc'; year: string };
+export type WorkEntry = { n: string; slug: string; title: string; line: string; trace: string[]; org: 'clear' | 'medoc'; year: string; game?: 'reconcile' };
 
 export const work: WorkEntry[] = [
   {
-    n: '01', slug: 'reconciliation-agent', title: 'The reconciliation agent', org: 'clear', year: '2026',
+    n: '01', slug: 'reconciliation-agent', title: 'The reconciliation agent', org: 'clear', year: '2026', game: 'reconcile',
     line: 'Statements and books in. The mismatches a finance head must decide on, out. Nobody ticks boxes anymore.',
     trace: ['ok ingest statements', 'ok read the books', 'ok match and explain', '! decisions for a human'],
   },
   {
-    n: '02', slug: 'morning-agents', title: 'Agents that start at 9am', org: 'clear', year: '2026',
+    n: '02', slug: 'morning-agents', title: 'Agents that never sleep', org: 'clear', year: '2026',
     line: 'They read the ERP before anyone logs in, put the risky items first, ask a person only what the data cannot answer, and remember every answer.',
     trace: ['ok look', 'ok name the work', '? ask', 'ok learn'],
   },

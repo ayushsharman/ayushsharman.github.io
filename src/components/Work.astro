@@ -81,18 +81,20 @@ import '../styles/games.css';
   }
 </script>
 <script>
-  import { privateQuip, PRIVATE_QUIPS } from '../lib/quips';
+  import { quipFor } from '../lib/quips';
   document.querySelectorAll<HTMLButtonElement>('[data-private]').forEach((card) => {
     let clicks = 0;
+    let last: string | null = null;
     const quip = card.querySelector<HTMLElement>('.quip')!;
     card.addEventListener('click', () => {
       clicks += 1;
-      quip.textContent = privateQuip(clicks);
+      // Click four takes the way in that click three offered, then the cycle starts again.
+      if (clicks > 3) { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); clicks = 0; last = null; return; }
+      last = quipFor(clicks, last);
+      quip.textContent = last;
       card.classList.remove('nope');
       void card.offsetWidth; // restart the shake on every click
       card.classList.add('nope');
-      // The last line offers the way in: the next click goes to contact.
-      if (clicks > PRIVATE_QUIPS.length) document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     });
   });
 </script>

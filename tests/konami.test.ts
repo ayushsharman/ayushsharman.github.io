@@ -33,3 +33,11 @@ describe('modifier keys', () => {
     expect(hit).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('more modifier keys', () => {
+  it('AltGraph, Fn and OS do not reset the run either', () => {
+    const hit = vi.fn(); const feed = createKonami(hit);
+    [...CODE.slice(0, 4), 'AltGraph', ...CODE.slice(4, 8), 'Fn', 'OS', 'b', 'a'].forEach(feed);
+    expect(hit).toHaveBeenCalledTimes(1);
+  });
+});

@@ -23,10 +23,16 @@ export function renderBoot(lines: BootLine[], upTo: number): string {
   return out;
 }
 
+// A fade still running from the previous run on the same root, so a replay can cancel it.
+const fading = new WeakMap<HTMLElement, () => void>();
+const FADE_MS = 450; // matches --dur-slow
+
 const CPS = 130; // characters per second: about six seconds for the whole script
 
 export function startBoot(root: HTMLElement, lines: BootLine[], opts: { force?: boolean } = {}): void {
   const done = () => window.dispatchEvent(new Event('boot:done'));
+  fading.get(root)?.();
+  fading.delete(root);
   // ?og=1 is used by scripts/make-assets.sh to screenshot the hero without the boot.
   // ?watch=<id> is a shared link straight into a simulation: do not play the intro over it.
   const params = new URLSearchParams(location.search);
@@ -46,14 +52,15 @@ export function startBoot(root: HTMLElement, lines: BootLine[], opts: { force?: 
     cancelAnimationFrame(id);
     safeStorage.set(BOOT_KEY, '1');
     removeEventListener('keydown', onKey);
-    tween(450, (k) => { root.style.opacity = String(1 - k); }, () => {
+    fading.set(root, tween(FADE_MS, (k) => { root.style.opacity = String(1 - k); }, () => {
+      fading.delete(root);
       const focusWasInside = root.contains(document.activeElement);
       root.hidden = true;
       document.documentElement.style.overflow = '';
       // Do not leave focus on the now-hidden skip button.
       if (focusWasInside) document.getElementById('main')?.focus({ preventScroll: true });
       done();
-    });
+    }));
   };
   const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') finish(); };
   addEventListener('keydown', onKey);

@@ -53,3 +53,16 @@ describe('createOverlay', () => {
     expect(document.activeElement).toBe(opener);
   });
 });
+
+describe('closing keeps the section the visitor came from', () => {
+  it('returns to /#work, not bare /', () => {
+    document.body.innerHTML = '<div id="x" hidden><button data-close>x</button></div>';
+    const el = document.getElementById('x')!;
+    history.replaceState(null, '', '/#work');
+    const o = createOverlay(el, { path: '/experience' });
+    o.open();
+    history.replaceState(null, '', '/experience'); // as if reached without our pushed entry
+    o.close();
+    expect(location.pathname + location.hash).toBe('/#work');
+  });
+});

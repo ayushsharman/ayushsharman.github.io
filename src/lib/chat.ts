@@ -46,7 +46,7 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
     bubble('u', item.q);
     const typing = document.createElement('div');
     typing.className = 'typing';
-    typing.setAttribute('aria-label', 'typing');
+    typing.setAttribute('aria-hidden', 'true'); // the answer arriving is what gets announced
     typing.innerHTML = '<i></i><i></i><i></i>';
     thread.appendChild(typing);
     const wait = prefersReducedMotion() ? 0 : 650 + Math.min(900, item.a.length * 8);

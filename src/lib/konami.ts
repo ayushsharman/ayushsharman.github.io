@@ -1,6 +1,6 @@
 const CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 
-const MODIFIERS = new Set(['Shift', 'Control', 'Alt', 'Meta', 'CapsLock']);
+const MODIFIERS = new Set(['Shift', 'Control', 'Alt', 'AltGraph', 'Meta', 'OS', 'Fn', 'FnLock', 'Hyper', 'Super', 'Symbol', 'SymbolLock', 'CapsLock', 'NumLock', 'ScrollLock']);
 
 // Fed one key at a time. Uses the longest prefix of the code that still matches, so a repeated
 // first key ("up up up down ...") keeps the run alive.

@@ -23,8 +23,11 @@ const lines = ['AYUSH', 'SHARMA'];
   name.addEventListener('click', throwIt);
   // The hint is a real button, so the name can be thrown from the keyboard too.
   stage.querySelector('[data-throw]')!.addEventListener('click', throwIt);
-  goo.start();
   grav.start();
+  // Under a playing intro the hero is hidden, so its loop waits for the intro to end.
+  const boot = document.getElementById('boot');
+  if (boot && !boot.hidden) addEventListener('boot:done', () => goo.start(), { once: true });
+  else goo.start();
 </script>
 <style>
   .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--bg-deep); cursor: crosshair; }

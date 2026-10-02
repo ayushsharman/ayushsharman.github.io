@@ -25,7 +25,7 @@ const image = new URL('/og.png', Astro.site).toString();
   <body>
     <a class="skip-link" href="#main">skip to content</a>
     <slot name="before" />
-    <main id="main"><slot /></main>
+    <main id="main" tabindex="-1"><slot /></main>
     <slot name="after" />
   </body>
 </html>

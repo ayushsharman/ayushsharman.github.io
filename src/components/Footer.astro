@@ -6,7 +6,8 @@
 <script>
   const replay = document.querySelector<HTMLButtonElement>('[data-replay]');
   // Only the home page has the boot; elsewhere the button would do nothing, so remove it.
-  if (!document.getElementById('boot')) replay?.remove();
+  // The boot never plays with motion turned off either, so the button would do nothing there too.
+  if (!document.getElementById('boot') || matchMedia('(prefers-reduced-motion: reduce)').matches) replay?.remove();
   replay?.addEventListener('click', () => {
     window.scrollTo({ top: 0 });
     window.dispatchEvent(new Event('boot:replay'));

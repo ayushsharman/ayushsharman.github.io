@@ -29,7 +29,7 @@ export function startBoot(root: HTMLElement, lines: BootLine[], opts: { force?: 
   const done = () => window.dispatchEvent(new Event('boot:done'));
   // ?og=1 is used by scripts/make-assets.sh to screenshot the hero without the boot.
   const ogShot = new URLSearchParams(location.search).has('og');
-  if (!opts.force && (ogShot || !shouldPlayBoot(safeStorage, prefersReducedMotion()))) { root.hidden = true; done(); return; }
+  if (prefersReducedMotion() || (!opts.force && (ogShot || !shouldPlayBoot(safeStorage, false)))) { root.hidden = true; done(); return; }
   const screen = root.querySelector<HTMLElement>('[data-boot-screen]')!;
   const skip = root.querySelector<HTMLButtonElement>('[data-boot-skip]')!;
   root.hidden = false;
@@ -45,8 +45,11 @@ export function startBoot(root: HTMLElement, lines: BootLine[], opts: { force?: 
     safeStorage.set(BOOT_KEY, '1');
     removeEventListener('keydown', onKey);
     tween(450, (k) => { root.style.opacity = String(1 - k); }, () => {
+      const focusWasInside = root.contains(document.activeElement);
       root.hidden = true;
       document.documentElement.style.overflow = '';
+      // Do not leave focus on the now-hidden skip button.
+      if (focusWasInside) document.getElementById('main')?.focus({ preventScroll: true });
       done();
     });
   };

@@ -40,6 +40,7 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
   };
 
   let queue: Promise<void> = Promise.resolve();
+  let lastUse = -Infinity;
   const converse = (item: ChatItem) => new Promise<void>((resolve) => {
     bubble('u', item.q);
     const typing = document.createElement('div');
@@ -58,10 +59,21 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
       b.className = 'chip';
       b.textContent = i.q;
       b.onclick = () => {
+        // The used chip leaves and its neighbour slides under the pointer, so a double-click would
+        // ask that one too. Ignore clicks for a moment after each use.
+        const now = performance.now();
+        if (now - lastUse < 300) return;
+        lastUse = now;
         stopAttract();
         const item = state.ask(i.id);
         if (!item) return;
+        const hadFocus = document.activeElement === b;
+        const index = [...chips.children].indexOf(b);
         renderChips();
+        if (hadFocus) {
+          const next = chips.children[Math.min(index, chips.children.length - 1)] as HTMLElement | undefined;
+          (next ?? root.querySelector<HTMLElement>('[data-chat-all]'))?.focus();
+        }
         // Queue behind any answer still being typed, so the thread reads question, answer, question, answer.
         queue = queue.then(() => converse(item));
       };

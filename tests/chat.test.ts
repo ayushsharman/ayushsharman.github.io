@@ -53,6 +53,7 @@ describe('mountChat ordering', () => {
     mountChat(root, { greeting: 'hi', items });
     const [first, second] = [...root.querySelectorAll<HTMLButtonElement>('.chip')];
     first.click();
+    await new Promise((r) => setTimeout(r, 320)); // the double-click guard ignores clicks within 300ms
     second.click();
     await new Promise((r) => setTimeout(r, 20));
     const order = [...root.querySelectorAll('.b')].slice(1).map((b) => b.className.split(' ')[1]);

@@ -47,6 +47,7 @@ import '../styles/games.css';
     reconcile: () => import('../lib/games/reconcile-sim').then((m) => m.mountReconcileSim),
     loop: () => import('../lib/games/loop-sim').then((m) => m.mountLoopSim),
     p0: () => import('../lib/games/p0-sim').then((m) => m.mountP0Sim),
+    mrr: () => import('../lib/games/mrr-sim').then((m) => m.mountMrrSim),
   };
   const closers = new Map<HTMLButtonElement, () => void>();
   document.querySelectorAll<HTMLButtonElement>('[data-play]').forEach((btn) => {

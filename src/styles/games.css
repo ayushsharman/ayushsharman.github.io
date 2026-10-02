@@ -81,3 +81,24 @@
 .game:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 .p0 .g-meta b.hot { color: var(--hot); animation: g-pulse var(--dur-slow) var(--ease-standard) infinite alternate; }
 @keyframes g-pulse { to { opacity: .45; } }
+
+/* scene 03: four years, one company */
+.mrr-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 18px; }
+.mrr-strip span { font-family: var(--font-mono); font-size: 11px; color: var(--mute); padding: 6px 8px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); transition: background var(--dur-normal) var(--ease-standard), color var(--dur-normal) var(--ease-standard); }
+.mrr-strip span.on { color: var(--bg); background: var(--acc); border-color: var(--acc); }
+.mrr-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; margin-top: 18px; }
+.mrr-log { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.mrr-log li { display: grid; grid-template-columns: 48px 1fr; column-gap: 12px; row-gap: 2px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.mrr-log .yr { color: var(--acc); font-size: 12px; grid-row: span 3; }
+.mrr-log .rl { color: var(--mute); font-size: 11px; }
+.mrr-log .did { font-size: 14px; color: var(--fg); }
+.mrr-log .mv { font-size: 12px; color: var(--warn); }
+.mrr-side { display: grid; align-content: start; gap: 6px; }
+.mrr-side .g-label { margin: 10px 0 0; }
+.mrr-big { font-size: 34px; font-weight: 500; letter-spacing: -.03em; line-height: 1; }
+.mrr-bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.mrr-bar i { display: block; height: 100%; width: 0; background: var(--acc); transition: width var(--dur-slow) var(--ease-expressive); }
+.mrr-dots { display: grid; grid-template-columns: repeat(12, 1fr); gap: 5px; }
+.mrr-dots i { aspect-ratio: 1; border-radius: 50%; background: var(--line); transition: background var(--dur-normal) var(--ease-standard); }
+.mrr-dots i.on { background: var(--acc); }
+@media (max-width: 720px) { .mrr-grid { grid-template-columns: 1fr; } .mrr-strip span { font-size: 10px; padding: 5px 4px; text-align: center; } }

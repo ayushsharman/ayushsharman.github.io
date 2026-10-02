@@ -1,4 +1,4 @@
-import { createTimeline, LONG_SCENE_MS } from './timeline';
+import { createTimeline, LONG_SCENE_MS, announce } from './timeline';
 import { unlock } from '../secrets';
 
 type Stage = { year: string; role: string; did: string; moved: string; mrr: string; team?: string };
@@ -17,7 +17,8 @@ export const MRR_DEMO = {
 };
 
 // Display only, never shown as numbers: how full the bar is and how many dots light, per stage.
-const VISUAL = { bar: [0, 0, 10, 10, 100], dots: [0, 3, 3, 13, 22], totalDots: 24 };
+// The dots are hospitals only: the 10+ specialty clinics of 2025 are a separate line, told in text.
+const VISUAL = { bar: [0, 0, 10, 10, 100], dots: [0, 3, 3, 3, 22], totalDots: 24 };
 
 // Simulation 03: four years of one company, a year at a time.
 export function mountMrrSim(panel: HTMLElement): () => void {
@@ -38,13 +39,14 @@ export function mountMrrSim(panel: HTMLElement): () => void {
         <p class="g-label mono">// monthly revenue</p>
         <p class="mrr-big"><span data-mrr>${first.mrr}</span></p>
         <div class="mrr-bar"><i data-mrrbar></i></div>
-        <p class="g-label mono">// hospitals and clinics</p>
+        <p class="g-label mono" data-dots-label aria-hidden="true">// hospitals</p>
         <div class="mrr-dots" aria-hidden="true">${Array.from({ length: VISUAL.totalDots }, () => '<i data-dot></i>').join('')}</div>
         <p class="g-label mono">// team</p>
         <p class="mrr-big"><span data-team>${first.team}</span></p>
       </div>
     </div>
-    <p class="g-status mono" data-status aria-live="polite"></p>
+    <p class="g-status mono" data-status></p>
+    <p class="sr-only" data-live aria-live="polite"></p>
     <div class="g-actions" data-actions></div>`;
   root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
   panel.appendChild(root);
@@ -67,6 +69,7 @@ export function mountMrrSim(panel: HTMLElement): () => void {
   }));
   tl.step(400, () => {
     set('[data-status]', MRR_DEMO.end);
+    announce($('[data-live]'), `${MRR_DEMO.stages.at(-1)!.moved} ${MRR_DEMO.end}`, tl.instant);
     $('[data-actions]').innerHTML = '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
     $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountMrrSim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('mrr-watched');

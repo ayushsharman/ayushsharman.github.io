@@ -118,3 +118,19 @@ describe('mountChat onComplete', () => {
     expect(n).toBe(1);
   });
 });
+
+describe('typing indicator', () => {
+  it('is hidden from screen readers (the answer arriving is what matters)', () => {
+    document.body.innerHTML = '<section id="ask"><div data-chips></div><div data-thread></div></section>';
+    window.matchMedia = (() => ({ matches: false })) as never;
+    const root = document.getElementById('ask')!;
+    mountChat(root, { greeting: 'hi', items });
+    root.querySelector<HTMLButtonElement>('.chip')!.click();
+    return new Promise<void>((r) => setTimeout(() => {
+      const t = root.querySelector('.typing');
+      expect(t?.getAttribute('aria-hidden')).toBe('true');
+      expect(t?.hasAttribute('aria-label')).toBe(false);
+      r();
+    }, 5));
+  });
+});

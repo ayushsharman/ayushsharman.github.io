@@ -49,3 +49,21 @@ describe('deep links skip the boot', () => {
     history.replaceState(null, '', '/');
   });
 });
+
+describe('replay during the fade-out', () => {
+  it('a replay pressed while the old intro fades is not hidden by the old fade', async () => {
+    const { startBoot } = await import('../src/lib/boot');
+    window.matchMedia = (() => ({ matches: false })) as never;
+    localStorage.clear();
+    history.replaceState(null, '', '/');
+    document.body.innerHTML = '<div id="boot" hidden><pre data-boot-screen></pre><button data-boot-skip>skip</button></div>';
+    const root = document.getElementById('boot')!;
+    const lines = [{ text: 'ab', tone: 'plain' as const }];
+    startBoot(root, lines);
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); // starts the 450ms fade
+    await new Promise((r) => setTimeout(r, 50));
+    startBoot(root, lines, { force: true }); // replay mid-fade
+    await new Promise((r) => setTimeout(r, 600));
+    expect(root.hidden).toBe(false);
+  });
+});

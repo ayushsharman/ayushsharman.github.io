@@ -1,4 +1,4 @@
-import { createTimeline, LONG_SCENE_MS } from './timeline';
+import { createTimeline, LONG_SCENE_MS, announce } from './timeline';
 import { unlock } from '../secrets';
 
 type Bucket = 'now' | 'sprint' | 'later';
@@ -40,7 +40,8 @@ export function mountP0Sim(panel: HTMLElement): () => void {
       <div class="bk"><p class="g-label mono">// later, or no</p><div data-bucket="later"></div></div>
     </div>
     <ul class="p0-check mono" data-check hidden></ul>
-    <p class="g-status mono" data-status aria-live="polite"></p>
+    <p class="g-status mono" data-status></p>
+    <p class="sr-only" data-live aria-live="polite"></p>
     <div class="g-actions" data-actions></div>`;
   root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
   panel.appendChild(root);
@@ -52,7 +53,7 @@ export function mountP0Sim(panel: HTMLElement): () => void {
   // Busy.
   for (const r of P0_DEMO.requests) step(150, () => {
     const c = document.createElement('div');
-    c.className = 'p0-card p0';
+    c.className = 'p0-card urgent';
     c.dataset.req = r.id;
     c.innerHTML = `<span class="stamp mono">P0</span><span class="from mono">${r.from}</span><span class="ask">${r.ask}</span><span class="prog"><i></i></span><span class="qa mono"></span>`;
     $('[data-inbox]').appendChild(c);
@@ -71,7 +72,7 @@ export function mountP0Sim(panel: HTMLElement): () => void {
   });
   for (const r of P0_DEMO.requests) step(170, () => {
     const c = cards.get(r.id)!;
-    c.classList.remove('p0', 'stalled');
+    c.classList.remove('urgent', 'stalled');
     c.querySelector('.qa')!.textContent = `${r.reach} · wait: ${r.wait}`;
     root.querySelector(`[data-bucket="${r.bucket}"]`)!.appendChild(c);
   });
@@ -81,7 +82,9 @@ export function mountP0Sim(panel: HTMLElement): () => void {
     $('[data-tickets]').classList.remove('hot');
     set('[data-tickets]', o.ticketsAfter);
     set('[data-golive]', `${o.goLiveAfter} days`);
-    set('[data-status]', `busy is not a metric. at Medoc: support tickets a month ${o.ticketsBefore} to ${o.ticketsAfter}, go-live ${o.goLiveBefore} days to ${o.goLiveAfter}.`);
+    const summary = `busy is not a metric. at Medoc: support tickets a month ${o.ticketsBefore} to ${o.ticketsAfter}, go-live ${o.goLiveBefore} days to ${o.goLiveAfter}.`;
+    set('[data-status]', summary);
+    announce($('[data-live]'), summary, tl.instant);
     $('[data-actions]').innerHTML = '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
     $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountP0Sim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('p0-sorted');

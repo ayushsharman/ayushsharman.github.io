@@ -4,6 +4,7 @@ export function createOverlay(el: HTMLElement, opts: { path: string; home?: stri
   const home = opts.home ?? '/';
   let open = false;
   let lastFocus: HTMLElement | null = null;
+  let returnTo = home;
   let inerted: HTMLElement[] = [];
   // aria-modal alone does not keep Tab inside; inert takes the page behind out of reach.
   const setBackgroundInert = (on: boolean) => {
@@ -32,14 +33,20 @@ export function createOverlay(el: HTMLElement, opts: { path: string; home?: stri
     lastFocus?.focus?.();
   };
   const api = {
-    open(opener?: HTMLElement) { if (open) return; show(opener); history.pushState({ overlay: 1 }, '', opts.path); },
+    open(opener?: HTMLElement) {
+      if (open) return;
+      // Remember the section the visitor came from (/#work), to return there on close.
+      returnTo = location.pathname === opts.path ? home : location.pathname + location.search + location.hash;
+      show(opener);
+      history.pushState({ overlay: 1 }, '', opts.path);
+    },
     // If open() pushed the entry, step back over it, so closing leaves no dead Back press.
     // Otherwise (the overlay was reached some other way) replace it, so Back cannot reopen it.
     close() {
       if (!open) return;
       hide();
       if (history.state?.overlay) history.back();
-      else if (location.pathname === opts.path) history.replaceState(null, '', home);
+      else if (location.pathname === opts.path) history.replaceState(null, '', returnTo);
     },
     isOpen: () => open,
   };

@@ -8,7 +8,7 @@ const lines = ['AYUSH', 'SHARMA'];
   </h1>
   <div class="sub">
     <p>Founding Forward Deployed Engineer at Clear. I build agents that do the actual work, and I say very little about it.</p>
-    <span class="mono hint"><button type="button" class="throw" data-throw aria-label="throw my name">click my name.</button> <span class="rm-on">it can take it.</span><span class="rm-off">motion is off, so it stays put.</span></span>
+    <span class="mono hint"><button type="button" class="throw" data-throw aria-label="click my name. it throws it.">click my name.</button> <span class="rm-on">it can take it.</span><span class="rm-off">motion is off, so it stays put.</span></span>
   </div>
 </section>
 <script>
@@ -23,8 +23,11 @@ const lines = ['AYUSH', 'SHARMA'];
   name.addEventListener('click', throwIt);
   // The hint is a real button, so the name can be thrown from the keyboard too.
   stage.querySelector('[data-throw]')!.addEventListener('click', throwIt);
-  goo.start();
   grav.start();
+  // Under a playing intro the hero is hidden, so its loop waits for the intro to end.
+  const boot = document.getElementById('boot');
+  if (boot && !boot.hidden) addEventListener('boot:done', () => goo.start(), { once: true });
+  else goo.start();
 </script>
 <style>
   .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--bg-deep); cursor: crosshair; }

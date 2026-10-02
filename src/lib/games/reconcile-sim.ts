@@ -1,5 +1,5 @@
 import { DEMO, type Side } from './reconcile';
-import { createTimeline, SCENE_MS } from './timeline';
+import { createTimeline, SCENE_MS, announce } from './timeline';
 import { unlock } from '../secrets';
 
 const rupees = (n: number) => `₹${n.toLocaleString('en-IN')}`;
@@ -22,7 +22,8 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
       <div class="col"><p class="g-label mono">// our books</p><div data-col="books"></div></div>
     </div>
     <pre class="g-term mono" data-term hidden></pre>
-    <p class="g-status mono" data-status aria-live="polite"></p>
+    <p class="g-status mono" data-status></p>
+    <p class="sr-only" data-live aria-live="polite"></p>
     <div class="g-actions" data-actions></div>`;
   root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
   panel.appendChild(root);
@@ -42,6 +43,7 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
   const $ = (sel: string) => root.querySelector<HTMLElement>(sel)!;
   const line = (id: string) => lines.get(id)!;
   const set = (sel: string, text: string) => { $(sel).textContent = text; };
+  const clearScan = () => lines.forEach((l) => l.classList.remove('scan'));
 
   // Steps carry base delays; the timeline scales the whole scene to SCENE_MS, and with motion off it
   // runs every step at once so the end state shows.
@@ -65,15 +67,15 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
     const order = DEMO.books.map((x) => x.id);
     for (const id of order.slice(0, order.indexOf(b))) {
       if (id === wrong) {
-        step(260, () => { line(id).classList.add('miss'); tickClock(1.5); set('[data-status]', 'wrong line. same amount, but it is a payment, not the invoice. start again.'); });
+        step(260, () => { clearScan(); line(id).classList.add('miss'); tickClock(1.5); set('[data-status]', 'wrong line. same amount, but it is a payment, not the invoice. start again.'); });
         step(500, () => line(id).classList.remove('miss'));
       } else if (!matchedBooks.has(id)) {
-        step(260, () => { line(id).classList.add('scan'); tickClock(1.5); });
-        step(0, () => line(id).classList.remove('scan'));
+        // The highlight stays until the next step clears it, so it is actually seen.
+        step(260, () => { clearScan(); line(id).classList.add('scan'); tickClock(1.5); });
       }
     }
     matchedBooks.add(b); // decided from the data, so motion on and off scan the same lines
-    step(400, () => { line(s).classList.remove('sel'); line(s).classList.add('ok'); line(b).classList.add('ok'); matched += 1; tickClock(2); score(); });
+    step(400, () => { clearScan(); line(s).classList.remove('sel'); line(s).classList.add('ok'); line(b).classList.add('ok'); matched += 1; tickClock(2); score(); });
   }
   let handHours = 0;
   step(500, () => { handHours = Math.round(hours); set('[data-status]', `${matched} of ${DEMO.pairs.length} after ${handHours}h. and this is one vendor of hundreds.`); });
@@ -100,6 +102,8 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
     // From the schedule, not the wall clock: a background tab or reduced motion would distort it.
     const secs = (tl.real(agentTo - agentFrom) / 1000).toFixed(1);
     set('[data-clock]', `${secs}s`);
+    const summary = `by hand: ${handHours}h for 3 of ${DEMO.pairs.length} (illustrative). agent: ${secs}s for ${DEMO.pairs.length} of ${DEMO.pairs.length}, and why the 2 leftovers don't match. what's left is judgment.`;
+    announce($('[data-live]'), summary, tl.instant);
     set('[data-status]', `by hand: ${handHours}h for 3 of ${DEMO.pairs.length} (illustrative). agent: ${secs}s for ${DEMO.pairs.length} of ${DEMO.pairs.length}, and why the 2 leftovers don't match. what's left is judgment:`);
     $('[data-actions]').innerHTML =
       DEMO.decisions.map((d) => `<span class="dec mono" data-decision="${d.id}">for a human: ${d.label}</span>`).join('') +

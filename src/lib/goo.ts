@@ -1,4 +1,4 @@
-import { loop } from './motion';
+import { loop, prefersReducedMotion } from './motion';
 
 // Seven blobs chase the pointer; when the pointer rests, they wander on their own.
 export function createGoo(stage: HTMLElement, gooEl: HTMLElement) {
@@ -22,6 +22,14 @@ export function createGoo(stage: HTMLElement, gooEl: HTMLElement) {
   };
   stage.addEventListener('pointermove', (e) => point(e.clientX, e.clientY));
   stage.addEventListener('touchmove', (e) => point(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  // With motion off the loop never runs, so re-centre the still blob when the stage changes size.
+  addEventListener('resize', () => {
+    if (!prefersReducedMotion()) return;
+    for (const p of blobs) {
+      p.x = stage.clientWidth * 0.62; p.y = stage.clientHeight * 0.48;
+      p.b.style.transform = `translate(${p.x - p.z / 2}px,${p.y - p.z / 2}px)`;
+    }
+  });
   const lp = loop(stage, (dt) => {
     t += dt * 0.0008;
     const W = stage.clientWidth, H = stage.clientHeight;

@@ -25,7 +25,7 @@ describe('mountP0Sim', () => {
     motion(true);
     mountP0Sim(panel);
     vi.advanceTimersByTime(1000);
-    expect(panel.querySelectorAll('[data-req].p0').length).toBeGreaterThan(0);
+    expect(panel.querySelectorAll('[data-req].urgent').length).toBeGreaterThan(0);
     expect(panel.querySelectorAll('[data-bucket] [data-req]').length).toBe(0);
   });
   it('takes about five seconds: still running at three, finished by five', () => {

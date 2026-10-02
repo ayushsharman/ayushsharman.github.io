@@ -33,3 +33,17 @@ describe('stepLetter', () => {
     expect(l.vy).toBe(0);
   });
 });
+
+describe('minors', () => {
+  it('a thrown letter never rises above the stage ceiling', () => {
+    const n = stepLetter(L({ free: true, y: -150, vy: -40 }), { ...B, ceil: -120 });
+    expect(n.y).toBeGreaterThanOrEqual(-120);
+    expect(n.vy).toBeGreaterThanOrEqual(0);
+  });
+  it('atRest is true only when every letter is home and not free', async () => {
+    const { atRest } = await import('../src/lib/gravity');
+    expect(atRest([L(), L()])).toBe(true);
+    expect(atRest([L(), L({ free: true })])).toBe(false);
+    expect(atRest([L({ x: 3 })])).toBe(false);
+  });
+});

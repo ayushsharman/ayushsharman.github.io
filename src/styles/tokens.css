@@ -20,6 +20,9 @@
   --dur-fast: 150ms;
   --dur-normal: 240ms;
   --dur-slow: 450ms;
+  --dur-blink: 1s;      /* terminal cursors */
+  --dur-typing: 1s;     /* the typing dots */
+  --dur-pulse: 1.3s;    /* a chip lighting up */
   --ease-standard: cubic-bezier(.2, 0, 0, 1);
   --ease-expressive: cubic-bezier(.7, 0, .2, 1);
 

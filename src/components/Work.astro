@@ -90,7 +90,14 @@ import '../styles/games.css';
     card.addEventListener('click', () => {
       clicks += 1;
       // Click four takes the way in that click three offered, then the cycle starts again.
-      if (clicks > 3) { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); clicks = 0; last = null; return; }
+      if (clicks > 3) {
+        // No behavior option: the page's scroll-behavior decides, so reduced motion jumps instead.
+        const contact = document.getElementById('contact');
+        contact?.scrollIntoView();
+        contact?.querySelector<HTMLElement>('a')?.focus({ preventScroll: true });
+        clicks = 0; last = null; quip.textContent = '';
+        return;
+      }
       last = quipFor(clicks, last);
       quip.textContent = last;
       card.classList.remove('nope');

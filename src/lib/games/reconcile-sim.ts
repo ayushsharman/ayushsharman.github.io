@@ -7,7 +7,7 @@ const running = new WeakMap<HTMLElement, number[]>();
 
 // Simulation 01: the same month-end reconciliation, first by hand, then with the agent.
 // Nothing to play: it runs by itself, so the difference is seen, not described.
-export function mountReconcileSim(panel: HTMLElement): void {
+export function mountReconcileSim(panel: HTMLElement): () => void {
   (running.get(panel) ?? []).forEach(clearTimeout);
   const timers: number[] = [];
   running.set(panel, timers);
@@ -48,12 +48,15 @@ export function mountReconcileSim(panel: HTMLElement): void {
   // The timeline. Under reduced motion every step runs at once and the scene shows its end state.
   const instant = prefersReducedMotion();
   let at = 0;
+  let agentMs = 0, inAgent = false;
   const step = (ms: number, fn: () => void) => {
     at += ms;
+    if (inAgent) agentMs += ms;
     if (instant) fn(); else timers.push(window.setTimeout(fn, at));
   };
 
   let hours = 0, matched = 0;
+  const matchedBooks = new Set<string>();
   const tickClock = (h: number) => { hours += h; set('[data-clock]', `${Math.round(hours)}h`); };
   const score = () => set('[data-score]', `${matched} of ${DEMO.pairs.length}`);
 
@@ -69,26 +72,26 @@ export function mountReconcileSim(panel: HTMLElement): void {
     const order = DEMO.books.map((x) => x.id);
     for (const id of order.slice(0, order.indexOf(b))) {
       if (id === wrong) {
-        step(260, () => { line(id).classList.add('miss'); tickClock(1.5); });
-        step(300, () => { line(id).classList.remove('miss'); set('[data-status]', 'wrong line. same amount, different invoice. start again.'); });
-      } else if (!line(id).classList.contains('ok')) {
+        step(260, () => { line(id).classList.add('miss'); tickClock(1.5); set('[data-status]', 'wrong line. same amount, but it is a payment, not the invoice. start again.'); });
+        step(500, () => line(id).classList.remove('miss'));
+      } else if (!matchedBooks.has(id)) {
         step(260, () => { line(id).classList.add('scan'); tickClock(1.5); });
         step(0, () => line(id).classList.remove('scan'));
       }
     }
+    matchedBooks.add(b); // decided from the data, so motion on and off scan the same lines
     step(400, () => { line(s).classList.remove('sel'); line(s).classList.add('ok'); line(b).classList.add('ok'); matched += 1; tickClock(2); score(); });
   }
   let handHours = 0;
   step(500, () => { handHours = Math.round(hours); set('[data-status]', `${matched} of ${DEMO.pairs.length} after ${handHours}h. and this is one vendor of hundreds.`); });
 
   // Scene two: the agent.
-  let agentStart = 0;
   step(1500, () => {
-    agentStart = Date.now();
     set('[data-scene]', 'agent on: the same books, the same month');
     $('[data-term]').hidden = false;
     set('[data-status]', '');
   });
+  inAgent = true;
   for (const t of ['ingest   statement from mail, any format', 'parse    7 lines, clean and dated', 'read     vendor ledger, read-only', 'match    pair every entry', 'explain  every difference']) {
     step(180, () => { $('[data-term]').textContent += `${t}\n`; });
   }
@@ -101,7 +104,8 @@ export function mountReconcileSim(panel: HTMLElement): void {
       line(l.id).classList.add('left');
       line(l.id).insertAdjacentHTML('afterend', `<p class="why mono">${l.reason}</p>`);
     }
-    const secs = Math.max(0.1, (Date.now() - agentStart) / 1000).toFixed(1);
+    // From the schedule, not the wall clock: a background tab or reduced motion would distort it.
+    const secs = (agentMs / 1000).toFixed(1);
     set('[data-clock]', `${secs}s`);
     set('[data-status]', `by hand: ${handHours}h for 3 of ${DEMO.pairs.length} (illustrative). agent: ${secs}s for ${DEMO.pairs.length} of ${DEMO.pairs.length}, and why the 2 leftovers don't match. what's left is judgment:`);
     $('[data-actions]').innerHTML =
@@ -110,4 +114,5 @@ export function mountReconcileSim(panel: HTMLElement): void {
     $('[data-actions]').querySelector<HTMLButtonElement>('[data-replay-sim]')!.onclick = () => mountReconcileSim(panel);
     unlock('reconcile-done');
   });
+  return () => { timers.forEach(clearTimeout); timers.length = 0; };
 }

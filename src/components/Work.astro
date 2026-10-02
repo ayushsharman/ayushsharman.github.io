@@ -46,7 +46,9 @@ import '../styles/games.css';
   const loaders = { reconcile: () => import('../lib/games/reconcile-sim').then((m) => m.mountReconcileSim) };
   document.querySelectorAll<HTMLButtonElement>('[data-play]').forEach((btn) => {
     const panel = document.getElementById(btn.getAttribute('aria-controls')!)!;
-    const close = () => { panel.hidden = true; panel.replaceChildren(); btn.setAttribute('aria-expanded', 'false'); btn.textContent = '[ watch ]'; };
+    let stop: (() => void) | null = null;
+    // Stopping matters: a run left going would still unlock its secret for a scene nobody watched.
+    const close = () => { stop?.(); stop = null; panel.hidden = true; panel.replaceChildren(); btn.setAttribute('aria-expanded', 'false'); btn.textContent = '[ watch ]'; };
     btn.addEventListener('click', async () => {
       if (!panel.hidden) { close(); btn.focus(); return; }
       document.querySelectorAll<HTMLButtonElement>('[data-play][aria-expanded="true"]').forEach((b) => b.click());
@@ -54,10 +56,11 @@ import '../styles/games.css';
       btn.textContent = '[ close ]';
       panel.hidden = false;
       const mount = await loaders[btn.dataset.play as keyof typeof loaders]();
-      if (!panel.hidden) mount(panel);
+      if (!panel.hidden) stop = mount(panel);
       panel.querySelector<HTMLElement>('button')?.focus();
     });
-    panel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(); btn.focus(); } });
+    // On the row, not the panel: focus usually stays on the toggle, which sits outside the panel.
+    btn.closest('li')!.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { close(); btn.focus(); } });
   });
   // A shareable link straight into a simulation: /?watch=reconcile
   const watch = new URLSearchParams(location.search).get('watch');

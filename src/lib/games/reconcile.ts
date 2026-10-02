@@ -3,7 +3,8 @@ export type Line = { id: string; ref: string; amount: number };
 export type Phase = 'ready' | 'manual' | 'handoff' | 'decide' | 'done';
 export type PickResult = 'select' | 'match' | 'miss' | 'ignored';
 
-// Invented data for the game. Not a real vendor, not real amounts.
+// Invented data for the simulations. Not a real vendor, not real amounts. The unrecorded payment
+// shares an amount with INV-1044 on purpose: it is the line a person matches by mistake.
 export const DEMO = {
   vendor: 'Northwind Traders (demo data)',
   statement: [
@@ -16,8 +17,8 @@ export const DEMO = {
     { id: 's7', ref: 'INV-1047', amount: 13750 },
   ],
   books: [
+    { id: 'b2', ref: 'PMT-2207', amount: 27300 },
     { id: 'b1', ref: 'INV-1044', amount: 27300 },
-    { id: 'b2', ref: 'PMT-2207', amount: 25000 },
     { id: 'b3', ref: 'INV-1041', amount: 42800 },
     { id: 'b4', ref: 'INV-1047', amount: 13750 },
     { id: 'b5', ref: 'INV-1042', amount: 9650 },

@@ -35,3 +35,17 @@ describe('boot script', () => {
   });
   it('ends on the greeting', () => expect(bootLines.at(-1)!.text).toBe("hi. i'm ayush."));
 });
+
+describe('deep links skip the boot', () => {
+  it('a ?watch link does not play the intro over the simulation', async () => {
+    const { startBoot } = await import('../src/lib/boot');
+    window.matchMedia = (() => ({ matches: false })) as never;
+    localStorage.clear();
+    history.replaceState(null, '', '/?watch=reconcile');
+    document.body.innerHTML = '<div id="boot" hidden><pre data-boot-screen></pre><button data-boot-skip>skip</button></div>';
+    const root = document.getElementById('boot')!;
+    startBoot(root, [{ text: 'ab', tone: 'plain' }]);
+    expect(root.hidden).toBe(true);
+    history.replaceState(null, '', '/');
+  });
+});

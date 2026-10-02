@@ -140,7 +140,7 @@ describe('the secrets question', () => {
     const item = chatScript.items.find((i) => i.id === 'secrets')!;
     expect(item.q).toBe('how do the secrets work?');
     expect(item.a).toMatch(/throw my name/);
-    expect(item.a).toMatch(/Konami/);
+    expect(item.a).toMatch(/type claude/);
     expect(item.a).toMatch(/four work simulations/);
     expect(item.link?.secrets).toBe(true);
     document.body.innerHTML = '<section id="ask"><div data-chips></div><div data-thread></div></section>';

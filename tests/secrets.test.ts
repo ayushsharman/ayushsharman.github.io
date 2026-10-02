@@ -11,8 +11,8 @@ describe('createSecrets', () => {
   });
   it('unlocks once and is idempotent, so the count never passes the total', () => {
     const s = createSecrets(mem());
-    expect(s.unlock('konami')).toBe(true);
-    expect(s.unlock('konami')).toBe(false);
+    expect(s.unlock('claude-typed')).toBe(true);
+    expect(s.unlock('claude-typed')).toBe(false);
     expect(s.count()).toBe(1);
   });
   it('ignores unknown ids', () => expect(createSecrets(mem()).unlock('nope' as never)).toBe(false));
@@ -31,8 +31,8 @@ describe('createSecrets', () => {
   it('blocked storage: still unlocks for the visit and never throws', () => {
     const store = { get: () => { throw new Error('blocked'); }, set: () => { throw new Error('blocked'); } };
     const s = createSecrets(store as never);
-    expect(() => s.unlock('konami')).not.toThrow();
-    expect(s.isFound('konami')).toBe(true);
+    expect(() => s.unlock('claude-typed')).not.toThrow();
+    expect(s.isFound('claude-typed')).toBe(true);
   });
   it('announces each new unlock with the running count', () => {
     const seen: unknown[] = [];
@@ -41,11 +41,11 @@ describe('createSecrets', () => {
     expect(seen[0]).toEqual({ id: 'chat-complete', title: 'asked everything', count: 1, total: SECRETS.length });
   });
   it('phase 3 brings the live total to seven', () => {
-    expect(SECRETS.map((x) => x.id)).toEqual(['name-thrown', 'chat-complete', 'konami', 'reconcile-done', 'loop-watched', 'p0-sorted', 'mrr-watched']);
+    expect(SECRETS.map((x) => x.id)).toEqual(['name-thrown', 'chat-complete', 'claude-typed', 'reconcile-done', 'loop-watched', 'p0-sorted', 'mrr-watched']);
   });
   it('every hidden secret says exactly how to get it, not a riddle', () => {
     for (const x of SECRETS) expect(x.hint).toMatch(/^(click|ask|type|press) /);
-    expect(SECRETS.find((x) => x.id === 'konami')!.hint).toContain('B A');
+    expect(SECRETS.find((x) => x.id === 'claude-typed')!.hint).toBe('type "claude" anywhere on the page');
     expect(SECRETS.filter((x) => /\[ watch \]/.test(x.hint))).toHaveLength(4);
   });
 });

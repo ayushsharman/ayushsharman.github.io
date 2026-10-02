@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { secrets } from '../src/lib/secrets';
 import { mountP0Sim, P0_DEMO } from '../src/lib/games/p0-sim';
 
 let panel: HTMLElement;
@@ -27,18 +28,26 @@ describe('mountP0Sim', () => {
     expect(panel.querySelectorAll('[data-req].p0').length).toBeGreaterThan(0);
     expect(panel.querySelectorAll('[data-bucket] [data-req]').length).toBe(0);
   });
-  it('ends sorted, with tickets at 4 and go-live at 15 days, in about three seconds', () => {
+  it('takes about five seconds: still running at three, finished by five', () => {
+    motion(true);
+    mountP0Sim(panel);
+    vi.advanceTimersByTime(3200);
+    expect(panel.querySelector('[data-replay-sim]')).toBeNull();
+    vi.advanceTimersByTime(2000);
+    expect(panel.querySelector('[data-replay-sim]')).not.toBeNull();
+  });
+  it('ends sorted, with tickets at 4 and go-live at 15 days', () => {
     motion(true);
     const seen: string[] = [];
     window.addEventListener('secret:unlocked', (e) => seen.push((e as CustomEvent).detail.id));
     mountP0Sim(panel);
-    vi.advanceTimersByTime(3200);
+    vi.advanceTimersByTime(5200);
     const count = (b: string) => panel.querySelectorAll(`[data-bucket="${b}"] [data-req]`).length;
     expect([count('now'), count('sprint'), count('later')]).toEqual([2, 3, 3]);
     expect($('[data-tickets]').textContent).toBe('4');
     expect($('[data-golive]').textContent).toMatch(/15 days/);
     expect(panel.textContent).toMatch(/busy is not a metric/);
-    expect(seen).toContain('p0-sorted');
+    expect(secrets().isFound('p0-sorted')).toBe(true); // the store, not the event: an earlier test may have unlocked it
   });
   it('with motion off it shows the end state at once', () => {
     motion(false);
@@ -60,7 +69,7 @@ describe('mountP0Sim', () => {
     motion(true);
     mountP0Sim(panel);
     const shown = new Set<string>();
-    for (let t = 0; t < 3300; t += 50) { vi.advanceTimersByTime(50); shown.add($('[data-tickets]').textContent!); }
+    for (let t = 0; t < 5300; t += 50) { vi.advanceTimersByTime(50); shown.add($('[data-tickets]').textContent!); }
     expect([...shown].sort()).toEqual(['30+', '4']);
   });
   it('replay keeps keyboard focus inside the scene', () => {

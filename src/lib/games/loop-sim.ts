@@ -1,4 +1,4 @@
-import { createTimeline, SCENE_MS } from './timeline';
+import { createTimeline, LONG_SCENE_MS } from './timeline';
 import { unlock } from '../secrets';
 
 type Item = { id: string; ref: string; what: string; vendor: string; risk?: string; rule?: boolean; closes?: 2 | 3 };
@@ -119,5 +119,5 @@ export function mountLoopSim(panel: HTMLElement): () => void {
     $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountLoopSim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('loop-watched');
   });
-  return tl.play(SCENE_MS);
+  return tl.play(LONG_SCENE_MS);
 }

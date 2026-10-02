@@ -27,4 +27,6 @@ export function createTimeline(owner: object) {
   };
 }
 
+// Per-scene running times. Reconcile reads best fast; the list and the P0 sort need a beat longer.
 export const SCENE_MS = 3000;
+export const LONG_SCENE_MS = 5000;

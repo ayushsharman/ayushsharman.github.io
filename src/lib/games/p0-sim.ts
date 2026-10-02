@@ -1,4 +1,4 @@
-import { createTimeline, SCENE_MS } from './timeline';
+import { createTimeline, LONG_SCENE_MS } from './timeline';
 import { unlock } from '../secrets';
 
 type Bucket = 'now' | 'sprint' | 'later';
@@ -86,5 +86,5 @@ export function mountP0Sim(panel: HTMLElement): () => void {
     $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountP0Sim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('p0-sorted');
   });
-  return tl.play(SCENE_MS);
+  return tl.play(LONG_SCENE_MS);
 }

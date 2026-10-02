@@ -1,6 +1,6 @@
 import { prefersReducedMotion } from './motion';
 
-export type ChatLink = { label: string; href: string; overlay?: boolean };
+export type ChatLink = { label: string; href: string; overlay?: boolean; secrets?: boolean };
 export type ChatItem = { id: string; q: string; a: string; link?: ChatLink };
 
 export function createChatState(items: ChatItem[]) {
@@ -32,6 +32,7 @@ export function mountChat(root: HTMLElement, script: { greeting: string; items: 
       a.href = link.href;
       a.textContent = `${link.label} →`;
       if (link.overlay) a.setAttribute('data-open-experience', '');
+      if (link.secrets) a.setAttribute('data-secrets-open', '');
       if (link.href.startsWith('http')) { a.target = '_blank'; a.rel = 'noopener'; }
       d.append(' ', a);
     }

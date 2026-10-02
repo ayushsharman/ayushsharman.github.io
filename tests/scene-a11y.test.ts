@@ -43,7 +43,7 @@ describe('scene details', () => {
   it('reconcile: the scan highlight is actually on screen at some point', () => {
     motion(true); mountReconcileSim(panel);
     let seen = false;
-    for (let t = 0; t < 3300 && !seen; t += 20) { vi.advanceTimersByTime(20); seen = !!panel.querySelector('.line.scan'); }
+    for (let t = 0; t < 3300 && !seen; t += 20) { vi.advanceTimersByTime(20); seen = !!panel.querySelector('[data-col="books"] .line.on'); }
     expect(seen).toBe(true);
   });
   it('loop: the bars carry day labels', () => {

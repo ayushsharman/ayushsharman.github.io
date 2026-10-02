@@ -1,4 +1,5 @@
 import { createTimeline, LONG_SCENE_MS, announce } from './timeline';
+import { createFrame } from './frame';
 import { unlock } from '../secrets';
 
 type Stage = { year: string; role: string; did: string; moved: string; mrr: string; team?: string };
@@ -24,15 +25,14 @@ const VISUAL = { bar: [0, 0, 10, 10, 100], dots: [0, 3, 3, 3, 22], totalDots: 24
 export function mountMrrSim(panel: HTMLElement): () => void {
   const tl = createTimeline(panel);
   panel.replaceChildren();
-  const first = MRR_DEMO.stages[0];
-  const root = document.createElement('div');
-  root.className = 'game mrr sim';
-  root.innerHTML = `
-    <div class="g-head">
-      <p class="g-title" data-scene>four years, one company, a year at a time</p>
-      <p class="g-meta mono"><span data-year>${first.year}</span> &middot; <span data-role>${first.role}</span> &middot; medoc, real figures</p>
-    </div>
-    <div class="mrr-strip" aria-hidden="true">${MRR_DEMO.stages.map((s) => `<span data-seg>${s.year}</span>`).join(' ')}</div>
+  const first = MRR_DEMO.stages[0], last = MRR_DEMO.stages.at(-1)!;
+  const f = createFrame({
+    cls: 'mrr', label: 'medoc, real figures', steps: MRR_DEMO.stages.length,
+    left: { k: first.year, v: first.mrr, s: `a team of ${first.team}` },
+    right: { k: last.year, v: '-', s: 'four years later' },
+  });
+  f.act(1, first.role, first.year);
+  f.stage.innerHTML = `
     <div class="mrr-grid">
       <ol class="mrr-log" data-log></ol>
       <div class="mrr-side">
@@ -44,32 +44,30 @@ export function mountMrrSim(panel: HTMLElement): () => void {
         <p class="g-label mono">// team</p>
         <p class="mrr-big"><span data-team>${first.team}</span></p>
       </div>
-    </div>
-    <p class="g-status mono" data-status></p>
-    <p class="sr-only" data-live aria-live="polite"></p>
-    <div class="g-actions" data-actions></div>`;
-  root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
-  panel.appendChild(root);
-  const $ = (sel: string) => root.querySelector<HTMLElement>(sel)!;
-  const set = (sel: string, t: string) => { $(sel).textContent = t; };
-  const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
-  const segs = [...root.querySelectorAll<HTMLElement>('[data-seg]')];
+    </div>`;
+  panel.appendChild(f.root);
+  const $ = f.$;
+  const dots = [...f.root.querySelectorAll<HTMLElement>('[data-dot]')];
 
   MRR_DEMO.stages.forEach((st, i) => tl.step(900, () => {
-    set('[data-year]', st.year);
-    set('[data-role]', st.role);
-    segs.forEach((s, j) => s.classList.toggle('on', j <= i));
+    f.act(i + 1, st.role, st.year);
+    // The spotlight: the year being told is bright, earlier years step back.
+    f.root.querySelectorAll('[data-log] li').forEach((li) => li.classList.remove('on'));
     $('[data-log]').insertAdjacentHTML('beforeend',
-      `<li><span class="yr mono">${st.year}</span><span class="rl mono">${st.role}</span><span class="did">${st.did}</span><span class="mv mono">${st.moved}</span></li>`);
-    set('[data-mrr]', st.mrr);
+      `<li class="on"><span class="yr mono">${st.year}</span><span class="rl mono">${st.role}</span><span class="did">${st.did}</span><span class="mv mono">${st.moved}</span></li>`);
+    $('[data-mrr]').textContent = st.mrr;
     $('[data-mrrbar]').style.width = `${VISUAL.bar[i]}%`;
     dots.forEach((d, j) => d.classList.toggle('on', j < VISUAL.dots[i]));
     // Notion gives the team size only at the start (5) and the end (50), so the years between show none.
-    set('[data-team]', st.team ?? '');
+    $('[data-team]').textContent = st.team ?? '';
+    f.cue(st.moved);
   }));
   tl.step(400, () => {
-    set('[data-status]', MRR_DEMO.end);
-    announce($('[data-live]'), `${MRR_DEMO.stages.at(-1)!.moved} ${MRR_DEMO.end}`, tl.instant);
+    f.end();
+    f.side('left', { state: 'done' });
+    f.side('right', { v: last.mrr, s: `a team of ${last.team}`, state: 'agent' });
+    f.cue(MRR_DEMO.end);
+    announce($('[data-live]'), `${last.moved} ${MRR_DEMO.end}`, tl.instant);
     $('[data-actions]').innerHTML = '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
     $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountMrrSim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };
     unlock('mrr-watched');

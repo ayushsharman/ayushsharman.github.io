@@ -1,4 +1,5 @@
 import { createTimeline, LONG_SCENE_MS, announce } from './timeline';
+import { createFrame } from './frame';
 import { unlock } from '../secrets';
 
 type Bucket = 'now' | 'sprint' | 'later';
@@ -26,31 +27,26 @@ export function mountP0Sim(panel: HTMLElement): () => void {
   const tl = createTimeline(panel);
   panel.replaceChildren();
   const o = P0_DEMO.outcome;
-  const root = document.createElement('div');
-  root.className = 'game p0 sim';
-  root.innerHTML = `
-    <div class="g-head">
-      <p class="g-title" data-scene>busy: every request is urgent to whoever sent it</p>
-      <p class="g-meta mono">tickets / month <b data-tickets>${o.ticketsBefore}</b> &middot; go-live <b data-golive>${o.goLiveBefore} days</b> &middot; ${P0_DEMO.label}</p>
-    </div>
+  const f = createFrame({
+    cls: 'p0', label: P0_DEMO.label, steps: 3,
+    left: { k: 'busy', v: o.ticketsBefore, s: `tickets a month \u00b7 go-live ${o.goLiveBefore} days` },
+    right: { k: 'the system', v: '-', s: 'waiting' },
+  });
+  f.act(1, 'Everything is P0');
+  f.stage.innerHTML = `
     <div class="p0-inbox" data-inbox></div>
     <div class="p0-buckets" data-buckets hidden>
       <div class="bk"><p class="g-label mono">// now</p><div data-bucket="now"></div></div>
       <div class="bk"><p class="g-label mono">// this sprint</p><div data-bucket="sprint"></div></div>
       <div class="bk"><p class="g-label mono">// later, or no</p><div data-bucket="later"></div></div>
     </div>
-    <ul class="p0-check mono" data-check hidden></ul>
-    <p class="g-status mono" data-status></p>
-    <p class="sr-only" data-live aria-live="polite"></p>
-    <div class="g-actions" data-actions></div>`;
-  root.tabIndex = -1; // replay hands focus here, so keyboard users stay in the scene
-  panel.appendChild(root);
-  const $ = (sel: string) => root.querySelector<HTMLElement>(sel)!;
-  const set = (sel: string, t: string) => { $(sel).textContent = t; };
+    <ul class="p0-check mono" data-check hidden></ul>`;
+  panel.appendChild(f.root);
+  const $ = f.$;
   const cards = new Map<string, HTMLElement>();
   const step = tl.step;
 
-  // Busy.
+  // Act one: busy. Every request lands stamped P0, and every bar stalls.
   for (const r of P0_DEMO.requests) step(150, () => {
     const c = document.createElement('div');
     c.className = 'p0-card urgent';
@@ -58,32 +54,39 @@ export function mountP0Sim(panel: HTMLElement): () => void {
     c.innerHTML = `<span class="stamp mono">P0</span><span class="from mono">${r.from}</span><span class="ask">${r.ask}</span><span class="prog"><i></i></span><span class="qa mono"></span>`;
     $('[data-inbox]').appendChild(c);
     cards.set(r.id, c);
+    f.cue(`${r.from}: ${r.ask}. urgent.`);
   });
-  step(200, () => { cards.forEach((c) => c.classList.add('stalled')); set('[data-status]', 'everyone works on everything. every bar stops at 40%.'); });
-  // The counter shows only Medoc's real figures: it pulses while busy, it never counts invented numbers.
-  step(480, () => $('[data-tickets]').classList.add('hot'));
-  step(300, () => set('[data-status]', 'everything is P0, so nothing is.'));
+  step(200, () => { cards.forEach((c) => c.classList.add('stalled')); f.cue('everyone works on everything. every bar stops at 40%.'); });
+  // The scoreboard shows only Medoc's real figures: it pulses while busy, it never counts invented numbers.
+  step(480, () => { $('[data-score-left] [data-v]').classList.add('hot'); f.side('left', { state: 'done' }); f.cue('everything is P0, so nothing is.'); });
 
-  // The system.
+  // Act two: two questions for every request.
   step(600, () => {
-    set('[data-scene]', 'the system: two questions for every request');
-    set('[data-status]', 'how many people does it affect, how often? what happens if we wait two weeks?');
+    f.act(2, 'Two questions');
+    f.cue('how many people does it affect, how often? what happens if we wait two weeks?');
     $('[data-buckets]').hidden = false;
+    f.side('right', { state: 'agent', s: 'sorting' });
   });
   for (const r of P0_DEMO.requests) step(170, () => {
     const c = cards.get(r.id)!;
+    cards.forEach((x) => x.classList.remove('on'));
     c.classList.remove('urgent', 'stalled');
-    c.querySelector('.qa')!.textContent = `${r.reach} · wait: ${r.wait}`;
-    root.querySelector(`[data-bucket="${r.bucket}"]`)!.appendChild(c);
+    c.classList.add('on');
+    c.querySelector('.qa')!.textContent = `${r.reach} \u00b7 wait: ${r.wait}`;
+    f.$(`[data-bucket="${r.bucket}"]`).appendChild(c);
+    f.cue(`${r.ask}: ${r.bucket === 'later' ? 'later, or no' : r.bucket === 'sprint' ? 'this sprint' : 'now'}.`);
   });
-  step(200, () => { $('[data-check]').hidden = false; });
+  step(200, () => { cards.forEach((x) => x.classList.remove('on')); $('[data-check]').hidden = false; f.cue('then the operating system that keeps it sorted:'); });
   for (const item of P0_DEMO.checklist) step(120, () => $('[data-check]').insertAdjacentHTML('beforeend', `<li>ok ${item}</li>`));
+
+  // Act three: the outcome, in Medoc's real numbers.
   step(300, () => {
-    $('[data-tickets]').classList.remove('hot');
-    set('[data-tickets]', o.ticketsAfter);
-    set('[data-golive]', `${o.goLiveAfter} days`);
+    $('[data-score-left] [data-v]').classList.remove('hot');
+    f.act(3, 'Busy is not a metric');
+    f.end();
+    f.side('right', { v: o.ticketsAfter, s: `tickets a month \u00b7 go-live ${o.goLiveAfter} days` });
     const summary = `busy is not a metric. at Medoc: support tickets a month ${o.ticketsBefore} to ${o.ticketsAfter}, go-live ${o.goLiveBefore} days to ${o.goLiveAfter}.`;
-    set('[data-status]', summary);
+    f.cue(summary);
     announce($('[data-live]'), summary, tl.instant);
     $('[data-actions]').innerHTML = '<button type="button" class="g-btn ghost" data-replay-sim>replay</button>';
     $('[data-actions]').querySelector<HTMLButtonElement>('button')!.onclick = () => { mountP0Sim(panel); panel.querySelector<HTMLElement>('.game')?.focus(); };

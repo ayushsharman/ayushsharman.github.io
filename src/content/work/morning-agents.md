@@ -1,5 +1,5 @@
 ---
-title: Agents that start at 9am
+title: Agents that never sleep
 summary: Reviewer agents that read the ERP each morning, put the risky items first, ask only what the data cannot answer, and never ask twice.
 org: clear
 year: '2026'

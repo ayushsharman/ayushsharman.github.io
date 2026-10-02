@@ -1,0 +1,32 @@
+.game { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); padding: 24px; margin: 0 0 30px; }
+.game .g-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.game .g-title { font-size: 20px; font-weight: 500; }
+.game .g-meta { font-size: 12px; color: var(--mute); }
+.game .g-meta [data-clock] { color: var(--warn); }
+.game .g-label { font-size: 11px; color: var(--acc); margin-bottom: 10px; }
+.rc .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 22px; }
+.rc .line { display: flex; justify-content: space-between; width: 100%; padding: 10px 12px; margin-bottom: 6px; font-size: 13px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); cursor: pointer; transition: border-color var(--dur-fast) var(--ease-standard), background var(--dur-fast) var(--ease-standard); }
+.rc .line:hover { border-color: var(--line-strong); }
+.rc .line.sel { border-color: var(--acc); }
+.rc .line.ok { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, var(--bg)); color: var(--acc); cursor: default; }
+.rc .line.agent { border-style: dashed; }
+.rc .line.left { border-color: var(--warn); color: var(--warn); background: var(--bg); }
+.rc .line.miss { animation: g-shake var(--dur-slow) var(--ease-standard); border-color: var(--hot); }
+.rc .why { font-size: 11px; color: var(--warn); margin: -2px 0 10px 2px; }
+.game .g-status { font-size: 13px; color: var(--fg); margin-top: 18px; min-height: 1.4em; }
+.game .g-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.game .g-btn { font-family: var(--font-mono); font-size: 13px; padding: 9px 14px; border-radius: var(--radius-pill); border: 1px solid var(--acc); background: var(--acc); color: var(--bg); cursor: pointer; }
+.game .g-btn.ghost { background: none; color: var(--acc); }
+.game .g-btn.done { opacity: .5; }
+@keyframes g-shake { 20% { transform: translateX(-5px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+@media (max-width: 720px) { .rc .cols { gap: 10px; } .rc .line { flex-direction: column; gap: 2px; padding: 8px; font-size: 12px; } .game { padding: 16px; } }
+
+/* simulations: lines are watched, not clicked */
+.sim .line { cursor: default; }
+.sim .line:hover { border-color: var(--line); }
+.sim .line.sel { border-color: var(--warn); color: var(--warn); }
+.sim .line.scan { border-color: var(--line-strong); background: var(--surface-2); }
+.sim .line.ok:hover { border-color: var(--acc); }
+.game .g-term { margin: 16px 0 0; padding: 12px 14px; font-size: 12px; line-height: 1.7; color: var(--acc); background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm); white-space: pre-wrap; }
+.game .g-term[hidden] { display: none; }
+.game .dec { font-size: 12px; color: var(--warn); border: 1px dashed var(--warn); padding: 8px 12px; border-radius: var(--radius-pill); }

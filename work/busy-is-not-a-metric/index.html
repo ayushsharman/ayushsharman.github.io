@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Busy is not a metric | Ayush Sharma</title><meta name="description" content="How one hospital escalation became an operating system for implementations, and why I stopped managing expectations and started managing uncertainty."><link rel="canonical" href="https://ayushsharman.github.io/work/busy-is-not-a-metric/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:title" content="Busy is not a metric | Ayush Sharma"><meta property="og:description" content="How one hospital escalation became an operating system for implementations, and why I stopped managing expectations and started managing uncertainty."><meta property="og:type" content="website"><meta property="og:url" content="https://ayushsharman.github.io/work/busy-is-not-a-metric/"><meta property="og:image" content="https://ayushsharman.github.io/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#000000"><link rel="stylesheet" href="/_astro/Nav.CBdeoKC4.css"><style>.ft[data-astro-cid-jo6i4kqk]{padding:30px var(--gutter);border-top:1px solid var(--line);color:var(--mute);flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:11px;display:flex}button[data-astro-cid-jo6i4kqk]{font:inherit;color:var(--acc);cursor:pointer;background:0 0;border:0;padding:0}
+.art[data-astro-cid-bnohfldf]{max-width:760px;margin:0 auto;padding:130px 20px 100px}.back[data-astro-cid-bnohfldf]{color:var(--mute);font-size:12px;text-decoration:none}.label[data-astro-cid-bnohfldf]{margin-top:40px}h1[data-astro-cid-bnohfldf]{letter-spacing:-.035em;font-size:clamp(36px,6vw,64px);font-weight:500;line-height:1.02}.sum[data-astro-cid-bnohfldf]{color:var(--mute);margin-top:18px;font-size:19px;line-height:1.5}.body[data-astro-cid-bnohfldf]{color:var(--fg-body);margin-top:48px;font-size:18px;line-height:1.7}.body[data-astro-cid-bnohfldf] h2{color:var(--fg);letter-spacing:-.02em;margin:48px 0 12px;font-size:26px;font-weight:500}.body[data-astro-cid-bnohfldf] h3{color:var(--fg);margin:32px 0 10px;font-size:20px;font-weight:500}.body[data-astro-cid-bnohfldf] p{margin:0 0 18px}.body[data-astro-cid-bnohfldf] ul,.body[data-astro-cid-bnohfldf] ol{margin:0 0 18px 20px}.body[data-astro-cid-bnohfldf] li{margin-bottom:6px}.body[data-astro-cid-bnohfldf] strong{color:var(--fg)}.body[data-astro-cid-bnohfldf] code,.body[data-astro-cid-bnohfldf] pre{font-family:var(--font-mono);font-size:14px}.body[data-astro-cid-bnohfldf] pre{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--mute);padding:16px;overflow-x:auto}.body[data-astro-cid-bnohfldf] blockquote{border-left:2px solid var(--acc);color:var(--fg);margin:0 0 18px;padding-left:16px}.body[data-astro-cid-bnohfldf] table{border-collapse:collapse;width:100%;margin-bottom:18px;font-size:15px;display:block;overflow-x:auto}.body[data-astro-cid-bnohfldf] th,.body[data-astro-cid-bnohfldf] td{border-bottom:1px solid var(--line);text-align:left;vertical-align:top;padding:8px 6px}.body[data-astro-cid-bnohfldf] a{color:var(--acc)}
+</style></head><body><a class="skip-link" href="#main">skip to content</a><nav class="nav" aria-label="main" data-astro-cid-wpvy4v7s><a href="/" class="mono" data-astro-cid-wpvy4v7s>ayush sharma</a><span class="links" data-astro-cid-wpvy4v7s><a href="/#ask" data-astro-cid-wpvy4v7s>ask</a><a href="/#work" data-astro-cid-wpvy4v7s>work</a><a href="/#writing" data-astro-cid-wpvy4v7s>writing</a><a href="/#contact" data-astro-cid-wpvy4v7s>contact</a></span></nav><main id="main" tabindex="-1"><article class="art" data-astro-cid-bnohfldf><a class="back mono" href="/#work" data-astro-cid-bnohfldf>&larr; all work</a><p class="label" data-astro-cid-bnohfldf>// medoc · 2025</p><h1 data-astro-cid-bnohfldf>Busy is not a metric</h1><p class="sum" data-astro-cid-bnohfldf>How one hospital escalation became an operating system for implementations, and why I stopped managing expectations and started managing uncertainty.</p><div class="body" data-astro-cid-bnohfldf><h2 id="context">Context</h2>
+<p>Medoc builds a hospital information system for small and mid-sized hospitals: OPD, IPD, pharmacy, billing and clinical workflows. Implementation is the riskiest part: new software on top of live patient care and billing, run by non-technical staff, with no tolerance for downtime.</p>
+<p>We were scaling, and it felt like momentum. Every hospital had its own list of changes, and because each one felt urgent to the client asking, we treated almost all of it as urgent to us. The team got pulled between hospitals’ billing complaints, training issues and dashboard requests, all in the same week. Nobody was tracking whether any of it moved a number that mattered.</p>
+<p>Then one rollout, at a multi-specialty orthopedic hospital moving from paper to a fully digital system across departments, escalated to our founder. As director of technical operations, I was the person he pointed to, and the one who sat across the table from the hospital’s owner when it came to a head.</p>
+<h2 id="the-problem">The problem</h2>
+<p>On the surface: frustration going straight to me and our founder, repeated follow-ups with no resolution, falling confidence in our timelines, and negative word of mouth among staff, driven by how <em>trivial</em> many of the bugs were. A release had slipped, and the trainer had gone unreachable just when I needed status.</p>
+<p>It was tempting to blame individuals. The real causes were systemic:</p>
+<ol>
+<li><strong>No implementation visibility.</strong> Without consistent visit logs, the client could not tell “nothing happened” from “work happened but was not written down,” and reasonably assumed the first.</li>
+<li><strong>Timelines without readiness.</strong> Conversations were about <em>when</em> something would ship, not whether it was ready to ship.</li>
+<li><strong>Engineering built without context.</strong> A fix could be technically done and useless if it did not match how a nurse or pharmacist actually worked.</li>
+<li><strong>We optimized for dates, not readiness.</strong> Commitments went to the client before engineering had validated the fix. Timelines slipped, trust eroded, and the loop repeated.</li>
+</ol>
+<p>The 26 field feedback items from pharmacy and billing staff told the same story: workflows built to a minimum spec (“edit amount only”) when the real need was full line-item flexibility.</p>
+<p>Together it described a system where issues were reported but not tracked to resolution, and “in progress” had no operational meaning.</p>
+<h2 id="approach">Approach</h2>
+<p>I treated the escalation as a product and process failure, not a fire to put out personally. Every escalation was information lost between customer, implementation, product and engineering. The goal was better information flow: visible, structured and owned at each handoff.</p>
+<p>Instead of a sprint to fix every bug, I built seven durable systems:</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>What it does</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visit logs</td>
+<td>Daily, timestamped, tied to departments and issues</td>
+<td>Implementation team</td>
+</tr>
+<tr>
+<td>Escalation framework</td>
+<td>One tracker per account; every open item has an owner, status and ETA</td>
+<td>Implementation lead</td>
+</tr>
+<tr>
+<td>Go-live checklist</td>
+<td>Sign-off gates per department before any module goes live</td>
+<td>Product team</td>
+</tr>
+<tr>
+<td>Weekly at-risk review</td>
+<td>Implementation, product and engineering in one room for flagged accounts</td>
+<td>Me</td>
+</tr>
+<tr>
+<td>User story validation</td>
+<td>A written description of the real workflow before development starts</td>
+<td>Product team</td>
+</tr>
+<tr>
+<td>Readiness review</td>
+<td>A gate between “code complete” and “client-facing done”</td>
+<td>Engineering lead</td>
+</tr>
+<tr>
+<td>Handover template</td>
+<td>Account history, open issues and context, so nobody is a single point of failure</td>
+<td>Implementation team</td>
+</tr>
+</tbody>
+</table>
+<p>Underneath sat a phased rollout: kickoff, a six-day training, go-live, then hypercare aimed at at least 80% adoption. Borrowed frameworks covered phases and adoption, but none treated <em>communication itself</em> as a deliverable with an owner. That was the gap this closed.</p>
+<p>For prioritization, I stopped asking whether a request felt urgent and started asking two separate questions: how many people does this affect, and how often? And what happens if we do nothing for two weeks? A loud, narrow request that is survivable for two weeks is not a P0. If everything is P0, nothing is P0.</p>
+<h2 id="what-i-owned">What I owned</h2>
+<p>I was accountable for the outcome, but I was not responsible for fixing nursing, pharmacy, billing or deployment. Those belonged to engineering, product and implementation. Confusing the two meant absorbing pressure I could not resolve, and passing on promises engineering had not validated.</p>
+<p>So I stopped being the messenger for commitments I did not control, and committed only to what I did: consolidated status, honest uncertainty and a fixed cadence of updates, even when the update was “still no resolution.”</p>
+<p>That was the shift from <strong>managing expectations</strong> to <strong>managing uncertainty</strong>. The client stopped hearing “it’ll be done by Thursday” and started hearing “the issue is in engineering validation; I’ll update you today by 6 PM even without a resolution.” The first promises someone else’s execution. The second promises something I control: communication.</p>
+<h2 id="what-changed">What changed</h2>
+<ul>
+<li>Go-live time fell from 30 days to 15, and to 7 for smaller clinics.</li>
+<li>Systemic fixes with QA and engineering took monthly support tickets from 30+ down to 4.</li>
+<li>Conversation logging now runs across active implementations, and scheduled review calls replaced the old pattern of pushing a release and waiting for complaints.</li>
+<li>Day-to-day operations depend less on our founder.</li>
+</ul>
+<p>The biggest change was how I judge work. Busy had felt like progress. Prioritization is not a skill you apply after you have metrics; it is what forces you to get metrics in the first place.</p>
+<h2 id="what-id-do-differently">What I’d do differently</h2>
+<p>Build the tracker, the go-live checklist and the weekly review <em>before</em> an account shows strain, not after an escalation forces it. Escalations are expensive teachers. The cheaper version is instrumenting visibility into every implementation from day one, so “no news” is never mistaken for “no progress,” by the client or by leadership.</p>
+<p>I would also instrument the 30-day closure report earlier, so adoption is measured the same way on every rollout.</p>
+</div></article></main><footer class="ft mono" data-astro-cid-jo6i4kqk><button type="button" data-replay data-astro-cid-jo6i4kqk>replay intro</button><span data-astro-cid-jo6i4kqk>built with claude, at 2am, obviously</span><span data-astro-cid-jo6i4kqk>&copy; 2026 ayush sharma</span></footer><script type="module">var e=document.querySelector(`[data-replay]`);(!document.getElementById(`boot`)||matchMedia(`(prefers-reduced-motion: reduce)`).matches)&&e?.remove(),e?.addEventListener(`click`,()=>{window.scrollTo({top:0}),window.dispatchEvent(new Event(`boot:replay`))});</script></body></html>

@@ -43,4 +43,9 @@ describe('createSecrets', () => {
   it('phase 3 brings the live total to seven', () => {
     expect(SECRETS.map((x) => x.id)).toEqual(['name-thrown', 'chat-complete', 'konami', 'reconcile-done', 'loop-watched', 'p0-sorted', 'mrr-watched']);
   });
+  it('every hidden secret says exactly how to get it, not a riddle', () => {
+    for (const x of SECRETS) expect(x.hint).toMatch(/^(click|ask|type|press) /);
+    expect(SECRETS.find((x) => x.id === 'konami')!.hint).toContain('B A');
+    expect(SECRETS.filter((x) => /\[ watch \]/.test(x.hint))).toHaveLength(4);
+  });
 });

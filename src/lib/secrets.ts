@@ -3,15 +3,16 @@ import { safeStorage } from './motion';
 export type SecretId = 'name-thrown' | 'chat-complete' | 'konami' | 'reconcile-done' | 'loop-watched' | 'p0-sorted' | 'mrr-watched';
 export type Secret = { id: SecretId; title: string; hint: string };
 
-// The live secrets. Each simulation adds one.
+// The live secrets. Each simulation adds one. Hints are plain instructions, not riddles: the owner
+// wants a visitor stuck at 5/7 to be able to finish.
 export const SECRETS: Secret[] = [
-  { id: 'name-thrown', title: 'threw the founder', hint: 'the name can take it' },
-  { id: 'chat-complete', title: 'asked everything', hint: "ask until there's nothing left" },
-  { id: 'konami', title: 'up up down down', hint: 'you know the code' },
-  { id: 'reconcile-done', title: 'watched the books close', hint: 'let the agent close the books' },
-  { id: 'loop-watched', title: 'watched the list shrink', hint: 'the agents never sleep' },
-  { id: 'p0-sorted', title: 'sorted the P0s', hint: 'busy is not a metric' },
-  { id: 'mrr-watched', title: 'watched it compound', hint: 'the first repo' },
+  { id: 'name-thrown', title: 'threw the founder', hint: 'click my name at the top, or the "click my name." button' },
+  { id: 'chat-complete', title: 'asked everything', hint: 'ask every question in the chat, all of them' },
+  { id: 'konami', title: 'up up down down', hint: 'type ↑ ↑ ↓ ↓ ← → ← → B A anywhere on the page' },
+  { id: 'reconcile-done', title: 'watched the books close', hint: 'press [ watch ] on 01 and let it finish' },
+  { id: 'loop-watched', title: 'watched the list shrink', hint: 'press [ watch ] on 02 and let it finish' },
+  { id: 'p0-sorted', title: 'sorted the P0s', hint: 'press [ watch ] on 04 and let it finish' },
+  { id: 'mrr-watched', title: 'watched it compound', hint: 'press [ watch ] on 03 and let it finish' },
 ];
 
 const KEY = 'secrets-v1';

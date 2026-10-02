@@ -33,7 +33,7 @@
   .chips :global(.chip:hover) { border-color: var(--acc); color: var(--acc); }
   .chips :global(.chip.lit) { border-color: var(--acc); color: var(--acc); animation: lit 1.3s var(--ease-standard) infinite; }
   @keyframes lit { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--acc) 45%, transparent); } 60% { box-shadow: 0 0 0 7px transparent; } }
-  .thread :global(.ghost) { align-self: flex-end; font-family: var(--font-mono); font-size: 13px; color: var(--mute); opacity: .75; min-height: 1.4em; }
+  .thread :global(.ghost) { align-self: flex-end; font-family: var(--font-mono); font-size: 13px; color: var(--mute); min-height: 1.4em; }
   .thread :global(.ghost::after) { content: ''; display: inline-block; width: .55em; height: 1em; margin-left: 3px; vertical-align: -2px; background: var(--acc); animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
   .all { display: inline-block; margin-top: 26px; font-family: var(--font-mono); font-size: 13px; color: var(--acc); text-decoration: none; border-bottom: 1px solid var(--acc); }

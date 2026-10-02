@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+---
+<Base title="404 | Ayush Sharma" description="Not found." path="/404">
+  <Nav slot="before" />
+  <section class="section nf">
+    <p class="label">// 404</p>
+    <h1 class="h2">$ cd here<br />no such page. the agents looked.</h1>
+    <p class="lede"><a href="/">go home</a></p>
+  </section>
+</Base>
+<style>.nf { min-height: 80vh; padding-top: 160px; border-top: 0; }</style>

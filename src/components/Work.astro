@@ -1,0 +1,36 @@
+---
+import { work, alsoBuilt } from '../content/site';
+---
+<section id="work" class="section">
+  <p class="label">// selected_work/</p>
+  <h2 class="h2">Things that run without me<br />watching them.</h2>
+  <ol class="wk">
+    {work.map((w) => (
+      <li>
+        <a class="w" href={`/work/${w.slug}/`}>
+          <span class="n mono">{w.n}</span>
+          <span><span class="t">{w.title}</span><span class="d">{w.line}</span></span>
+          <span class="meta mono">
+            {w.trace.map((s) => <span class={s.startsWith('!') || s.startsWith('?') ? 'warn' : ''}>{s}</span>)}
+            <span class="org">{w.org} &middot; {w.year}</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ol>
+  <p class="also mono">also built: {alsoBuilt.map((a, i) => <>{i > 0 && ' / '}<a href={a.href} target="_blank" rel="noopener">{a.name}</a>, {a.line}</>)}</p>
+</section>
+<style>
+  .wk { list-style: none; padding: 0; margin-top: 44px; border-top: 1px solid var(--line); }
+  .w { display: grid; grid-template-columns: 70px 1fr 260px; gap: 24px; padding: 30px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+  .n { color: var(--mute); }
+  .t { display: block; font-size: 28px; font-weight: 500; letter-spacing: -.02em; transition: color var(--dur-normal) var(--ease-standard); }
+  .w:hover .t, .w:focus-visible .t { color: var(--acc); }
+  .d { display: block; color: var(--mute); margin-top: 8px; font-size: 15px; line-height: 1.5; max-width: 560px; }
+  .meta { display: flex; flex-direction: column; font-size: 11px; color: var(--mute); line-height: 1.9; }
+  .meta .warn { color: var(--warn); }
+  .meta .org { color: var(--acc); margin-top: 4px; }
+  .also { margin-top: 28px; font-size: 12px; color: var(--mute); }
+  .also a { color: var(--fg); }
+  @media (max-width: 860px) { .w { grid-template-columns: 40px 1fr; } .meta { grid-column: 2; } .t { font-size: 22px; } }
+</style>

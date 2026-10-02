@@ -1,0 +1,40 @@
+<section id="ask" class="section">
+  <div class="iv">
+    <div>
+      <p class="label">// ask_ayush.exe</p>
+      <h2 class="h2">Skip the bio.<br />Just ask.</h2>
+      <p class="lede">Short answers only. Pick a question, and every answer leads somewhere.</p>
+      <div class="chips" data-chips></div>
+      <a class="all" href="/experience" data-open-experience data-chat-all>skip the chat, show me everything &rarr;</a>
+    </div>
+    <div class="thread" data-thread aria-live="polite"></div>
+  </div>
+</section>
+<script>
+  import { mountChat } from '../lib/chat';
+  import { chatScript } from '../content/chat';
+  mountChat(document.getElementById('ask')!, chatScript);
+</script>
+<style>
+  .iv { display: grid; grid-template-columns: .8fr 1.2fr; gap: 6vw; align-items: start; }
+  .thread { min-height: 380px; display: flex; flex-direction: column; gap: 12px; justify-content: flex-end; border: 1px solid var(--line); border-radius: var(--radius-md); padding: 22px; background: var(--surface); }
+  .thread :global(.b) { max-width: 80%; padding: 11px 15px; border-radius: 16px; font-size: 16px; line-height: 1.4; }
+  .thread :global(.b.u) { align-self: flex-end; background: var(--surface-2); color: var(--mute); border-bottom-right-radius: 4px; }
+  .thread :global(.b.a) { align-self: flex-start; background: var(--fg); color: var(--bg); font-weight: 500; border-bottom-left-radius: 4px; }
+  .thread :global(.b.a a) { color: var(--acc-ink); font-weight: 700; }
+  .thread :global(.typing) { align-self: flex-start; display: flex; gap: 4px; padding: 14px 16px; background: var(--surface-2); border-radius: 16px; }
+  .thread :global(.typing i) { width: 6px; height: 6px; border-radius: 50%; background: var(--mute); animation: ty 1s infinite; }
+  .thread :global(.typing i:nth-child(2)) { animation-delay: .15s; }
+  .thread :global(.typing i:nth-child(3)) { animation-delay: .3s; }
+  @keyframes ty { 50% { opacity: .2; transform: translateY(-3px); } }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .chips :global(.chip) { font-family: var(--font-mono); font-size: 13px; border: 1px solid var(--line-strong); background: none; color: var(--fg); padding: 9px 14px; border-radius: var(--radius-pill); cursor: pointer; transition: color var(--dur-fast), border-color var(--dur-fast); }
+  .chips :global(.chip:hover) { border-color: var(--acc); color: var(--acc); }
+  .chips :global(.chip.lit) { border-color: var(--acc); color: var(--acc); animation: lit 1.3s var(--ease-standard) infinite; }
+  @keyframes lit { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--acc) 45%, transparent); } 60% { box-shadow: 0 0 0 7px transparent; } }
+  .thread :global(.ghost) { align-self: flex-end; font-family: var(--font-mono); font-size: 13px; color: var(--mute); opacity: .75; min-height: 1.4em; }
+  .thread :global(.ghost::after) { content: ''; display: inline-block; width: .55em; height: 1em; margin-left: 3px; vertical-align: -2px; background: var(--acc); animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .all { display: inline-block; margin-top: 26px; font-family: var(--font-mono); font-size: 13px; color: var(--acc); text-decoration: none; border-bottom: 1px solid var(--acc); }
+  @media (max-width: 860px) { .iv { grid-template-columns: 1fr; } .thread { min-height: 300px; } }
+</style>

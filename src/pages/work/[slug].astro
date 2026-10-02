@@ -1,0 +1,12 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+export async function getStaticPaths() {
+  return (await getCollection('work')).map((e) => ({ params: { slug: e.id }, props: { e } }));
+}
+const { e } = Astro.props;
+const { Content } = await render(e);
+---
+<Article title={e.data.title} summary={e.data.summary} path={`/work/${e.id}/`} kicker={`// ${e.data.org} · ${e.data.year}`} back={{ href: '/#work', label: 'all work' }}>
+  <Content />
+</Article>

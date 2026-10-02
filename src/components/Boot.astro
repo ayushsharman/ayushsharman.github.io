@@ -1,0 +1,19 @@
+<div id="boot" class="boot" hidden>
+  <pre class="screen" data-boot-screen aria-hidden="true"></pre>
+  <button class="skip" type="button" data-boot-skip>skip intro [esc]</button>
+</div>
+<script>
+  import { startBoot } from '../lib/boot';
+  import { bootLines } from '../content/boot';
+  const root = document.getElementById('boot')!;
+  startBoot(root, bootLines);
+  window.addEventListener('boot:replay', () => startBoot(root, bootLines, { force: true }));
+</script>
+<style>
+  .boot { position: fixed; inset: 0; z-index: 100; background: var(--bg-deep); padding: 8vh var(--gutter); overflow: hidden; }
+  .screen { font-family: var(--font-mono); font-size: clamp(9px, 1.15vw, 15px); line-height: 1.9; color: var(--mute); white-space: pre-wrap; }
+  .screen :global(.s.ok), .screen :global(.s.run) { color: var(--acc); }
+  .screen :global(.s.warn) { color: var(--warn); }
+  .screen :global(.cur) { display: inline-block; width: .6em; height: 1.1em; background: var(--acc); vertical-align: -3px; }
+  .skip { position: fixed; right: var(--gutter); bottom: 6vh; font-family: var(--font-mono); font-size: 12px; color: var(--mute); background: none; border: 1px solid var(--line); padding: 8px 12px; border-radius: var(--radius-sm); cursor: pointer; }
+</style>

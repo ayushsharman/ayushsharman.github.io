@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Boot from '../components/Boot.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Ask from '../components/Ask.astro';
+import Work from '../components/Work.astro';
+import HowIWork from '../components/HowIWork.astro';
+import Writing from '../components/Writing.astro';
+import OffTheClock from '../components/OffTheClock.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import Experience from '../components/Experience.astro';
+---
+<Base title="Ayush Sharma" description="Founding Forward Deployed Engineer at Clear. I build agents that do the actual work." path="/">
+  <Boot slot="before" />
+  <Nav slot="before" />
+  <Hero />
+  <Ask />
+  <Work />
+  <HowIWork />
+  <Writing />
+  <OffTheClock />
+  <Contact />
+  <Footer slot="after" />
+  <Experience slot="after" overlay />
+</Base>

@@ -1,0 +1,14 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+export async function getStaticPaths() {
+  return (await getCollection('writing')).map((e) => ({ params: { slug: e.id }, props: { e } }));
+}
+const { e } = Astro.props;
+const { Content } = await render(e);
+---
+<Article title={e.data.title} summary={e.data.summary} path={`/writing/${e.id}/`} kicker={`// ${e.data.date}`} back={{ href: '/#writing', label: 'all writing' }}>
+  <Content />
+  {e.data.source.startsWith('http') && <p class="mono src">first written on <a href={e.data.source} target="_blank" rel="noopener">notion</a></p>}
+</Article>
+<style>.src { font-size: 12px; color: var(--mute); margin-top: 40px; }</style>

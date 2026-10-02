@@ -1,0 +1,30 @@
+:root {
+  --bg: #0b0c0e;
+  --bg-deep: #000;
+  --surface: #0e0f12;
+  --surface-2: #1a1d22;
+  --fg: #ecebe6;
+  --fg-soft: #cfcdc6;
+  --fg-body: #d6d4cd;
+  --mute: #8a8e96;
+  --line: #1f2227;
+  --line-strong: #2c3036;
+  --acc: #7dd3a8;
+  --acc-ink: #0a6b45;
+  --hot: #ff5a36;
+  --warn: #f0b45b;
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --dur-fast: 150ms;
+  --dur-normal: 240ms;
+  --dur-slow: 450ms;
+  --ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --ease-expressive: cubic-bezier(.7, 0, .2, 1);
+
+  --gutter: 7vw;
+  --radius-sm: 4px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+}

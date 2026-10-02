@@ -30,9 +30,18 @@ export const howIWork = [
   { claim: 'I ship in days and stay for the result.', proof: 'Prototype this week, live next week, still accountable six months later.' },
 ];
 
+// Both repositories are private, so these are described, not linked.
 export const alsoBuilt = [
-  { name: 'Deal Diary', line: 'a Slack bot that drives a CRM through an agent', href: 'https://github.com/ayush-sharma-fde/deal-diary' },
-  { name: 'Remote Work HQ', line: 'a full-stack workspace with an AI layer', href: 'https://github.com/ayushsharman/remote_management_website' },
+  {
+    name: 'Deal Diary',
+    line: 'One CRM seat, a whole team. Ask in Slack, and an agent does the work in the CRM and replies in the thread.',
+    tags: ['slack', 'claude code', 'mcp', 'crm'],
+  },
+  {
+    name: 'Remote Work HQ',
+    line: 'My own workspace: kanban, money, notes and a focus timer, with an AI that turns a brain-dump into tasks.',
+    tags: ['react', 'node', 'mongodb', 'gemini'],
+  },
 ];
 
 export const writingList = [

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { work, howIWork, writingList, links, timeline } from '../src/content/site';
+import { work, howIWork, writingList, links, timeline, alsoBuilt } from '../src/content/site';
 
 describe('site content', () => {
   it('has two Clear and two Medoc work entries, Clear first', () => {
@@ -20,5 +20,14 @@ describe('site content', () => {
   it('timeline is newest first and starts with Clear', () => {
     expect(timeline[0].org).toBe('Clear');
     expect(timeline.at(-1)!.role).toMatch(/B\.E\./);
+  });
+  it('also-built projects read as two different things, each with its own stack tags', () => {
+    expect(alsoBuilt).toHaveLength(2);
+    expect(new Set(alsoBuilt.map((a) => a.line)).size).toBe(2);
+    for (const a of alsoBuilt) expect(a.tags.length).toBeGreaterThanOrEqual(3);
+    expect(alsoBuilt[0].tags).not.toEqual(alsoBuilt[1].tags);
+  });
+  it('never links a private repository (both repos return 404 to visitors)', () => {
+    for (const a of alsoBuilt) expect('href' in a).toBe(false);
   });
 });

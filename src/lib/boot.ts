@@ -23,7 +23,7 @@ export function renderBoot(lines: BootLine[], upTo: number): string {
   return out;
 }
 
-const CPS = 70; // characters per second: about ten seconds for the whole script
+const CPS = 130; // characters per second: about six seconds for the whole script
 
 export function startBoot(root: HTMLElement, lines: BootLine[], opts: { force?: boolean } = {}): void {
   const done = () => window.dispatchEvent(new Event('boot:done'));

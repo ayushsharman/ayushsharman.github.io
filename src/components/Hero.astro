@@ -1,0 +1,37 @@
+---
+const lines = ['AYUSH', 'SHARMA'];
+---
+<section id="hero" class="hero">
+  <div class="goo" data-goo aria-hidden="true"></div>
+  <h1 class="name" data-name aria-label="Ayush Sharma">
+    {lines.map((w) => <span class="ln" aria-hidden="true">{[...w].map((c) => <span data-letter>{c}</span>)}</span>)}
+  </h1>
+  <div class="sub">
+    <p>Founding Forward Deployed Engineer at Clear. I build agents that do the actual work, and I say very little about it.</p>
+    <span class="mono hint"><span>click my name.</span> it can take it.</span>
+  </div>
+</section>
+<script>
+  import { createGoo } from '../lib/goo';
+  import { createGravity } from '../lib/gravity';
+  const stage = document.getElementById('hero')!;
+  const name = stage.querySelector<HTMLElement>('[data-name]')!;
+  const goo = createGoo(stage, stage.querySelector<HTMLElement>('[data-goo]')!);
+  const grav = createGravity(name, stage);
+  name.addEventListener('click', () => grav.blast());
+  goo.start();
+  grav.start();
+</script>
+<style>
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--bg-deep); cursor: crosshair; }
+  .goo { position: absolute; inset: 0; filter: blur(18px) contrast(24); background: var(--bg-deep); }
+  .goo :global(.blob) { position: absolute; left: 0; top: 0; border-radius: 50%; background: var(--acc); will-change: transform; }
+  .name { position: absolute; left: var(--gutter); right: var(--gutter); top: 21vh; mix-blend-mode: difference; font-weight: 700; }
+  .ln { display: flex; font-size: clamp(64px, 13vw, 210px); letter-spacing: -.055em; line-height: .86; }
+  .ln span { display: inline-block; color: #fff; will-change: transform; cursor: grab; }
+  .sub { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 9vh; display: flex; gap: 40px; align-items: flex-end; justify-content: space-between; }
+  .sub p { font-size: 19px; max-width: 520px; color: var(--fg-soft); line-height: 1.45; mix-blend-mode: difference; }
+  .hint { font-size: 12px; color: var(--mute); }
+  .hint span { color: var(--acc); }
+  @media (max-width: 720px) { .sub { flex-direction: column; align-items: flex-start; gap: 14px; } .sub p { font-size: 16px; } }
+</style>

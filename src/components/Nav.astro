@@ -1,7 +1,10 @@
+---
+import { SECRETS } from '../lib/secrets';
+---
 <nav class="nav" aria-label="main">
   <a href="/" class="mono">ayush sharma</a>
   <span class="links">
-    <button class="sx-open" type="button" data-secrets-open aria-controls="secrets-panel" aria-expanded="false"><span class="sx-word">secrets </span><span data-secrets-count>0/4</span></button>
+    <button class="sx-open" type="button" data-secrets-open aria-controls="secrets-panel" aria-expanded="false"><span class="sx-word">secrets </span><span class="sr-only sx-sr">secrets </span><span data-secrets-count>0/{SECRETS.length}</span></button>
     <a href="/#ask">ask</a><a href="/#work">work</a><a href="/#writing">writing</a><a href="/#contact">contact</a>
   </span>
 </nav>
@@ -10,5 +13,6 @@
   a { text-decoration: none; }
   .links a { margin-left: 26px; }
   .sx-open { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-  @media (max-width: 720px) { .links a { margin-left: 14px; } .sx-word { display: none; } }
+  .sx-sr { display: none; }
+  @media (max-width: 720px) { .links a { margin-left: 14px; } .sx-word { display: none; } .sx-sr { display: inline; } }
 </style>

@@ -43,7 +43,11 @@ import '../styles/games.css';
 </section>
 <script>
   // Simulations load only when someone presses watch, so they cost the home page nothing.
-  const loaders = { reconcile: () => import('../lib/games/reconcile-sim').then((m) => m.mountReconcileSim) };
+  const loaders = {
+    reconcile: () => import('../lib/games/reconcile-sim').then((m) => m.mountReconcileSim),
+    loop: () => import('../lib/games/loop-sim').then((m) => m.mountLoopSim),
+    p0: () => import('../lib/games/p0-sim').then((m) => m.mountP0Sim),
+  };
   document.querySelectorAll<HTMLButtonElement>('[data-play]').forEach((btn) => {
     const panel = document.getElementById(btn.getAttribute('aria-controls')!)!;
     let stop: (() => void) | null = null;

@@ -30,3 +30,49 @@
 .game .g-term { margin: 16px 0 0; padding: 12px 14px; font-size: 12px; line-height: 1.7; color: var(--acc); background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm); white-space: pre-wrap; }
 .game .g-term[hidden] { display: none; }
 .game .dec { font-size: 12px; color: var(--warn); border: 1px dashed var(--warn); padding: 8px 12px; border-radius: var(--radius-pill); }
+
+/* scene 02: the list that gets smaller */
+.lp-list { display: grid; gap: 4px; margin-top: 18px; }
+.lp-row { display: grid; grid-template-columns: 90px 1fr 150px; gap: 12px; padding: 8px 12px; font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--fg); transition: opacity var(--dur-normal) var(--ease-standard); }
+.lp-row .ref { color: var(--mute); }
+.lp-row .vendor { color: var(--mute); text-align: right; }
+.lp-row .why { grid-column: 2 / -1; color: var(--warn); font-size: 11px; }
+.lp-row .why:empty { display: none; }
+.lp-row.scan { border-color: var(--line-strong); background: var(--surface-2); }
+.lp-row.again { border-color: var(--hot); }
+.lp-row.risk { border-color: var(--warn); }
+.lp-row.gone { display: none; }
+.lp-ask { margin-top: 16px; padding: 12px 14px; background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 12px; display: grid; gap: 6px; }
+.lp-ask[hidden], .lp-bars[hidden] { display: none; }
+.lp-ask .q { color: var(--fg); }
+.lp-ask .a { color: var(--acc); }
+.lp-ask .rule { color: var(--acc); }
+.lp-bars { margin-top: 16px; display: grid; gap: 8px; }
+.lp-bars .br { display: grid; grid-template-columns: 60px repeat(3, 1fr); gap: 8px; align-items: center; font-size: 11px; color: var(--mute); }
+.lp-bars .bar { height: 18px; width: calc(var(--v) / 12 * 100%); background: color-mix(in srgb, var(--acc) 35%, var(--bg)); border-radius: 2px; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
+.lp-bars .br:first-child .bar { background: color-mix(in srgb, var(--hot) 35%, var(--bg)); }
+.lp-bars .bar b { font-weight: 400; color: var(--fg); }
+
+/* scene 04: everything is P0 */
+.p0-inbox { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
+.p0-inbox:empty { display: none; }
+.p0-card { position: relative; display: grid; gap: 4px; padding: 10px 12px; font-size: 13px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 8px; }
+.p0-card .stamp { display: none; position: absolute; top: 8px; right: 10px; font-size: 10px; color: var(--bg); background: var(--hot); padding: 1px 6px; border-radius: 3px; }
+.p0-card.p0 { border-color: var(--hot); }
+.p0-card.p0 .stamp { display: block; }
+.p0-card .from { font-size: 11px; color: var(--mute); }
+.p0-card .prog { display: none; height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.p0-card.stalled .prog { display: block; }
+.p0-card .prog i { display: block; width: 40%; height: 100%; background: var(--warn); }
+.p0-card .qa { font-size: 11px; color: var(--acc); }
+.p0-card .qa:empty { display: none; }
+.p0-buckets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+.p0-buckets[hidden], .p0-check[hidden] { display: none; }
+.p0-check { list-style: none; padding: 12px 14px; margin: 14px 0 0; background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 12px; color: var(--acc); display: grid; gap: 4px; }
+.p0 .g-meta b { color: var(--warn); font-weight: 400; }
+@media (max-width: 720px) {
+  .lp-row { grid-template-columns: 70px 1fr; }
+  .lp-row .vendor { display: none; }
+  .p0-inbox { grid-template-columns: 1fr 1fr; }
+  .p0-buckets { grid-template-columns: 1fr; }
+}

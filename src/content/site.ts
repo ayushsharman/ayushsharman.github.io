@@ -1,4 +1,4 @@
-export type WorkEntry = { n: string; slug: string; title: string; line: string; trace: string[]; org: 'clear' | 'medoc'; year: string; game?: 'reconcile' };
+export type WorkEntry = { n: string; slug: string; title: string; line: string; trace: string[]; org: 'clear' | 'medoc'; year: string; game?: 'reconcile' | 'loop' | 'p0' };
 
 export const work: WorkEntry[] = [
   {
@@ -7,7 +7,7 @@ export const work: WorkEntry[] = [
     trace: ['ok ingest statements', 'ok read the books', 'ok match and explain', '! decisions for a human'],
   },
   {
-    n: '02', slug: 'morning-agents', title: 'Agents that never sleep', org: 'clear', year: '2026',
+    n: '02', slug: 'morning-agents', title: 'Agents that never sleep', org: 'clear', year: '2026', game: 'loop',
     line: 'They read the ERP before anyone logs in, put the risky items first, ask a person only what the data cannot answer, and remember every answer.',
     trace: ['ok look', 'ok name the work', '? ask', 'ok learn'],
   },
@@ -17,7 +17,7 @@ export const work: WorkEntry[] = [
     trace: ['founding member', 'product head', 'cto', 'director'],
   },
   {
-    n: '04', slug: 'busy-is-not-a-metric', title: 'Busy is not a metric', org: 'medoc', year: '2025',
+    n: '04', slug: 'busy-is-not-a-metric', title: 'Busy is not a metric', org: 'medoc', year: '2025', game: 'p0',
     line: 'The operating system behind the growth: go-live from 30 days to 15, support tickets from 30+ to 4, and why if everything is P0, nothing is P0.',
     trace: ['escalation', 'root cause', 'system', 'scale'],
   },

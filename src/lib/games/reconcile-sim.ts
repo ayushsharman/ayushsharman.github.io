@@ -1,16 +1,13 @@
 import { DEMO, type Side } from './reconcile';
-import { prefersReducedMotion } from '../motion';
+import { createTimeline, SCENE_MS } from './timeline';
 import { unlock } from '../secrets';
 
 const rupees = (n: number) => `₹${n.toLocaleString('en-IN')}`;
-const running = new WeakMap<HTMLElement, number[]>();
 
 // Simulation 01: the same month-end reconciliation, first by hand, then with the agent.
 // Nothing to play: it runs by itself, so the difference is seen, not described.
 export function mountReconcileSim(panel: HTMLElement): () => void {
-  (running.get(panel) ?? []).forEach(clearTimeout);
-  const timers: number[] = [];
-  running.set(panel, timers);
+  const tl = createTimeline(panel);
   panel.replaceChildren();
 
   const root = document.createElement('div');
@@ -45,15 +42,10 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
   const line = (id: string) => lines.get(id)!;
   const set = (sel: string, text: string) => { $(sel).textContent = text; };
 
-  // The timeline. Under reduced motion every step runs at once and the scene shows its end state.
-  const instant = prefersReducedMotion();
-  let at = 0;
-  let agentMs = 0, inAgent = false;
-  const step = (ms: number, fn: () => void) => {
-    at += ms;
-    if (inAgent) agentMs += ms;
-    if (instant) fn(); else timers.push(window.setTimeout(fn, at));
-  };
+  // Steps carry base delays; the timeline scales the whole scene to SCENE_MS, and with motion off it
+  // runs every step at once so the end state shows.
+  const step = tl.step;
+  let agentFrom = 0, agentTo = 0;
 
   let hours = 0, matched = 0;
   const matchedBooks = new Set<string>();
@@ -91,7 +83,7 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
     $('[data-term]').hidden = false;
     set('[data-status]', '');
   });
-  inAgent = true;
+  agentFrom = tl.mark();
   for (const t of ['ingest   statement from mail, any format', 'parse    7 lines, clean and dated', 'read     vendor ledger, read-only', 'match    pair every entry', 'explain  every difference']) {
     step(180, () => { $('[data-term]').textContent += `${t}\n`; });
   }
@@ -105,7 +97,7 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
       line(l.id).insertAdjacentHTML('afterend', `<p class="why mono">${l.reason}</p>`);
     }
     // From the schedule, not the wall clock: a background tab or reduced motion would distort it.
-    const secs = (agentMs / 1000).toFixed(1);
+    const secs = (tl.real(agentTo - agentFrom) / 1000).toFixed(1);
     set('[data-clock]', `${secs}s`);
     set('[data-status]', `by hand: ${handHours}h for 3 of ${DEMO.pairs.length} (illustrative). agent: ${secs}s for ${DEMO.pairs.length} of ${DEMO.pairs.length}, and why the 2 leftovers don't match. what's left is judgment:`);
     $('[data-actions]').innerHTML =
@@ -114,5 +106,6 @@ export function mountReconcileSim(panel: HTMLElement): () => void {
     $('[data-actions]').querySelector<HTMLButtonElement>('[data-replay-sim]')!.onclick = () => mountReconcileSim(panel);
     unlock('reconcile-done');
   });
-  return () => { timers.forEach(clearTimeout); timers.length = 0; };
+  agentTo = tl.mark();
+  return tl.play(SCENE_MS);
 }

@@ -25,3 +25,11 @@ describe('createKonami', () => {
     expect(hit).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('modifier keys', () => {
+  it('holding Shift for a capital B does not reset the run', () => {
+    const hit = vi.fn(); const feed = createKonami(hit);
+    [...CODE.slice(0, 8), 'Shift', 'B', 'Shift', 'A'].forEach(feed);
+    expect(hit).toHaveBeenCalledTimes(1);
+  });
+});

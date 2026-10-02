@@ -1,0 +1,38 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+interface Props { title: string; summary: string; path: string; kicker: string; back: { href: string; label: string } }
+const { title, summary, path, kicker, back } = Astro.props;
+---
+<Base title={`${title} | Ayush Sharma`} description={summary} path={path}>
+  <Nav slot="before" />
+  <article class="art">
+    <a class="back mono" href={back.href}>&larr; {back.label}</a>
+    <p class="label">{kicker}</p>
+    <h1>{title}</h1>
+    <p class="sum">{summary}</p>
+    <div class="body"><slot /></div>
+  </article>
+  <Footer slot="after" />
+</Base>
+<style>
+  .art { max-width: 760px; margin: 0 auto; padding: 130px 20px 100px; }
+  .back { font-size: 12px; color: var(--mute); text-decoration: none; }
+  .label { margin-top: 40px; }
+  h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 500; letter-spacing: -.035em; line-height: 1.02; }
+  .sum { color: var(--mute); font-size: 19px; line-height: 1.5; margin-top: 18px; }
+  .body { margin-top: 48px; font-size: 18px; line-height: 1.7; color: var(--fg-body); }
+  .body :global(h2) { font-size: 26px; font-weight: 500; color: var(--fg); margin: 48px 0 12px; letter-spacing: -.02em; }
+  .body :global(h3) { font-size: 20px; font-weight: 500; color: var(--fg); margin: 32px 0 10px; }
+  .body :global(p) { margin: 0 0 18px; }
+  .body :global(ul), .body :global(ol) { margin: 0 0 18px 20px; }
+  .body :global(li) { margin-bottom: 6px; }
+  .body :global(strong) { color: var(--fg); }
+  .body :global(code), .body :global(pre) { font-family: var(--font-mono); font-size: 14px; }
+  .body :global(pre) { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 16px; overflow-x: auto; color: var(--mute); }
+  .body :global(blockquote) { border-left: 2px solid var(--acc); padding-left: 16px; color: var(--fg); margin: 0 0 18px; }
+  .body :global(table) { width: 100%; border-collapse: collapse; font-size: 15px; margin-bottom: 18px; display: block; overflow-x: auto; }
+  .body :global(th), .body :global(td) { border-bottom: 1px solid var(--line); padding: 8px 6px; text-align: left; vertical-align: top; }
+  .body :global(a) { color: var(--acc); }
+</style>

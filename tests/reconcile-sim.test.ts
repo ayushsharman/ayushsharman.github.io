@@ -19,13 +19,13 @@ describe('mountReconcileSim', () => {
     mountReconcileSim(panel);
     expect(panel.querySelectorAll('[data-line]')).toHaveLength(14);
     expect(panel.textContent).toMatch(/demo data/);
-    vi.advanceTimersByTime(4000);
+    vi.advanceTimersByTime(1000);
     expect(ok()).toBeGreaterThan(0); // the by-hand scene is already ticking lines
   });
   it('by hand is slow: well into the run, only a few pairs are matched and the clock reads in hours', () => {
     motion(true);
     mountReconcileSim(panel);
-    vi.advanceTimersByTime(6000);
+    vi.advanceTimersByTime(750); // a quarter of the run
     expect(ok()).toBeLessThanOrEqual(6); // at most 3 pairs
     expect(panel.querySelector('[data-clock]')!.textContent).toMatch(/h/);
   });
@@ -62,6 +62,16 @@ describe('mountReconcileSim', () => {
     vi.advanceTimersByTime(30000);
     panel.querySelector<HTMLButtonElement>('[data-replay-sim]')!.click();
     expect(ok()).toBe(0);
+  });
+});
+
+describe('pacing', () => {
+  it('the whole scene finishes in about three seconds', () => {
+    motion(true);
+    mountReconcileSim(panel);
+    vi.advanceTimersByTime(3200);
+    expect(ok()).toBe(12);
+    expect(panel.querySelector('[data-replay-sim]')).not.toBeNull();
   });
 });
 
@@ -102,5 +112,11 @@ describe('review fixes', () => {
     motion(false);
     mountReconcileSim(panel);
     expect(panel.querySelector('[data-clock]')!.textContent).not.toBe('0.1s');
+  });
+  it('replay keeps keyboard focus inside the scene', () => {
+    motion(false);
+    mountReconcileSim(panel);
+    panel.querySelector<HTMLButtonElement>('[data-replay-sim]')!.click();
+    expect(panel.contains(document.activeElement)).toBe(true);
   });
 });

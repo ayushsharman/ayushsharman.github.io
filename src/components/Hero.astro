@@ -8,7 +8,7 @@ const lines = ['AYUSH', 'SHARMA'];
   </h1>
   <div class="sub">
     <p>Founding Forward Deployed Engineer at Clear. I build agents that do the actual work, and I say very little about it.</p>
-    <span class="mono hint"><span>click my name.</span> it can take it.</span>
+    <span class="mono hint"><button type="button" class="throw" data-throw aria-label="throw my name">click my name.</button> <span class="rm-on">it can take it.</span><span class="rm-off">motion is off, so it stays put.</span></span>
   </div>
 </section>
 <script>
@@ -19,7 +19,10 @@ const lines = ['AYUSH', 'SHARMA'];
   const name = stage.querySelector<HTMLElement>('[data-name]')!;
   const goo = createGoo(stage, stage.querySelector<HTMLElement>('[data-goo]')!);
   const grav = createGravity(name, stage);
-  name.addEventListener('click', () => { grav.blast(); unlock('name-thrown'); });
+  const throwIt = () => { grav.blast(); unlock('name-thrown'); };
+  name.addEventListener('click', throwIt);
+  // The hint is a real button, so the name can be thrown from the keyboard too.
+  stage.querySelector('[data-throw]')!.addEventListener('click', throwIt);
   goo.start();
   grav.start();
 </script>
@@ -33,7 +36,8 @@ const lines = ['AYUSH', 'SHARMA'];
   .sub { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 9vh; display: flex; gap: 40px; align-items: flex-end; justify-content: space-between; }
   .sub p { font-size: 19px; max-width: 520px; color: var(--fg-soft); line-height: 1.45; mix-blend-mode: difference; }
   .hint { font-size: 12px; color: var(--mute); }
-  .hint span { color: var(--acc); }
-  @media (prefers-reduced-motion: reduce) { .hint { display: none; } }
+  .throw { font: inherit; color: var(--acc); background: none; border: 0; padding: 0; cursor: pointer; }
+  .rm-off { display: none; }
+  @media (prefers-reduced-motion: reduce) { .rm-on { display: none; } .rm-off { display: inline; } }
   @media (max-width: 720px) { .ln { font-size: 22vw; } .name { top: 16vh; } .sub { flex-direction: column; align-items: flex-start; gap: 14px; } .sub p { font-size: 16px; } }
 </style>

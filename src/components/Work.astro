@@ -43,15 +43,22 @@ import '../styles/games.css';
 </section>
 <script>
   // Simulations load only when someone presses watch, so they cost the home page nothing.
-  const loaders = { reconcile: () => import('../lib/games/reconcile-sim').then((m) => m.mountReconcileSim) };
+  const loaders = {
+    reconcile: () => import('../lib/games/reconcile-sim').then((m) => m.mountReconcileSim),
+    loop: () => import('../lib/games/loop-sim').then((m) => m.mountLoopSim),
+    p0: () => import('../lib/games/p0-sim').then((m) => m.mountP0Sim),
+  };
+  const closers = new Map<HTMLButtonElement, () => void>();
   document.querySelectorAll<HTMLButtonElement>('[data-play]').forEach((btn) => {
     const panel = document.getElementById(btn.getAttribute('aria-controls')!)!;
     let stop: (() => void) | null = null;
     // Stopping matters: a run left going would still unlock its secret for a scene nobody watched.
     const close = () => { stop?.(); stop = null; panel.hidden = true; panel.replaceChildren(); btn.setAttribute('aria-expanded', 'false'); btn.textContent = '[ watch ]'; };
+    closers.set(btn, () => { if (!panel.hidden) close(); });
     btn.addEventListener('click', async () => {
       if (!panel.hidden) { close(); btn.focus(); return; }
-      document.querySelectorAll<HTMLButtonElement>('[data-play][aria-expanded="true"]').forEach((b) => b.click());
+      // Close any other open scene directly: clicking its toggle would move focus to that row.
+      closers.forEach((c, other) => { if (other !== btn) c(); });
       btn.setAttribute('aria-expanded', 'true');
       btn.textContent = '[ close ]';
       panel.hidden = false;

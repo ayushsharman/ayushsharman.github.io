@@ -1,14 +1,16 @@
 import { safeStorage } from './motion';
 
-export type SecretId = 'name-thrown' | 'chat-complete' | 'konami' | 'reconcile-done';
+export type SecretId = 'name-thrown' | 'chat-complete' | 'konami' | 'reconcile-done' | 'loop-watched' | 'p0-sorted';
 export type Secret = { id: SecretId; title: string; hint: string };
 
-// The live secrets. Later phases add one per game.
+// The live secrets. Each simulation adds one.
 export const SECRETS: Secret[] = [
   { id: 'name-thrown', title: 'threw the founder', hint: 'the name can take it' },
   { id: 'chat-complete', title: 'asked everything', hint: "ask until there's nothing left" },
   { id: 'konami', title: 'up up down down', hint: 'you know the code' },
   { id: 'reconcile-done', title: 'watched the books close', hint: 'let the agent close the books' },
+  { id: 'loop-watched', title: 'watched the list shrink', hint: 'the agents never sleep' },
+  { id: 'p0-sorted', title: 'sorted the P0s', hint: 'busy is not a metric' },
 ];
 
 const KEY = 'secrets-v1';

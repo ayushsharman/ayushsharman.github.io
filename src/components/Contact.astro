@@ -1,0 +1,38 @@
+---
+import { links } from '../content/site';
+---
+<section id="contact" class="section">
+  <p class="label">// contact</p>
+  <div class="term">
+    <p><span class="p">$</span> say hi</p>
+    <p><span class="p">&gt;</span> <a href={`mailto:${links.email}`}>{links.email}</a><span class="cur" aria-hidden="true"></span><button class="copy" type="button" data-copy={links.email}>copy</button></p>
+    <p class="call"><span class="p">$</span> book a call <span class="p">&gt;</span> <a href={links.calendar} target="_blank" rel="noopener">pick a slot</a></p>
+  </div>
+  <p class="more mono">
+    <a href={links.linkedin} target="_blank" rel="noopener">linkedin</a> &middot;
+    <a href={links.github} target="_blank" rel="noopener">github</a> &middot;
+    <a href={links.instagram} target="_blank" rel="noopener">instagram</a> &middot;
+    <a href={links.youtube} target="_blank" rel="noopener">youtube</a>
+  </p>
+</section>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => {
+    b.onclick = async () => {
+      try { await navigator.clipboard.writeText(b.dataset.copy!); b.textContent = 'copied'; }
+      catch { b.textContent = 'select and copy'; }
+      setTimeout(() => { b.textContent = 'copy'; }, 1600);
+    };
+  });
+</script>
+<style>
+  .term { font-family: var(--font-mono); font-size: clamp(20px, 3.4vw, 46px); line-height: 1.35; overflow-wrap: anywhere; }
+  .p { color: var(--acc); }
+  .term a { text-decoration: none; border-bottom: 2px solid var(--hot); }
+  .call { font-size: .55em; margin-top: 18px; color: var(--mute); }
+  .call a { color: var(--fg); border-bottom-color: var(--acc); }
+  .cur { display: inline-block; width: .5em; height: 1em; background: var(--acc); vertical-align: -.12em; margin-left: 4px; animation: bl 1s steps(1) infinite; }
+  @keyframes bl { 50% { opacity: 0; } }
+  .copy { margin-left: 16px; vertical-align: middle; font-family: var(--font-mono); font-size: 12px; color: var(--mute); background: none; border: 1px solid var(--line-strong); padding: 6px 10px; border-radius: var(--radius-sm); cursor: pointer; }
+  .more { margin-top: 26px; font-size: 13px; color: var(--mute); }
+  .more a { color: var(--fg); }
+</style>

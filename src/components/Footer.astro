@@ -1,0 +1,18 @@
+<footer class="ft mono">
+  <button type="button" data-replay>replay intro</button>
+  <span>built with claude, at 2am, obviously</span>
+  <span>&copy; {new Date().getFullYear()} ayush sharma</span>
+</footer>
+<script>
+  const replay = document.querySelector<HTMLButtonElement>('[data-replay]');
+  // Only the home page has the boot; elsewhere the button would do nothing, so remove it.
+  if (!document.getElementById('boot')) replay?.remove();
+  replay?.addEventListener('click', () => {
+    window.scrollTo({ top: 0 });
+    window.dispatchEvent(new Event('boot:replay'));
+  });
+</script>
+<style>
+  .ft { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 30px var(--gutter); border-top: 1px solid var(--line); font-size: 11px; color: var(--mute); }
+  button { font: inherit; color: var(--acc); background: none; border: 0; cursor: pointer; padding: 0; }
+</style>

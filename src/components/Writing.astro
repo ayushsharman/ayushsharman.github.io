@@ -1,0 +1,22 @@
+---
+import { writingList, links } from '../content/site';
+---
+<section id="writing" class="section">
+  <p class="label">// writing/</p>
+  <h2 class="h2">I write when I've<br />figured something out.</h2>
+  <ol class="wr">
+    {writingList.map((w) => <li><a href={`/writing/${w.slug}/`}><span class="mono n">{w.n}</span><span class="t">{w.title}</span><span class="a">{w.angle}</span></a></li>)}
+  </ol>
+  <a class="arch mono" href={links.notionArchive} target="_blank" rel="noopener">the full archive, teardowns and PRDs included &rarr;</a>
+</section>
+<style>
+  .wr { list-style: none; padding: 0; margin-top: 40px; border-top: 1px solid var(--line); }
+  a { text-decoration: none; }
+  li a { display: grid; grid-template-columns: 70px 1fr 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .n { color: var(--mute); font-size: 12px; }
+  .t { font-size: 20px; font-weight: 500; transition: color var(--dur-normal) var(--ease-standard); }
+  li a:hover .t, li a:focus-visible .t { color: var(--acc); }
+  .a { color: var(--mute); font-size: 14px; }
+  .arch { display: inline-block; margin-top: 24px; font-size: 12px; color: var(--acc); border-bottom: 1px solid var(--acc); }
+  @media (max-width: 720px) { li a { grid-template-columns: 40px 1fr; } .a { grid-column: 2; } }
+</style>

@@ -9,6 +9,7 @@ export const chatScript: { greeting: string; items: ChatItem[] } = {
     { id: 'why', q: 'why agents?', a: 'A report is the same size every day. An agent that learns gets smaller.', link: { label: 'open full: why I build agents', href: '/writing/why-i-build-agents/' } },
     { id: 'care', q: 'why should i care?', a: 'I ship before the meeting ends.' },
     { id: 'yt', q: 'the youtube thing?', a: '11.1K people let me overthink Indian comedies. Side quest.', link: { label: 'youtube', href: 'https://www.youtube.com/@analyticalayush' } },
+    { id: 'secrets', q: 'how do the secrets work?', a: '7 hidden: throw my name, ask everything, the Konami code, and watch all four work simulations. the count sits top right.', link: { label: 'open: the secrets', href: '#secrets', secrets: true } },
     { id: 'reach', q: 'how do i reach you?', a: 'Type less, mail more.', link: { label: 'open full: contact', href: '/#contact' } },
   ],
 };

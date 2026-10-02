@@ -134,3 +134,21 @@ describe('typing indicator', () => {
     }, 5));
   });
 });
+
+describe('the secrets question', () => {
+  it('is in the script, explains all seven, and links to the secrets panel', async () => {
+    const item = chatScript.items.find((i) => i.id === 'secrets')!;
+    expect(item.q).toBe('how do the secrets work?');
+    expect(item.a).toMatch(/throw my name/);
+    expect(item.a).toMatch(/Konami/);
+    expect(item.a).toMatch(/four work simulations/);
+    expect(item.link?.secrets).toBe(true);
+    document.body.innerHTML = '<section id="ask"><div data-chips></div><div data-thread></div></section>';
+    window.matchMedia = (() => ({ matches: true })) as never;
+    const root = document.getElementById('ask')!;
+    mountChat(root, { greeting: 'hi', items: [item] });
+    root.querySelector<HTMLButtonElement>('.chip')!.click();
+    await new Promise((r) => setTimeout(r, 5));
+    expect(root.querySelector('.b.a:last-child a[data-secrets-open]')).not.toBeNull();
+  });
+});

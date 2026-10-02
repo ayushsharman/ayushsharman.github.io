@@ -44,15 +44,15 @@ describe('mountP0Sim', () => {
     vi.advanceTimersByTime(5200);
     const count = (b: string) => panel.querySelectorAll(`[data-bucket="${b}"] [data-req]`).length;
     expect([count('now'), count('sprint'), count('later')]).toEqual([2, 3, 3]);
-    expect($('[data-tickets]').textContent).toBe('4');
-    expect($('[data-golive]').textContent).toMatch(/15 days/);
+    expect($('[data-score-right] [data-v]').textContent).toBe('4');
+    expect($('[data-score-right] [data-s]').textContent).toMatch(/15 days/);
     expect(panel.textContent).toMatch(/busy is not a metric/);
     expect(secrets().isFound('p0-sorted')).toBe(true); // the store, not the event: an earlier test may have unlocked it
   });
   it('with motion off it shows the end state at once', () => {
     motion(false);
     mountP0Sim(panel);
-    expect($('[data-tickets]').textContent).toBe('4');
+    expect($('[data-score-right] [data-v]').textContent).toBe('4');
   });
   it('stopping early never unlocks the secret', () => {
     motion(true);
@@ -69,8 +69,8 @@ describe('mountP0Sim', () => {
     motion(true);
     mountP0Sim(panel);
     const shown = new Set<string>();
-    for (let t = 0; t < 5300; t += 50) { vi.advanceTimersByTime(50); shown.add($('[data-tickets]').textContent!); }
-    expect([...shown].sort()).toEqual(['30+', '4']);
+    for (let t = 0; t < 5300; t += 50) { vi.advanceTimersByTime(50); panel.querySelectorAll('[data-v]').forEach((v) => shown.add(v.textContent!)); }
+    expect([...shown].sort()).toEqual(['-', '30+', '4']);
   });
   it('replay keeps keyboard focus inside the scene', () => {
     motion(false);

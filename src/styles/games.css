@@ -1,18 +1,12 @@
 .game { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); padding: 24px; margin: 0 0 30px; }
-.game .g-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-.game .g-title { font-size: 20px; font-weight: 500; }
-.game .g-meta { font-size: 12px; color: var(--mute); }
-.game .g-meta [data-clock] { color: var(--warn); }
 .game .g-label { font-size: 11px; color: var(--acc); margin-bottom: 10px; }
 .rc .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 22px; }
 .rc .line { display: flex; justify-content: space-between; width: 100%; padding: 10px 12px; margin-bottom: 6px; font-size: 13px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); transition: border-color var(--dur-fast) var(--ease-standard), background var(--dur-fast) var(--ease-standard); }
-.rc .line.sel { border-color: var(--acc); }
 .rc .line.ok { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, var(--bg)); color: var(--acc); }
 .rc .line.agent { border-style: dashed; }
 .rc .line.left { border-color: var(--warn); color: var(--warn); background: var(--bg); }
 .rc .line.miss { animation: g-shake var(--dur-slow) var(--ease-standard); border-color: var(--hot); }
 .rc .why { font-size: 11px; color: var(--warn); margin: -2px 0 10px 2px; }
-.game .g-status { font-size: 13px; color: var(--fg); margin-top: 18px; min-height: 1.4em; }
 .game .g-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
 .game .g-btn { font-family: var(--font-mono); font-size: 13px; padding: 9px 14px; border-radius: var(--radius-pill); border: 1px solid var(--acc); background: var(--acc); color: var(--bg); cursor: pointer; }
 .game .g-btn.ghost { background: none; color: var(--acc); }
@@ -20,10 +14,6 @@
 @media (max-width: 720px) { .rc .cols { gap: 10px; } .rc .line { flex-direction: column; gap: 2px; padding: 8px; font-size: 12px; } .game { padding: 16px; } }
 
 /* simulations: the states a scene moves its lines through */
-.sim .line.sel { border-color: var(--warn); color: var(--warn); }
-.sim .line.scan { border-color: var(--line-strong); background: var(--surface-2); }
-.game .g-term { margin: 16px 0 0; padding: 12px 14px; font-size: 12px; line-height: 1.7; color: var(--acc); background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm); white-space: pre-wrap; }
-.game .g-term[hidden] { display: none; }
 .game .dec { font-size: 12px; color: var(--warn); border: 1px dashed var(--warn); padding: 8px 12px; border-radius: var(--radius-pill); }
 
 /* scene 02: the list that gets smaller */
@@ -33,15 +23,10 @@
 .lp-row .vendor { color: var(--mute); text-align: right; }
 .lp-row .why { grid-column: 2 / -1; color: var(--warn); font-size: 11px; }
 .lp-row .why:empty { display: none; }
-.lp-row.scan { border-color: var(--line-strong); background: var(--surface-2); }
 .lp-row.again { border-color: var(--hot); }
 .lp-row.risk { border-color: var(--warn); }
 .lp-row.gone { display: none; }
-.lp-ask { margin-top: 16px; padding: 12px 14px; background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 12px; display: grid; gap: 6px; }
-.lp-ask[hidden], .lp-bars[hidden] { display: none; }
-.lp-ask .q { color: var(--fg); }
-.lp-ask .a { color: var(--acc); }
-.lp-ask .rule { color: var(--acc); }
+.lp-bars[hidden] { display: none; }
 .lp-bars { margin-top: 16px; display: grid; gap: 8px; }
 .lp-bars .br { display: grid; grid-template-columns: 60px repeat(3, 1fr); gap: 8px; align-items: center; font-size: 11px; color: var(--mute); }
 .lp-bars .br.head span { font-size: 10px; color: var(--mute); }
@@ -66,7 +51,6 @@
 .p0-buckets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
 .p0-buckets[hidden], .p0-check[hidden] { display: none; }
 .p0-check { list-style: none; padding: 12px 14px; margin: 14px 0 0; background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 12px; color: var(--acc); display: grid; gap: 4px; }
-.p0 .g-meta b { color: var(--warn); font-weight: 400; }
 @media (max-width: 720px) {
   .lp-row { grid-template-columns: 70px 1fr; }
   .lp-row .vendor { grid-column: 2; text-align: left; font-size: 11px; }
@@ -76,7 +60,6 @@
 
 .game:focus { outline: none; }
 .game:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
-.p0 .g-meta b.hot { color: var(--hot); animation: g-pulse var(--dur-slow) var(--ease-standard) infinite alternate; }
 @keyframes g-pulse { to { opacity: .45; } }
 
 /* scene 03: four years, one company */
@@ -99,3 +82,50 @@
 .mrr-dots i { aspect-ratio: 1; border-radius: 50%; background: var(--line); transition: background var(--dur-normal) var(--ease-standard); }
 .mrr-dots i.on { background: var(--acc); }
 @media (max-width: 720px) { .mrr-grid { grid-template-columns: 1fr; } .mrr-strip span { font-size: 10px; padding: 5px 4px; text-align: center; } }
+
+/* the scene frame: act, scoreboard, ask, stage, cue */
+.sim { display: grid; gap: 16px; }
+.sc-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sc-act { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.sc-step { flex: none; white-space: nowrap; font-size: 11px; color: var(--acc); border: 1px solid var(--acc); border-radius: var(--radius-pill); padding: 3px 10px; }
+.sc-title { font-size: clamp(22px, 2.6vw, 30px); font-weight: 500; letter-spacing: -.02em; line-height: 1.1; }
+.sc-label { font-size: 11px; color: var(--mute); }
+.sc-score { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+.sc-side { padding: 12px 16px; display: grid; gap: 2px; transition: background var(--dur-normal) var(--ease-standard); }
+.sc-side + .sc-side { border-left: 1px solid var(--line); }
+.sc-side .k { font-size: 11px; color: var(--mute); }
+.sc-side .v { font-size: clamp(26px, 3.4vw, 40px); font-weight: 500; letter-spacing: -.03em; line-height: 1.05; }
+.sc-side .s { font-size: 11px; color: var(--mute); }
+.sc-side.live .v { color: var(--warn); }
+.sc-side.done .v { color: var(--fg); }
+.sc-side.agent .v { color: var(--acc); }
+.sc-side.agent { background: color-mix(in srgb, var(--acc) 6%, transparent); }
+.sc-side.empty .v { color: var(--line-strong); }
+.sc-side .v.hot { color: var(--hot); animation: g-pulse var(--dur-slow) var(--ease-standard) infinite alternate; }
+.sc-ask { border: 1px solid var(--acc); border-radius: var(--radius-md); padding: 14px 16px; display: grid; gap: 8px; }
+.sc-ask[hidden] { display: none; }
+.sc-ask .q { font-size: 17px; line-height: 1.35; color: var(--fg); }
+.sc-ask .a, .sc-ask .rule { font-size: 12px; color: var(--acc); }
+.sc-ask .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sc-stage { transition: opacity var(--dur-slow) var(--ease-standard); }
+.sim.end .sc-stage { opacity: .45; }
+.sc-cue { font-size: 13px; color: var(--fg); min-height: 1.4em; white-space: pre-wrap; }
+
+/* the spotlight: rows step back unless the scene is acting on them */
+.sim .line, .sim .lp-row, .sim .mrr-log li { opacity: .55; transition: opacity var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard); }
+.sim .line.on, .sim .lp-row.on, .sim .mrr-log li.on { opacity: 1; border-color: var(--warn); color: var(--fg); }
+.sim .line.agent.on { border-color: var(--acc); }
+.sim .line.ok { opacity: .35; }
+.sim .line.left, .sim .lp-row.risk { opacity: 1; }
+.sim .lp-row.again { opacity: 1; }
+.sim .p0-card.on { border-color: var(--acc); }
+
+@media (max-width: 720px) {
+  .sc-title { font-size: 20px; }
+  .sc-side { padding: 10px 12px; }
+  .sc-label { width: 100%; }
+  /* at the end on a phone, the stage collapses to what still matters */
+  .sim.end.rc .line.ok { display: none; }
+  .sim.end.p0 .p0-check { display: none; }
+  .sim.end.mrr .mrr-log li:not(:last-child) { display: none; }
+}

@@ -27,7 +27,7 @@ describe('mountReconcileSim', () => {
     mountReconcileSim(panel);
     vi.advanceTimersByTime(750); // a quarter of the run
     expect(ok()).toBeLessThanOrEqual(6); // at most 3 pairs
-    expect(panel.querySelector('[data-clock]')!.textContent).toMatch(/h/);
+    expect(panel.querySelector('[data-score-left] [data-v]')!.textContent).toMatch(/h/);
   });
   it('the agent closes every pair, explains both leftovers, surfaces the two decisions and unlocks the secret', () => {
     motion(true);
@@ -111,7 +111,7 @@ describe('review fixes', () => {
   it('the agent time shown comes from the schedule, so it is the same with motion off', () => {
     motion(false);
     mountReconcileSim(panel);
-    expect(panel.querySelector('[data-clock]')!.textContent).not.toBe('0.1s');
+    expect(panel.querySelector('[data-score-right] [data-v]')!.textContent).not.toBe('0.1s');
   });
   it('replay keeps keyboard focus inside the scene', () => {
     motion(false);

@@ -29,7 +29,7 @@ describe('mountMrrSim', () => {
     motion(true);
     mountMrrSim(panel);
     vi.advanceTimersByTime(300);
-    expect($('[data-year]').textContent).toBe('2022');
+    expect($('[data-step]').textContent).toBe('2022');
     expect($('[data-mrr]').textContent).toBe('₹0');
     expect(lit()).toBe(0);
     expect($('[data-team]').textContent).toBe('5');
@@ -85,7 +85,7 @@ describe('mountMrrSim', () => {
     const at: Record<string, { team: string; mrr: string; log: string }> = {};
     for (let t = 0; t < 5300; t += 50) {
       vi.advanceTimersByTime(50);
-      const year = $('[data-year]').textContent!;
+      const year = $('[data-step]').textContent!;
       at[year] = { team: $('[data-team]').textContent!, mrr: $('[data-mrr]').textContent!, log: panel.querySelector('[data-log] li:last-child')?.textContent ?? '' };
     }
     expect(at['2022'].team).toBe('5');
